@@ -36,7 +36,6 @@ class App extends Component {
 
   render() {
     return (
-      <div className="fluid-container">
         <div className="menu">
           <ul className="todos">
             <p>Listák</p>
@@ -56,7 +55,6 @@ class App extends Component {
             itemCompleted={this.itemCompleted}
           />
         </div>
-      </div>
     );
   }
 }
