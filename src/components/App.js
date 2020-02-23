@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import todos from '../simple-todos';
 import TodoList from './TodoList';
 import ActualTodo from './ActualTodo';
@@ -36,6 +36,7 @@ class App extends Component {
 
   render() {
     return (
+      <Fragment>
         <div className="menu">
           <ul className="todos">
             <p>Listák</p>
@@ -55,6 +56,7 @@ class App extends Component {
             itemCompleted={this.itemCompleted}
           />
         </div>
+      </Fragment>
     );
   }
 }
