@@ -35,8 +35,8 @@ class ActualTodo extends Component {
       return (
         <Fragment>
           <label className="item-container" htmlFor={item.index} onClick={() => this.props.itemCompleted(key)} >{item.text}
-              <input type="checkbox" key={key} name={item.index} className="item" checked="checked" onClick={() => this.props.itemCompleted(key)} />
-              <span className="checkmark"></span>
+            <input type="checkbox" key={key} name={item.index} className="item" checked="checked" onClick={() => this.props.itemCompleted(key)} />
+            <span className="checkmark"></span>
           </label>
           <span className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</span>
         </Fragment>

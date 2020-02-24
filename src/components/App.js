@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import todos from '../simple-todos';
-import TodoList from './TodoList';
+import TodoMenu from './TodoMenu';
 import ActualTodo from './ActualTodo';
+import base from "../base";
 
 class App extends Component {
 
@@ -11,7 +12,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({todos: todos });
+    this.setState({ todos: todos });
+    this.ref = base.syncState("todos", {
+      context: this,
+      state: "todos" });
   }
 
   openTodoList = key => {
@@ -42,26 +46,40 @@ class App extends Component {
 
   removeFromActualList = key => {
     const todos = { ...this.state.todos };
-    delete todos[this.state.actualTodo][key];
+    todos[this.state.actualTodo][key] = null;
+    this.setState({ todos });
+  }
+
+  addTodoList = list => {
+    const todos = { ...this.state.todos };
+    const listId = `todo${Date.now()}`;
+    todos[listId] = list;
+    this.setState({ todos })
+    this.moveToNewList(listId);
+  }
+
+  moveToNewList = listId => {
+    this.setState({ actualTodo: listId });
+    this.openTodoList(listId);
+  }
+
+
+  removeListFromTodos = listId => {
+    console.log(listId);
+    const todos = { ...this.state.todos };
+    todos[listId] = null;
     this.setState({ todos });
   }
 
   render() {
     return (
       <Fragment>
-        <div className="menu">
-          <ul className="todos">
-            <p>Listák</p>
-            {Object.keys(this.state.todos).map(key => (
-              <TodoList key={key}
-                id={key}
-                details={this.state.todos[key]}
-                openTodoList={this.openTodoList}
-              />
-            ))}
-
-          </ul>
-        </div>
+        <TodoMenu
+          openTodoList={this.openTodoList}
+          todos={this.state.todos}
+          addTodoList={this.addTodoList}
+          removeListFromTodos={this.removeListFromTodos}
+        />
         <div className="actual-todo">
           <ActualTodo
             actualTodo={this.state.todos[this.state.actualTodo]}
