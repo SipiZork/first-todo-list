@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   itemCompleted = key => {
-    const todos = {...this.state.todos }
+    const todos = {...this.state.todos };
     const completed = todos[this.state.actualTodo][key].completed;
     if(completed) {
       todos[this.state.actualTodo][key].completed = false;
@@ -32,6 +32,18 @@ class App extends Component {
     //   todos[this.state.actualTodo][key].completed = true
     // }
     this.setState({todos});
+  }
+
+  addToActualList = item => {
+    const todos = { ...this.state.todos };
+    todos[this.state.actualTodo][`item${Date.now()}`] = item
+    this.setState({ todos });
+  }
+
+  removeFromActualList = key => {
+    const todos = { ...this.state.todos };
+    delete todos[this.state.actualTodo][key];
+    this.setState({ todos });
   }
 
   render() {
@@ -54,6 +66,8 @@ class App extends Component {
           <ActualTodo
             actualTodo={this.state.todos[this.state.actualTodo]}
             itemCompleted={this.itemCompleted}
+            addToActualList={this.addToActualList}
+            removeFromActualList={this.removeFromActualList}
           />
         </div>
       </Fragment>
