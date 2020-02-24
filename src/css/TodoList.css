@@ -15,7 +15,6 @@
 
 .menu .todos p.list-name {
   margin: 0;
-  border: 1px solid red;
   display: inline-block;
 }
 
@@ -23,7 +22,6 @@
   display: inline-block;
   position: absolute;
   right: 1.5rem;
-  border: 1px solid green;
   width: 2rem;
   text-align: center;
 }

@@ -12,7 +12,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({ todos: todos });
     this.ref = base.syncState("todos", {
       context: this,
       state: "todos" });
