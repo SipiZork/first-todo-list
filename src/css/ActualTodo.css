@@ -1,0 +1,69 @@
+.item-container {
+  display: block;
+  position: relative;
+  padding-left: 3.125rem;
+  margin-bottom: .625rem;
+  cursor: pointer;
+  font-size: 1.25rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  user-select: none;
+  background-color: rgba(140, 140, 140, .5);
+  color: rgba(0,0,0,.8);
+  border-radius: 2rem;
+}
+
+.item-container:hover {
+  background-color: rgba(140, 140, 140);
+  color: rgba(255,255,255,.8);
+}
+
+.item-container .item {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: .5rem;
+  left: .9375rem;
+  height: 1.625rem;
+  width: 1.625rem;
+  background-color: rgba(140,140,140,0);
+  border-radius: 10rem;
+}
+
+.item-container:hover .item ~ .checkmark {
+  background-color: #ccc;
+}
+
+.item-container .item:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.item-container:hover .item:checked ~ .checkmark {
+  background-color: #1a75bd;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.item-container .item:checked ~ .checkmark:after {
+  display: block;
+}
+
+.item-container .checkmark:after {
+  left: .550rem;
+  top: .3125rem;
+  width: .3125rem;
+  height: .635rem;
+  border: solid white;
+  border-width:  0 .1875rem .1875rem 0;
+  transform: rotate(45deg);
+}
