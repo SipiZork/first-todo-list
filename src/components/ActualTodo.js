@@ -3,7 +3,8 @@ import '../css/ActualTodo.css';
 
 class ActualTodo extends Component {
   state = {
-    value: ""
+    value: "",
+    tempText: ""
   }
 
   listUncompletedItems = key => {
@@ -13,13 +14,10 @@ class ActualTodo extends Component {
     }
     if(item.completed === false)
       return (
-        <div className="test">
-          <label className="item-container" htmlFor={item.index} onClick={() => this.props.itemCompleted(key)} >{item.text}
-            <input type="checkbox" key={key} name={item.index} className="item" onClick={() => this.props.itemCompleted(key)} />
-            <span className="checkmark"></span>
-
-          </label>
-          <span className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</span>
+        <div className="item-container">
+          <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}></div>
+          <div className="item-text" htmlFor={item.index}>{item.text}</div>
+          <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
         </div>
       )
 
@@ -33,12 +31,11 @@ class ActualTodo extends Component {
     }
     if(item.completed === true)
       return (
-        <div className="test">
-          <label className="item-container" htmlFor={item.index} onClick={() => this.props.itemCompleted(key)} >{item.text}
-            <input type="checkbox" key={key} name={item.index} className="item" checked="checked" onClick={() => this.props.itemCompleted(key)} />
-            <span className="checkmark"></span>
-          </label>
-          <span className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</span>
+        <div className="item-container">
+          <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}></div>
+
+          <div className="item-text" htmlFor={item.index}>{item.text}</div>
+          <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
         </div>
       )
 
@@ -48,6 +45,15 @@ class ActualTodo extends Component {
   handleChange = e => {
     this.setState({ value: e.target.value });
   }
+
+  // keyHandler = (e, item) => {
+  //   const newText = e.currentTarget.textContent;
+  //   if(e.shiftKey === true && e.key === "Enter") {
+  //
+  //   } else if(e.key === "Enter") {
+  //     this.props.overWriteItem(item, newText);
+  //   }
+  // }
 
   createItem = e => {
     e.preventDefault();

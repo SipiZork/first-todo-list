@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import todos from '../simple-todos';
+// import todos from '../simple-todos';
 import TodoMenu from './TodoMenu';
 import ActualTodo from './ActualTodo';
 import base from "../base";
@@ -64,11 +64,17 @@ class App extends Component {
 
 
   removeListFromTodos = listId => {
-    console.log(listId);
     const todos = { ...this.state.todos };
     todos[listId] = null;
     this.setState({ todos });
   }
+
+  // overWriteItem = (item, newText) => {
+  //   const itemId = 'item' + item.index;
+  //   const todos = { ...this.state.todos };
+  //   todos[this.state.actualTodo][itemId].text = newText;
+  //   this.setState({ todos });
+  // }
 
   render() {
     return (
@@ -85,6 +91,7 @@ class App extends Component {
             itemCompleted={this.itemCompleted}
             addToActualList={this.addToActualList}
             removeFromActualList={this.removeFromActualList}
+            overWriteItem={this.overWriteItem}
           />
         </div>
       </Fragment>

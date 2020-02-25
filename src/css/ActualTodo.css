@@ -1,20 +1,8 @@
-.test{
-  position: relative;
-  display: table;
-  width: 100%;
-}
-
-.test::after {
-  content: "";
-  display: block;
-  clear: both;
-}
 
 .item-container,
 .add-item {
   display: block;
-  float: left;
-  width: 90%;
+  width: 100%;
   position: relative;
   padding-left: 3.125rem;
   margin-bottom: .625rem;
@@ -25,73 +13,60 @@
   user-select: none;
   background-color: rgba(140, 140, 140, 0.5);
   color: rgba(0,0,0,.8);
-  border-radius: 2rem 0 0 2rem;
+  border-radius: 1rem ;
   font-family: monospace;
-  display: table-cell;
+  border: 1px solid red;
 }
 
-.add-item {
-  width: 100%;
-  outline: none;
-  cursor: auto;
-  border-radius: 2rem;
+.item-container div,
+.add-item div {
+  float: left;
 }
 
-.item-container:hover,
-.add-item:hover {
-  background-color: rgba(140, 140, 140, 1);
-  color: rgba(255,255,255,.8);
+.item-container::after,
+.add-item div::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
-.item-container .item {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.checkmark {
+.item-container .checkmark {
   position: absolute;
   top: .5rem;
   left: .9375rem;
   height: 1.625rem;
   width: 1.625rem;
-  background-color: rgba(140,140,140,0);
   border-radius: 10rem;
 }
 
-.item-container:hover .item ~ .checkmark {
-  background-color: rgba(0,0,0,.5);
+.unchecked {
+  background-color: red;
 }
 
-.item-container:hover + .remove-item{
-  background-color: rgba(140, 140, 140, 1);
-}
-
-.item-container .item:checked ~ .checkmark {
-  background-color: #2196F3;
-}
-
-.item-container:hover .item:checked ~ .checkmark {
-  background-color: #1a75bd;
-}
-
-.checkmark:after {
-  content: "";
+.item-container .item-check {
   position: absolute;
-  display: none;
+  opacity: 0;
+  cursor: auto;
+  top: 0;
+  left: 0;
 }
 
-.item-container .item:checked ~ .checkmark:after,
-.item-container .item ~ .checkmark:after {
+.item-container .unchecked {
+  background-color: rgba(255, 118, 56, 1);
+}
+
+.item-container .checked {
+  background-color: rgba(33, 150, 243, 1);
+}
+
+/* START checked pipe */
+
+.item-container .checked::after {
+  content: '';
+  position: absolute;
   display: block;
-}
-
-.item-container .item:checked ~ .checkmark:after,
-.item-container:hover .item ~ .checkmark:after {
-  left: .550rem;
-  top: .3125rem;
+  left: .55rem;
+  top: .3rem;
   width: .3125rem;
   height: .635rem;
   border: solid white;
@@ -99,25 +74,117 @@
   transform: rotate(45deg);
 }
 
+/* END checked pipe */
+
+
+/* START unchecked X */
+
+.item-container .unchecked::after {
+  content: '';
+  position: absolute;
+  display: block;
+  left: .5rem;
+  top: .25rem;
+  width: .3125rem;
+  height: 1rem;
+  border: solid black;
+  border-width:  0 .1875rem 0 0;
+  transform: rotate(45deg);
+}
+
+.item-container .unchecked::before {
+  content: '';
+  position: absolute;
+  display: block;
+  left: .51rem;
+  top: .5rem;
+  width: 1rem;
+  height: .3125rem;
+  border: solid black;
+  border-width:  0 0 .1875rem 0;
+  transform: rotate(45deg);
+}
+
+/* END unchecked X */
+
+ /* START unchecked checkmark hover */
+
+ .unchecked:hover {
+   background-color: rgba(33, 150, 243, 1);
+ }
+
+.item-container .unchecked:hover::after {
+  content: '';
+  position: absolute;
+  display: block;
+  left: .55rem;
+  top: .3rem;
+  width: .3125rem;
+  height: .635rem;
+  border: solid white;
+  border-width:  0 .1875rem .1875rem 0;
+  transform: rotate(45deg);
+}
+
+.item-container .unchecked:hover::before {
+  content: '';
+  display: none;
+}
+
+/* END unchecked checkmark hover */
+
+/* START checked checkmark hover */
+
+.checked:hover {
+  background-color: rgba(255, 118, 56, 1);
+}
+
+.item-container .checked:hover::after {
+   content: '';
+   position: absolute;
+   display: block;
+   left: .45rem;
+   top: .2rem;
+   width: .3125rem;
+   height: 1rem;
+   border: solid black;
+   border-width:  0 .1875rem 0 0;
+   transform: rotate(45deg);
+}
+
+.item-container .checked:hover::before {
+   content: '';
+   position: absolute;
+   display: block;
+   left: .45rem;
+   top: .45rem;
+   width: 1rem;
+   height: .3125rem;
+   border: solid black;
+   border-width:  0 0 .1875rem 0;
+   transform: rotate(45deg);
+ }
+
+/* END checked checkmark hover */
+
+.item-text {
+  border: 1px solid green;
+  min-width: 20rem;
+}
+
 .remove-item {
-  display: table-cell;
   position: absolute;
   top: 0;
   right: 0;
-  width: 10%;
+  width: 8%;
+  border: 1px solid green;
   font-size: 1.5rem;
-  height: calc(100% - .625rem);
+  height: 100%;
   line-height: 2.5rem;
   vertical-align: middle;
   user-select: none;
+  border-radius: 0 1rem 1rem 0;
   background-color: rgba(140, 140, 140, .5);
   color: rgba(0,0,0,.8);
-  border-radius: 0 2rem 2rem 0;
   text-align: center;
-}
-
-.remove-item:hover {
-  color: red;
-  cursor: pointer;
-  background-color: rgba(255,255,255,.5);
 }
