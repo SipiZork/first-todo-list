@@ -15,7 +15,6 @@
   color: rgba(0,0,0,.8);
   border-radius: 1rem ;
   font-family: monospace;
-  border: 1px solid red;
 }
 
 .item-container div,
@@ -168,8 +167,7 @@
 /* END checked checkmark hover */
 
 .item-text {
-  border: 1px solid green;
-  min-width: 20rem;
+  width: 91.5%;
 }
 
 .remove-item {
@@ -177,7 +175,6 @@
   top: 0;
   right: 0;
   width: 8%;
-  border: 1px solid green;
   font-size: 1.5rem;
   height: 100%;
   line-height: 2.5rem;
