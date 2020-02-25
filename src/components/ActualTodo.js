@@ -13,14 +13,14 @@ class ActualTodo extends Component {
     }
     if(item.completed === false)
       return (
-        <Fragment>
+        <div className="test">
           <label className="item-container" htmlFor={item.index} onClick={() => this.props.itemCompleted(key)} >{item.text}
-              <input type="checkbox" key={key} name={item.index} className="item" onClick={() => this.props.itemCompleted(key)} />
-              <span className="checkmark"></span>
+            <input type="checkbox" key={key} name={item.index} className="item" onClick={() => this.props.itemCompleted(key)} />
+            <span className="checkmark"></span>
 
           </label>
           <span className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</span>
-        </Fragment>
+        </div>
       )
 
     return
@@ -33,13 +33,13 @@ class ActualTodo extends Component {
     }
     if(item.completed === true)
       return (
-        <Fragment>
+        <div className="test">
           <label className="item-container" htmlFor={item.index} onClick={() => this.props.itemCompleted(key)} >{item.text}
             <input type="checkbox" key={key} name={item.index} className="item" checked="checked" onClick={() => this.props.itemCompleted(key)} />
             <span className="checkmark"></span>
           </label>
           <span className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</span>
-        </Fragment>
+        </div>
       )
 
     return
@@ -74,7 +74,7 @@ class ActualTodo extends Component {
               name="newItem"
               className="add-item"
               value={this.state.value}
-              onChange={this.handleChange} />
+              onChange={this.handleChange}/>
           </form>
           <h3>Done:</h3>
           {todoIds.map(this.listCompletedItems)}
