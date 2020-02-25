@@ -39,6 +39,7 @@ class TodoMenu extends Component {
                 type="text"
                 name="addTodo"
                 className="add-todo"
+                placeholder="Lista hozzáadása"
                 value={this.state.value}
                 onChange={this.handleChange}/>
             </form>

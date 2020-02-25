@@ -73,6 +73,7 @@ class ActualTodo extends Component {
             <input type="text"
               name="newItem"
               className="add-item"
+              placeholder="Todo hozzaaádsa"
               value={this.state.value}
               onChange={this.handleChange}/>
           </form>
