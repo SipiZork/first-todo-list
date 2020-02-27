@@ -51,7 +51,7 @@
 }
 
 .item-container .unchecked {
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(78, 169, 242, 1);
 }
 
 .item-container .checked {
@@ -135,7 +135,7 @@
 /* START checked checkmark hover */
 
 .checked:hover {
-  background-color: rgba(78, 169, 242, .8);
+  background-color: rgba(78, 169, 242, 1);
 }
 
 .item-container .checked:hover::after {
