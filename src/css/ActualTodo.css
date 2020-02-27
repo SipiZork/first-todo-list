@@ -51,7 +51,7 @@
 }
 
 .item-container .unchecked {
-  background-color: rgba(255, 118, 56, 1);
+  background-color: rgba(0, 0, 0, .3);
 }
 
 .item-container .checked {
@@ -78,7 +78,7 @@
 
 /* START unchecked X */
 
-.item-container .unchecked::after {
+/*.item-container .unchecked::after {
   content: '';
   position: absolute;
   display: block;
@@ -135,7 +135,7 @@
 /* START checked checkmark hover */
 
 .checked:hover {
-  background-color: rgba(255, 118, 56, 1);
+  background-color: rgba(78, 169, 242, .8);
 }
 
 .item-container .checked:hover::after {
@@ -144,10 +144,10 @@
    display: block;
    left: .45rem;
    top: .2rem;
-   width: .3125rem;
-   height: 1rem;
+   width: 0;
+   height: 0;
    border: solid black;
-   border-width:  0 .1875rem 0 0;
+   border-width:  0 0 0 0;
    transform: rotate(45deg);
 }
 
@@ -157,10 +157,10 @@
    display: block;
    left: .45rem;
    top: .45rem;
-   width: 1rem;
-   height: .3125rem;
+   width: 0;
+   height: 0;
    border: solid black;
-   border-width:  0 0 .1875rem 0;
+   border-width:  0 0 0 0;
    transform: rotate(45deg);
  }
 
