@@ -1,5 +1,13 @@
-
-
+.menu .todos .todo-list-container::after {
+  content: "";
+  display: block;
+  clear: both;
+  width: 100%;
+}
+.menu .todos .todo-list-container {
+  margin-bottom: 1rem;
+  height: 2.5rem;
+}
 .menu .todos {
   list-style: none;
   padding: 1.25rem;
@@ -18,19 +26,7 @@
   display: inline-block;
 }
 
-.menu .todos .remove-list {
-  display: inline-block;
-  position: absolute;
-  right: 1.5rem;
-  width: 2rem;
-  text-align: center;
-}
-
-.menu .todos .remove-list:hover {
-  color: red;
-}
-
-.menu .todos .todo-item,
+.menu .todos .list-item,
 .menu .todos .add-todo {
   padding-left: .75rem;
   height: 2.5rem;
@@ -48,9 +44,36 @@
   width: 100%;
 }
 
-.menu .todos .todo-item:hover {
+.menu .todos .list-item {
+  width: 85%;
+  display: block;
+  float: left;
+  border-radius: 10rem 0 0 10rem;
+}
+
+.menu .todos .list-item:hover,
+.menu .todos .list-item:hover ~ .list-remove {
   background-color: rgba(0,0,0,.7);
   color: #fff;
+}
+
+.menu .todos .list-remove {
+  float: left;
+  display: block;
+  background-color: rgba(0,0,0,.3);
+  color: #000;
+  cursor: pointer;
+  font-family: monospace;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  font-size: 1.5rem;
+  width: 15%;
+  border-radius: 0 10rem 10rem 0;
+}
+
+.menu .todos .list-remove:hover {
+  background-color: rgba(0,0,0,.7);
+  color: red;
 }
 
 input {

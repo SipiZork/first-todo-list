@@ -4,7 +4,8 @@ import '../css/ActualTodo.css';
 class ActualTodo extends Component {
   state = {
     value: "",
-    tempText: ""
+    tempText: "",
+    todo: ""
   }
 
   listUncompletedItems = key => {
@@ -16,7 +17,9 @@ class ActualTodo extends Component {
       return (
         <div className="item-container">
           <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}></div>
-          <div className="item-text" htmlFor={item.index}>{item.text}</div>
+          <div className="item-text" htmlFor={item.index}>
+            <input type="text" value={item.text} onKeyPress={(e, item) =>this.changeItem(e, item)} className="item"/>
+          </div>
           <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
         </div>
       )
@@ -33,7 +36,6 @@ class ActualTodo extends Component {
       return (
         <div className="item-container">
           <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}></div>
-
           <div className="item-text" htmlFor={item.index}>{item.text}</div>
           <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
         </div>
@@ -64,6 +66,10 @@ class ActualTodo extends Component {
     }
     this.props.addToActualList(item);
     this.setState({ value: '' });
+  }
+
+  changeItem = (e, item) => {
+    console.log(this.state);
   }
 
   render() {

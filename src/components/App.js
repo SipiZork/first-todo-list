@@ -14,11 +14,20 @@ class App extends Component {
   componentDidMount() {
     this.ref = base.syncState("todos", {
       context: this,
-      state: "todos" });
+      state: "todos"
+    });
   }
 
   openTodoList = key => {
+    const { userId, todoListId } = this.props.match.params;
     this.setState({ actualTodo: key });
+    this.props.history.push(`/${userId}/${todoListId}/${key}`);
+  }
+
+  closeTodoList = () => {
+    const { userId, todoListId } = this.props.match.params;
+    this.props.history.push(`/${userId}/${todoListId}/`);
+    this.setState({ actualTodo: "" });
   }
 
   itemCompleted = key => {
@@ -64,9 +73,11 @@ class App extends Component {
 
 
   removeListFromTodos = listId => {
+    const { userId, todoListId, todoId } = this.props.match.params;
     const todos = { ...this.state.todos };
     todos[listId] = null;
     this.setState({ todos });
+    this.closeTodoList();
   }
 
   // overWriteItem = (item, newText) => {
@@ -76,7 +87,42 @@ class App extends Component {
   //   this.setState({ todos });
   // }
 
+  modifyItem = (item, letter) => {
+    const itemId = 'item' + item.index;
+    const todos = { ...this.state.todos};
+    const newText = item.text + letter;
+    todos[this.state.actualTodo][itemId].text = newText;
+    this.setState({ todos });
+  }
+
+  renderActualTodo = () => {
+    return (
+      <Fragment>
+        <div className="actual-todo">
+          <ActualTodo
+            actualTodo={this.state.todos[this.state.actualTodo]}
+            itemCompleted={this.itemCompleted}
+            addToActualList={this.addToActualList}
+            removeFromActualList={this.removeFromActualList}
+            modifyItem={this.modifyItem}
+          />
+        </div>
+      </Fragment>
+    )
+  }
+
+  trying = () => {
+    return (
+      <Fragment>
+        <div className="actual-todo">
+          Kattints egy listára, hogy betöltsük azt!
+        </div>
+      </Fragment>
+    )
+  }
+
   render() {
+    const { todoId } = this.props.match.params;
     return (
       <Fragment>
         <TodoMenu
@@ -85,15 +131,7 @@ class App extends Component {
           addTodoList={this.addTodoList}
           removeListFromTodos={this.removeListFromTodos}
         />
-        <div className="actual-todo">
-          <ActualTodo
-            actualTodo={this.state.todos[this.state.actualTodo]}
-            itemCompleted={this.itemCompleted}
-            addToActualList={this.addToActualList}
-            removeFromActualList={this.removeFromActualList}
-            overWriteItem={this.overWriteItem}
-          />
-        </div>
+        {todoId && todoId !== null ? this.renderActualTodo() : this.trying()}
       </Fragment>
     );
   }
