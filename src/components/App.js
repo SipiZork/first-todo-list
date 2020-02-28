@@ -57,7 +57,7 @@ class App extends Component {
 
   addToActualList = item => {
     const todos = { ...this.state.todos };
-    todos[this.state.actualTodo][`item${Date.now()}`] = item
+    todos[this.state.actualTodo][`item${item.index}`] = item
     this.setState({ todos });
   }
 
@@ -97,8 +97,7 @@ class App extends Component {
 
   modifyItem = (item, text) => {
     const itemId = 'item' + item.index;
-    console.log(itemId);
-    const todos = { ...this.state.todos};
+    const todos = { ...this.state.todos };
     todos[this.state.actualTodo][itemId].text = text;
     this.setState({ todos });
   }
