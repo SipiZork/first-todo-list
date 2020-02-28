@@ -42,6 +42,11 @@
   white-space: nowrap;
   overflow: hidden;
   width: 100%;
+  border: none;
+}
+
+.menu .todos .add-todo {
+  cursor: auto;
 }
 
 .menu .todos .list-item {

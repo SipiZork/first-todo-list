@@ -12,22 +12,31 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const { todoId } = this.props.match.params;
     this.ref = base.syncState("todos", {
       context: this,
       state: "todos"
     });
+    if(todoId && todoId !== null) {
+      console.log("létezem");
+      this.openTodoList(todoId);
+    }
   }
 
   openTodoList = key => {
-    const { userId, todoListId } = this.props.match.params;
+    const { userId } = this.props.match.params;
     this.setState({ actualTodo: key });
-    this.props.history.push(`/${userId}/${todoListId}/${key}`);
+    this.props.history.push(`/${userId}/${key}`);
   }
 
-  closeTodoList = () => {
-    const { userId, todoListId } = this.props.match.params;
-    this.props.history.push(`/${userId}/${todoListId}/`);
-    this.setState({ actualTodo: "" });
+  closeTodoList = listId => {
+    const { userId, todoId } = this.props.match.params;
+    console.log(`listId:${listId}, this.state.actualTodo:${this.state.actualTodo}`);
+    if(listId === this.state.actualTodo) {
+      this.props.history.push(`/${userId}/`);
+      this.setState({ actualTodo: "" });
+    }
+
   }
 
   itemCompleted = key => {
@@ -63,21 +72,20 @@ class App extends Component {
     const listId = `todo${Date.now()}`;
     todos[listId] = list;
     this.setState({ todos })
-    this.moveToNewList(listId);
+    this.moveToList(listId);
   }
 
-  moveToNewList = listId => {
+  moveToList = listId => {
     this.setState({ actualTodo: listId });
     this.openTodoList(listId);
   }
 
 
   removeListFromTodos = listId => {
-    const { userId, todoListId, todoId } = this.props.match.params;
     const todos = { ...this.state.todos };
     todos[listId] = null;
     this.setState({ todos });
-    this.closeTodoList();
+    this.closeTodoList(listId);
   }
 
   // overWriteItem = (item, newText) => {
@@ -87,11 +95,11 @@ class App extends Component {
   //   this.setState({ todos });
   // }
 
-  modifyItem = (item, letter) => {
+  modifyItem = (item, text) => {
     const itemId = 'item' + item.index;
+    console.log(itemId);
     const todos = { ...this.state.todos};
-    const newText = item.text + letter;
-    todos[this.state.actualTodo][itemId].text = newText;
+    todos[this.state.actualTodo][itemId].text = text;
     this.setState({ todos });
   }
 

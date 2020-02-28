@@ -40,6 +40,7 @@ class TodoMenu extends Component {
                 name="addTodo"
                 className="add-todo"
                 placeholder="Lista hozzáadása"
+                autoComplete="off"                
                 value={this.state.value}
                 onChange={this.handleChange}/>
             </form>

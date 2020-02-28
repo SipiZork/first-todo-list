@@ -11,8 +11,8 @@ const Root = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={NotFound} />
-        <Route exact path="/:userId/:todoListId" component={App} />
-        <Route exact path="/:userId/:todoListId/:todoId" component={App} />
+        <Route exact path="/:userId/" component={App} />
+        <Route exact path="/:userId/:todoId" component={App} />
         <Route component={NotFound} />
       </Switch>
     </Router>

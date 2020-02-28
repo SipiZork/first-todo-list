@@ -8,13 +8,18 @@
   margin-bottom: .625rem;
   cursor: pointer;
   font-size: 1.5rem;
-  min-height: 2.5rem;
-  line-height: 2.5rem;
+  line-height: 3em;
   user-select: none;
   background-color: rgba(140, 140, 140, 0.5);
   color: rgba(0,0,0,.8);
   border-radius: 1rem ;
   font-family: monospace;
+  height: 3rem;
+  border: none;
+}
+
+.add-item {
+  cursor: auto;
 }
 
 .item-container div,
@@ -31,10 +36,10 @@
 
 .item-container .checkmark {
   position: absolute;
-  top: .5rem;
+  top: .7rem;
   left: .9375rem;
-  height: 1.625rem;
-  width: 1.625rem;
+  height: 1.8rem;
+  width: 1.8rem;
   border-radius: 10rem;
 }
 
@@ -64,8 +69,8 @@
   content: '';
   position: absolute;
   display: block;
-  left: .55rem;
-  top: .3rem;
+  left: .64rem;
+  top: .35rem;
   width: .3125rem;
   height: .635rem;
   border: solid white;
@@ -116,8 +121,8 @@
   content: '';
   position: absolute;
   display: block;
-  left: .55rem;
-  top: .3rem;
+  left: .64rem;
+  top: .35rem;
   width: .3125rem;
   height: .635rem;
   border: solid white;
@@ -167,7 +172,31 @@
 /* END checked checkmark hover */
 
 .item-text {
+  position: relative;
   width: 91.5%;
+  padding: 0;
+  height: 100%;
+}
+
+.item-text input {
+  position: absolute;
+  font-family: monospace;
+  font-size: 1.25rem;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  overflow: scroll;
+}
+
+.item-text textarea {
+  position: absolute;
+  font-family: monospace;
+  font-size: 1.25rem;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0);
+  border: none;
 }
 
 .remove-item {
@@ -177,7 +206,7 @@
   width: 8%;
   font-size: 1.5rem;
   height: 100%;
-  line-height: 2.5rem;
+  line-height: 3rem;
   vertical-align: middle;
   user-select: none;
   border-radius: 0 1rem 1rem 0;

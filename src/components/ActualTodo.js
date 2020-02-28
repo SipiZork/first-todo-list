@@ -2,11 +2,6 @@ import React, { Component, Fragment } from "react";
 import '../css/ActualTodo.css';
 
 class ActualTodo extends Component {
-  state = {
-    value: "",
-    tempText: "",
-    todo: ""
-  }
 
   listUncompletedItems = key => {
     const item = this.props.actualTodo[key];
@@ -18,7 +13,9 @@ class ActualTodo extends Component {
         <div className="item-container">
           <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}></div>
           <div className="item-text" htmlFor={item.index}>
-            <input type="text" value={item.text} onKeyPress={(e, item) =>this.changeItem(e, item)} className="item"/>
+            <form key={key} onSubmit={(e) => this.changeItem(e, item)}>
+              <input type="text" name="text" key={key} defaultValue={item.text} autoComplete="off" className="item"/>
+            </form>
           </div>
           <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
         </div>
@@ -36,16 +33,16 @@ class ActualTodo extends Component {
       return (
         <div className="item-container">
           <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}></div>
-          <div className="item-text" htmlFor={item.index}>{item.text}</div>
+          <div className="item-text" htmlFor={item.index}>
+            <form key={key} onSubmit={(e) => this.changeItem(e, item)}>
+              <input type="text" name="text" key={key} defaultValue={item.text} autoComplete="off" className="item"/>
+            </form>
+          </div>
           <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
         </div>
       )
 
     return
-  }
-
-  handleChange = e => {
-    this.setState({ value: e.target.value });
   }
 
   // keyHandler = (e, item) => {
@@ -64,12 +61,16 @@ class ActualTodo extends Component {
       text: e.target.newItem.value,
       completed: false
     }
+    e.target.newItem.value = "";
+
     this.props.addToActualList(item);
-    this.setState({ value: '' });
   }
 
   changeItem = (e, item) => {
-    console.log(this.state);
+    e.preventDefault();
+    const newText = e.target.text.value;
+    this.props.modifyItem(item, newText);
+    e.target.text.blur();
   }
 
   render() {
@@ -86,8 +87,8 @@ class ActualTodo extends Component {
               name="newItem"
               className="add-item"
               placeholder="Feladat hozzaaádsa"
-              value={this.state.value}
-              onChange={this.handleChange}/>
+              autoComplete="off"
+            />
           </form>
           <h3>Done:</h3>
           {todoIds.map(this.listCompletedItems)}
