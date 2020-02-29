@@ -10,15 +10,17 @@ class ActualTodo extends Component {
     }
     if(item.completed === false)
       return (
-        <div className="item-container">
-          <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}></div>
-          <div className="item-text" htmlFor={item.index}>
-            <form key={key} onSubmit={(e) => this.changeItem(e, item)}>
-              <input type="text" name="text" key={key} defaultValue={item.text} autoComplete="off" className="item"/>
-            </form>
+        <Fragment key={key}>
+          <div className="item-container">
+            <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}></div>
+            <div className="item-text" htmlFor={item.index}>
+              <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
+                <input type="text" name="text" key={key} defaultValue={item.text} autoComplete="off" className="item"/>
+              </form>
+            </div>
+            <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
           </div>
-          <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
-        </div>
+        </Fragment>
       )
 
     return
@@ -31,15 +33,17 @@ class ActualTodo extends Component {
     }
     if(item.completed === true)
       return (
-        <div className="item-container">
-          <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}></div>
-          <div className="item-text" htmlFor={item.index}>
-            <form key={key} onSubmit={(e) => this.changeItem(e, item)}>
-              <input type="text" name="text" key={key} defaultValue={item.text} autoComplete="off" className="item"/>
-            </form>
+        <Fragment key={key}>
+          <div className="item-container">
+            <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}></div>
+            <div className="item-text" htmlFor={item.index}>
+              <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
+                <input type="text" name="text" key={key} defaultValue={item.text} autoComplete="off" className="item"/>
+              </form>
+            </div>
+            <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
           </div>
-          <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
-        </div>
+        </Fragment>
       )
 
     return
@@ -66,11 +70,16 @@ class ActualTodo extends Component {
     this.props.addToActualList(item);
   }
 
-  changeItem = (e, item) => {
+  changeItem = (e, item, onHow) => {
     e.preventDefault();
-    const newText = e.target.text.value;
+    let newText = "";
+    if(onHow === "onSubmit"){
+      newText = e.target.text.value;
+      e.target.text.blur();
+    } else if(onHow === "onBlur"){
+      newText = e.target.value;
+    }
     this.props.modifyItem(item, newText);
-    e.target.text.blur();
   }
 
   render() {
