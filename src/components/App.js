@@ -18,7 +18,7 @@ class App extends Component {
     const { todoId } = this.props.match.params;
     const user = this.state.user;
     if(user && user !== "" && user !== null) {
-      const { uid, email } = this.state.user;
+      const { uid } = this.state.user;
       this.props.history.push(`/${uid}`);
       this.setState({ login: true })
     }

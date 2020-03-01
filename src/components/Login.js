@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { auth } from '../base';
 import PopUp from './PopUp';
-import firebase from 'firebase';
 import '../css/Login.css';
 
 class Login extends Component {

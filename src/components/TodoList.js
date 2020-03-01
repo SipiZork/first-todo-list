@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
 import '../css/TodoList.css';
-import base from "../base"
 
 class TodoList extends Component {
 
@@ -21,7 +20,7 @@ class TodoList extends Component {
               }
 
   render() {
-    const { details, id } = this.props;
+    const { details } = this.props;
     return (
       <Fragment>
         {details.owner === this.props.user.uid || this.props.user.uid === "bT2wW9DHRJc5mVNXAoU3BjDEbHZ2" ? this.createTodo() : ""}

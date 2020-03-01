@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import './css/index.css';
 import App from './components/App';
 import NotFound from './components/NotFound';
-import Login from './components/Login';
 import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 
