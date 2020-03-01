@@ -13,7 +13,8 @@ class Login extends Component {
     popup: {
       title: "",
       msg: ""
-    }
+    },
+    emailRemember: false
   }
 
   componentDidMount(){
@@ -65,12 +66,17 @@ class Login extends Component {
     }
   }
 
+  setLocalStorage = email => {
+    localStorage.setItem("emailRemember", email);
+  }
+
   logInUser = e => {
     e.preventDefault();
     const email = e.target.email.value;
     const pass = e.target.password.value;
     const promise = auth.signInWithEmailAndPassword(email, pass);
     promise
+      .then(user => this.setLocalStorage(email))
       .catch((e) => this.renderError("Bejelentkezési hiba", e.message));
   }
 
@@ -107,13 +113,14 @@ class Login extends Component {
   renderLogIn = () => {
     const { showPopup } = this.state;
     const { title,msg } = this.state.popup;
+    const email = localStorage.getItem("emailRemember");
     return(
       <Fragment>
         {showPopup === true ? <PopUp title={title} msg={msg} togglePopup={this.togglePopup}/> : "" }
         <div className="login">
           <h2>Belépés</h2>
           <form onSubmit={(e) => this.logInUser(e)}>
-            <input type="text" name="email" autoComplete="off" placeholder="Email" className="name"/>
+            <input type="text" name="email" defaultValue={email && email !== null ? email : ""} autoComplete="off" placeholder="Email" className="name"/>
             <input type="password" name="password" autoComplete="off" placeholder="Jelszó" className="password"/>
             <div className="button-wrapper">
               <button type="submit">Belépés</button>
