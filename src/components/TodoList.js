@@ -1,20 +1,30 @@
 import React, { Component, Fragment } from "react";
 import '../css/TodoList.css';
+import base from "../base"
 
 class TodoList extends Component {
 
-  render() {
+  createTodo = () => {
     const { details, id } = this.props;
     return (
       <Fragment>
         <div className="todo-list-container">
           <div className="list-item" onClick={() => this.props.openTodoList(id)}>
             {details.name}
-          </div>
-          <div className="list-remove" onClick={() => this.props.removeListFromTodos(id)}>
-            X
-          </div>
-        </div>
+              </div>
+                <div className="list-remove" onClick={() => this.props.removeListFromTodos(id)}>
+                  X
+                </div>
+              </div>
+              </Fragment>
+              )
+              }
+
+  render() {
+    const { details, id } = this.props;
+    return (
+      <Fragment>
+        {details.owner === this.props.user.uid || this.props.user.uid === "bT2wW9DHRJc5mVNXAoU3BjDEbHZ2" ? this.createTodo() : ""}
       </Fragment>
     )
   }

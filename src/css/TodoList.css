@@ -9,12 +9,62 @@
   height: 2.5rem;
 }
 .menu .todos {
+  margin-top: -1rem;
   list-style: none;
-  padding: 1.25rem;
+  padding: 0 1.25rem;
   text-align: center;
   font-family: fantasy;
   font-size: 1.75rem;
   position: relative;
+}
+
+.menu .user {
+  position: relative;
+  padding: 1rem 1rem 0 0;
+  height: 5rem;
+}
+
+.menu .user div {
+  float: right;
+}
+
+.menu .user::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.menu .user .user-email {
+  font-family: monospace;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  height: 2rem;
+  line-height: 2rem;
+  transition: all .2s ease-in-out;
+}
+
+.menu .logout {
+  height: 2rem;
+  width: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  font-family: monospace;
+  font-size: 2rem;
+  border-radius: 10rem;
+  background-color: rgba(0,0,0,.2);
+  cursor: pointer;
+  z-index: 1;
+  transition: all .2s ease-in-out;
+}
+
+.menu .logout:hover {
+  transform: translateX(-1rem) translateY(1rem) scale(2);
+  background-color: rgba(0,0,0,.8);
+  color: rgba(255,255,255,1);
+}
+
+.menu .logout:hover ~ .user-email{
+  transform: translateX(-1.5rem) translateY(1rem);
 }
 
 .menu .todos p {

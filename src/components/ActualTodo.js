@@ -88,7 +88,9 @@ class ActualTodo extends Component {
       const todoIds = Object.keys(actualTodo);
       return (
         <Fragment>
-          <h2>{actualTodo.name}</h2>
+          <h2>
+            {actualTodo.name} {this.props.user.uid !== actualTodo.owner ? " !! Nem a saját feladat listád !!" : "" }
+          </h2>
           <h3>ToDo:</h3>
           {todoIds.map(this.listUncompletedItems)}
           <form onSubmit={(e) => this.createItem(e)}>
@@ -105,7 +107,7 @@ class ActualTodo extends Component {
       )
     }
     return (
-      <p>Kattints  egy listára, hogy betöltsük azt.</p>
+      ""
     )
   }
 }

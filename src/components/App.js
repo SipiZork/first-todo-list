@@ -2,25 +2,55 @@ import React, { Component, Fragment } from 'react';
 // import todos from '../simple-todos';
 import TodoMenu from './TodoMenu';
 import ActualTodo from './ActualTodo';
-import base from "../base";
+import Login from './Login';
+import base, { auth } from "../base";
 
 class App extends Component {
 
   state = {
     todos: {},
-    actualTodo: ""
+    actualTodo: "",
+    login: false,
+    user: ""
   }
 
   componentDidMount() {
     const { todoId } = this.props.match.params;
+    const user = this.state.user;
+    if(user && user !== "" && user !== null) {
+      const { uid, email } = this.state.user;
+      this.props.history.push(`/${uid}`);
+      this.setState({ login: true })
+    }
     this.ref = base.syncState("todos", {
       context: this,
       state: "todos"
     });
     if(todoId && todoId !== null) {
-      console.log("létezem");
       this.openTodoList(todoId);
     }
+  }
+
+  // componentWillUnmount() {
+  //   base.removeBinding(this.ref);
+  // }
+
+  toggleLogin = () => {
+    this.setState({ login: !this.state.login});
+  }
+
+  userLogin = user => {
+    this.setState({ login: true});
+    this.setState({ user: user });
+    this.moveUrlTo(`/${user.uid}`);
+  }
+
+  userLogout = () => {
+    auth.signOut();
+    localStorage.removeItem("user");
+    this.setState({ user: "" });
+    this.props.history.push("/");
+    this.setState({ login: false });
   }
 
   openTodoList = key => {
@@ -30,7 +60,7 @@ class App extends Component {
   }
 
   closeTodoList = listId => {
-    const { userId, todoId } = this.props.match.params;
+    const { userId } = this.props.match.params;
     console.log(`listId:${listId}, this.state.actualTodo:${this.state.actualTodo}`);
     if(listId === this.state.actualTodo) {
       this.props.history.push(`/${userId}/`);
@@ -112,6 +142,7 @@ class App extends Component {
             addToActualList={this.addToActualList}
             removeFromActualList={this.removeFromActualList}
             modifyItem={this.modifyItem}
+            user={this.state.user}
           />
         </div>
       </Fragment>
@@ -122,23 +153,50 @@ class App extends Component {
     return (
       <Fragment>
         <div className="actual-todo">
-          Kattints egy listára, hogy betöltsük azt!
+          <p>Kattints  egy listára, hogy betöltsük azt, vagy hozz létre egy új listát!</p>
         </div>
       </Fragment>
     )
   }
 
-  render() {
+  moveUrlTo = (path) => {
+    this.props.history.push(path);
+  }
+
+  renderContent = () => {
+    const { login } = this.state;
     const { todoId } = this.props.match.params;
+    if(login === false){
+      return (
+        <Login
+          match={this.props.match}
+          moveUrlTo={this.moveUrlTo}
+          user={this.state.user}
+          login={this.userLogin}
+        />
+      )
+    } else {
+      return(
+        <Fragment>
+          <TodoMenu
+            openTodoList={this.openTodoList}
+            todos={this.state.todos}
+            addTodoList={this.addTodoList}
+            removeListFromTodos={this.removeListFromTodos}
+            user={this.state.user}
+            logout={this.userLogout}
+          />
+          {todoId && todoId !== null ? this.renderActualTodo() : this.trying()}
+        </Fragment>
+      )
+    }
+  }
+
+  render() {
+
     return (
       <Fragment>
-        <TodoMenu
-          openTodoList={this.openTodoList}
-          todos={this.state.todos}
-          addTodoList={this.addTodoList}
-          removeListFromTodos={this.removeListFromTodos}
-        />
-        {todoId && todoId !== null ? this.renderActualTodo() : this.trying()}
+        {this.renderContent()}
       </Fragment>
     );
   }

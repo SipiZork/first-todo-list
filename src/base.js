@@ -12,8 +12,10 @@ const firebaseApp  = firebase.initializeApp({
   measurementId: "G-WJH1PP3VLC"
 });
 
+const auth = firebase.auth();
+
 const base = Rebase.createClass(firebaseApp.database());
 
-export { firebaseApp };
+export { firebaseApp, auth };
 
 export default base;
