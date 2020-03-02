@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import '../css/ActualTodo.css';
+import TextAreaAutoSize from 'react-autosize-textarea';
 
 class ActualTodo extends Component {
 
@@ -15,7 +16,14 @@ class ActualTodo extends Component {
             <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}></div>
             <div className="item-text" htmlFor={item.index}>
               <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
-                <input type="text" name="text" key={key} defaultValue={item.text} autoComplete="off" className="item"/>
+                <TextAreaAutoSize
+                  key={key}
+                  defaultValue={item.text}
+                  autoComplete="off"
+                  className="item"
+                  onKeyPress={(e) => this.editIteyKeyHandler(e, item)}
+                >
+                </TextAreaAutoSize>
               </form>
             </div>
             <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
@@ -38,7 +46,15 @@ class ActualTodo extends Component {
             <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}></div>
             <div className="item-text" htmlFor={item.index}>
               <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
-                <input type="text" name="text" key={key} defaultValue={item.text} autoComplete="off" className="item"/>
+                <TextAreaAutoSize
+                  name="text"
+                  key={key}
+                  defaultValue={item.text}
+                  autoComplete="off"
+                  className="item"
+                  onKeyPress={(e) => this.editIteyKeyHandler(e, item)}
+                >
+                </TextAreaAutoSize>
               </form>
             </div>
             <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
@@ -49,25 +65,36 @@ class ActualTodo extends Component {
     return
   }
 
-  // keyHandler = (e, item) => {
-  //   const newText = e.currentTarget.textContent;
-  //   if(e.shiftKey === true && e.key === "Enter") {
-  //
-  //   } else if(e.key === "Enter") {
-  //     this.props.overWriteItem(item, newText);
-  //   }
-  // }
-
-  createItem = e => {
-    e.preventDefault();
-    const item = {
-      index: Date.now(),
-      text: e.target.newItem.value,
-      completed: false
+  addItemKeyHandler = e => {
+    if(e.shiftKey === false && e.key === "Enter") {
+      this.createItem(e, "Enter")
     }
-    e.target.newItem.value = "";
+  }
 
-    this.props.addToActualList(item);
+  editIteyKeyHandler = (e, item) => {
+    if(e.shiftKey === false && e.key === "Enter") {
+      this.changeItem(e, item, "onBlur");
+      e.target.blur();
+    }
+  }
+
+  createItem = (e, handler)=> {
+    e.preventDefault();
+    const text = handler === "submit" ? e.target.newItem.value : e.target.value;
+    if(text && text !== ""){
+      const item = {
+        index: Date.now(),
+        text: text,
+        completed: false
+      }
+      if(handler === "submit") {
+        e.target.newItem.value = "";
+      } else {
+         e.target.value = "";
+      }
+
+      this.props.addToActualList(item);
+    }
   }
 
   changeItem = (e, item, onHow) => {
@@ -93,13 +120,15 @@ class ActualTodo extends Component {
           </h2>
           <h3>ToDo:</h3>
           {todoIds.map(this.listUncompletedItems)}
-          <form onSubmit={(e) => this.createItem(e)}>
-            <input type="text"
+          <form onSubmit={(e) => this.createItem(e, "submit")}>
+            <TextAreaAutoSize
               name="newItem"
               className="add-item"
               placeholder="Feladat hozzaaádsa"
               autoComplete="off"
-            />
+              onKeyPress={(e) => this.addItemKeyHandler(e)}
+              onBlur={(e) => this.createItem(e, "onblur")}
+            ></TextAreaAutoSize>
           </form>
           <h3>Done:</h3>
           {todoIds.map(this.listCompletedItems)}

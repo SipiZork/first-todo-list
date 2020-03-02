@@ -6,20 +6,21 @@
   position: relative;
   padding-left: 3.125rem;
   margin-bottom: .625rem;
-  cursor: pointer;
   font-size: 1.5rem;
-  line-height: 3em;
+  line-height: 1rem;
   user-select: none;
   background-color: rgba(140, 140, 140, 0.5);
   color: rgba(0,0,0,.8);
   border-radius: 1rem ;
   font-family: monospace;
-  height: 3rem;
+  min-height: 3rem;
   border: none;
 }
 
 .add-item {
   cursor: auto;
+  padding-top: 1rem;
+  line-height: 1.4rem;
 }
 
 .item-container div,
@@ -41,6 +42,7 @@
   height: 1.8rem;
   width: 1.8rem;
   border-radius: 10rem;
+  cursor: pointer;
 }
 
 .unchecked {
@@ -172,10 +174,9 @@
 /* END checked checkmark hover */
 
 .item-text {
-  position: relative;
+  padding-top: .75rem;
   width: 91.5%;
-  padding: 0;
-  height: 100%;
+  min-height: 3rem;
 }
 
 .item-text input {
@@ -190,13 +191,20 @@
 }
 
 .item-text textarea {
-  position: absolute;
   font-family: monospace;
   font-size: 1.25rem;
-  height: 100%;
+  min-height: 3rem;
+  max-height: 15rem;
   width: 100%;
   background-color: rgba(0,0,0,0);
   border: none;
+  resize: none;
+  overflow-y: scroll;
+}
+
+.item-text textarea:focus,
+.add-item:focus {
+  outline: 0;
 }
 
 .remove-item {
@@ -213,4 +221,11 @@
   background-color: rgba(140, 140, 140, .5);
   color: rgba(0,0,0,.8);
   text-align: center;
+  z-index:2;
+  cursor: pointer;
+}
+
+.remove-item:hover {
+  background-color: rgba(100, 100, 100, 1);
+  color: #fff;
 }
