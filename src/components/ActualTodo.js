@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import '../css/ActualTodo.css';
-import TextAreaAutoSize from 'react-autosize-textarea';
+// import TextAreaAutoSize from 'react-autosize-textarea';
+import TextField from "@material-ui/core/TextField";
+import { TextareaAutosize } from "@material-ui/core";
 
 class ActualTodo extends Component {
 
@@ -16,14 +18,14 @@ class ActualTodo extends Component {
             <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}></div>
             <div className="item-text" htmlFor={item.index}>
               <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
-                <TextAreaAutoSize
+                <TextareaAutosize
                   key={key}
                   defaultValue={item.text}
                   autoComplete="off"
                   className="item"
                   onKeyPress={(e) => this.editIteyKeyHandler(e, item)}
                 >
-                </TextAreaAutoSize>
+                </TextareaAutosize>
               </form>
             </div>
             <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
@@ -46,7 +48,7 @@ class ActualTodo extends Component {
             <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}></div>
             <div className="item-text" htmlFor={item.index}>
               <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
-                <TextAreaAutoSize
+                <TextareaAutosize
                   name="text"
                   key={key}
                   defaultValue={item.text}
@@ -54,7 +56,7 @@ class ActualTodo extends Component {
                   className="item"
                   onKeyPress={(e) => this.editIteyKeyHandler(e, item)}
                 >
-                </TextAreaAutoSize>
+                </TextareaAutosize>
               </form>
             </div>
             <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
@@ -121,14 +123,15 @@ class ActualTodo extends Component {
           <h3>ToDo:</h3>
           {todoIds.map(this.listUncompletedItems)}
           <form onSubmit={(e) => this.createItem(e, "submit")}>
-            <TextAreaAutoSize
+            <TextareaAutosize
               name="newItem"
               className="add-item"
               placeholder="Feladat hozzáadása"
+              rowsMax={10}
               autoComplete="off"
               onKeyPress={(e) => this.addItemKeyHandler(e)}
               onBlur={(e) => this.createItem(e, "onblur")}
-            ></TextAreaAutoSize>
+            ></TextareaAutosize>
           </form>
           <h3>Done:</h3>
           {todoIds.map(this.listCompletedItems)}

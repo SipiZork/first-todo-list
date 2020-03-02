@@ -19,7 +19,7 @@
 
 .add-item {
   cursor: auto;
-  padding-top: 1rem;
+  padding-top: .85rem;
   line-height: 1.4rem;
 }
 
@@ -34,6 +34,7 @@
   display: block;
   clear: both;
 }
+
 
 .item-container .checkmark {
   position: absolute;
@@ -199,7 +200,7 @@
   background-color: rgba(0,0,0,0);
   border: none;
   resize: none;
-  overflow-y: scroll;
+
 }
 
 .item-text textarea:focus,
