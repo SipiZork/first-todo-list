@@ -42,18 +42,23 @@ class App extends Component {
 
 
    componentDidMount() {
-    const { todoId } = this.props.match.params;
+    const { userId, todoId } = this.props.match.params;
     const user = this.state.user;
     if(user && user !== "" && user !== null) {
       console.log(user);
-      const { uid } = this.state.user;
-      console.log("helllo");
-      this.props.history.push(`/${uid}`);
+      this.props.history.push(`/${user.uid}`);
       this.setState({ login: true });
     }
     if(todoId && todoId !== null) {
       this.openTodoList(todoId);
     }
+    if(todoId) {
+      this.setState({ actualTodo: todoId });
+      this.props.history.push(`/${user.uid}/${todoId}`);
+    } else {
+      this.props.history.push(`/${user.uid}`);
+    }
+
   }
 
   // componentWillUnmount() {

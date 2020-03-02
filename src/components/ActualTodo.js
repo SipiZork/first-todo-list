@@ -107,7 +107,7 @@ class ActualTodo extends Component {
       )
     }
     return (
-      ""
+      "Kattins egy létező listára"
     )
   }
 }
