@@ -22,6 +22,7 @@ class Login extends Component {
     } else if(this.props.match.path === "/login") {
       this.setState({ register: false });
     } else {
+      console.log("itt vagyok");
       this.props.moveUrlTo("/login");
     }
   }

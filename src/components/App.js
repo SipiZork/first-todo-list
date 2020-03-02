@@ -14,18 +14,43 @@ class App extends Component {
     user: ""
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { todoId } = this.props.match.params;
-    const user = this.state.user;
-    if(user && user !== "" && user !== null) {
-      const { uid } = this.state.user;
-      this.props.history.push(`/${uid}`);
-      this.setState({ login: true })
+    console.log(todoId);
+    const localUser = JSON.parse(localStorage.getItem("user"));
+    if(localUser) {
+      console.log(`Van localUser: ${localUser}`);
+      this.setState({ user: localUser});
+      this.setState({ login: true });
+      this.loadTodos();
     }
+    // if(user && user !== "" && user !== null) {
+    //   const { uid } = this.state.user;
+    //   console.log("helllo");
+    //   this.props.history.push(`/${uid}`);
+    //
+    // }
+  }
+
+  loadTodos = () => {
+    console.log("todo");
     this.ref = base.syncState("todos", {
       context: this,
       state: "todos"
     });
+  }
+
+
+   componentDidMount() {
+    const { todoId } = this.props.match.params;
+    const user = this.state.user;
+    if(user && user !== "" && user !== null) {
+      console.log(user);
+      const { uid } = this.state.user;
+      console.log("helllo");
+      this.props.history.push(`/${uid}`);
+      this.setState({ login: true });
+    }
     if(todoId && todoId !== null) {
       this.openTodoList(todoId);
     }
@@ -37,6 +62,10 @@ class App extends Component {
 
   toggleLogin = () => {
     this.setState({ login: !this.state.login});
+    this.ref = base.syncState("todos", {
+      context: this,
+      state: "todos"
+    });
   }
 
   userLogin = user => {
