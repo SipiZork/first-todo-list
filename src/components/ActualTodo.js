@@ -124,7 +124,7 @@ class ActualTodo extends Component {
             <TextAreaAutoSize
               name="newItem"
               className="add-item"
-              placeholder="Feladat hozzaaádsa"
+              placeholder="Feladat hozzáadása"
               autoComplete="off"
               onKeyPress={(e) => this.addItemKeyHandler(e)}
               onBlur={(e) => this.createItem(e, "onblur")}
