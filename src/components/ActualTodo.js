@@ -28,7 +28,7 @@ class ActualTodo extends Component {
                 </TextareaAutosize>
               </form>
             </div>
-            <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
+            <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}></div>
           </div>
         </Fragment>
       )
@@ -59,7 +59,7 @@ class ActualTodo extends Component {
                 </TextareaAutosize>
               </form>
             </div>
-            <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>X</div>
+            <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}></div>
           </div>
         </Fragment>
       )
@@ -120,21 +120,24 @@ class ActualTodo extends Component {
           <h2>
             {actualTodo.name} {this.props.user.uid !== actualTodo.owner ? " !! Nem a saját feladat listád !!" : "" }
           </h2>
-          <h3>ToDo:</h3>
-          {todoIds.map(this.listUncompletedItems)}
-          <form onSubmit={(e) => this.createItem(e, "submit")}>
-            <TextareaAutosize
-              name="newItem"
-              className="add-item"
-              placeholder="Feladat hozzáadása"
-              rowsMax={10}
-              autoComplete="off"
-              onKeyPress={(e) => this.addItemKeyHandler(e)}
-              onBlur={(e) => this.createItem(e, "onblur")}
-            ></TextareaAutosize>
-          </form>
-          <h3>Done:</h3>
-          {todoIds.map(this.listCompletedItems)}
+          <div className="uncompleted-items">
+            {todoIds.map(this.listUncompletedItems)}
+
+            <form onSubmit={(e) => this.createItem(e, "submit")}>
+              <TextareaAutosize
+                name="newItem"
+                className="add-item"
+                placeholder="Feladat hozzáadása"
+                rowsMax={10}
+                autoComplete="off"
+                onKeyPress={(e) => this.addItemKeyHandler(e)}
+                onBlur={(e) => this.createItem(e, "onblur")}
+              ></TextareaAutosize>
+            </form>
+          </div>
+          <div className="completed-items">
+            {todoIds.map(this.listCompletedItems)}
+          </div>
         </Fragment>
       )
     }

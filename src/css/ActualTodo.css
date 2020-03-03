@@ -9,19 +9,83 @@
   font-size: 1.5rem;
   line-height: 1rem;
   user-select: none;
-  background-color: rgba(140, 140, 140, 0.5);
+  /* background-color: rgba(140, 140, 140, 0.5); */
+  background-color: rgba(140, 140, 140, .1);
   color: rgba(0,0,0,.8);
-  border-radius: 1rem ;
+  /* border-radius: 1rem ; */
   font-family: monospace;
   min-height: 3rem;
-  border: none;
+  border: 1px solid rgba(255,255,255,.4);
+}
+
+.item-container:after {
+  content: "";
+  display: block;
+  width: calc(100% + 3.125rem);
+  height: 2px;
+  background-color: rgba(140,140,140, .9);
+  margin-left: -3.125rem;
+}
+
+.item-container:hover {
+/* .item-container:hover ~ .remove-item { */
+  background-color: rgba(140,140,140,.3);
 }
 
 .add-item {
   cursor: auto;
+  background-color: rgba(140, 140, 140, 0.5);
   padding-top: .85rem;
   line-height: 1.4rem;
 }
+
+.remove-item {
+  position: absolute;
+  top: .7rem;
+  right: .9375rem;
+  width: 1.8rem;
+  font-size: 1.5rem;
+  height: 1.8rem;
+  user-select: none;
+  border-radius: 1rem;
+  border: 2px solid rgba(140,140,140,.8);
+  /* border: 1px solid red; */
+  /* border-radius: 0 1rem 1rem 0; */
+  /* background-color: rgba(140, 140, 140, .5); */
+  color: rgba(0,0,0,.8);
+  text-align: center;
+  z-index:2;
+  cursor: pointer;
+}
+
+.remove-item:before,
+.remove-item:after{
+  content: "";
+  display: block;
+  height: 2px;
+  background-color: rgba(140,140,140,.8);
+  width: 70%;
+  position: absolute;
+  top: .7rem;
+  left: .25rem;
+
+  transform: rotate(45deg);
+}
+
+.remove-item:hover:before,
+.remove-item:hover:after {
+  background-color: rgba(200,0,0,.5);
+}
+
+.remove-item:after {
+
+  transform: rotate(135deg);
+}
+
+.remove-item:hover {
+  border-color: rgba(200,0,0,.5);
+}
+
 
 .item-container div,
 .add-item div {
@@ -44,10 +108,8 @@
   width: 1.8rem;
   border-radius: 10rem;
   cursor: pointer;
-}
-
-.unchecked {
-  background-color: red;
+  /* border: 1px solid red; */
+  z-index: 6;
 }
 
 .item-container .item-check {
@@ -59,11 +121,12 @@
 }
 
 .item-container .unchecked {
-  background-color: rgba(78, 169, 242, 1);
+  /* background-color: rgba(78, 169, 242, 1); */
+  border: 2px solid rgba(200,0,0,.5);
 }
 
 .item-container .checked {
-  background-color: rgba(33, 150, 243, 1);
+  border: 2px solid rgba(0,150,0,.7);
 }
 
 /* START checked pipe */
@@ -72,11 +135,11 @@
   content: '';
   position: absolute;
   display: block;
-  left: .64rem;
-  top: .35rem;
+  left: .55rem;
+  top: .3rem;
   width: .3125rem;
   height: .635rem;
-  border: solid white;
+  border: solid rgba(0,150,150,.7);
   border-width:  0 .1875rem .1875rem 0;
   transform: rotate(45deg);
 }
@@ -117,18 +180,23 @@
  /* START unchecked checkmark hover */
 
  .unchecked:hover {
-   background-color: rgba(33, 150, 243, 1);
+   background-color: rgba(140, 140, 140, .4);
+   border-color: rgba(0,150,0,.7);
+ }
+
+ .unchecked:hover ~ + .item-container {
+   background-color: red;
  }
 
 .item-container .unchecked:hover::after {
   content: '';
   position: absolute;
   display: block;
-  left: .64rem;
-  top: .35rem;
+  left: .55rem;
+  top: .3rem;
   width: .3125rem;
   height: .635rem;
-  border: solid white;
+  border: solid rgba(0,150,0,.7);
   border-width:  0 .1875rem .1875rem 0;
   transform: rotate(45deg);
 }
@@ -143,10 +211,14 @@
 /* START checked checkmark hover */
 
 .checked:hover {
-  background-color: rgba(78, 169, 242, 1);
+  border-color: rgba(200,0,0,.5);
+}
+.item-container .checked:hover:after,
+.item-container .checked:hover:before {
+  display: none;
 }
 
-.item-container .checked:hover::after {
+/* .item-container .checked:hover::after {
    content: '';
    position: absolute;
    display: block;
@@ -170,7 +242,7 @@
    border: solid black;
    border-width:  0 0 0 0;
    transform: rotate(45deg);
- }
+ } */
 
 /* END checked checkmark hover */
 
@@ -208,25 +280,26 @@
   outline: 0;
 }
 
-.remove-item {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 8%;
+
+
+.uncompleted-items:before,
+.completed-items:before {
+  content: "Feladatok";
+  display: block;
+  color: rgba(140,140,140, .9);
+  font-family:monospace;
   font-size: 1.5rem;
-  height: 100%;
-  line-height: 3rem;
-  vertical-align: middle;
-  user-select: none;
-  border-radius: 0 1rem 1rem 0;
-  background-color: rgba(140, 140, 140, .5);
-  color: rgba(0,0,0,.8);
-  text-align: center;
-  z-index:2;
-  cursor: pointer;
+  font-weight: lighter;
+  border-bottom: 1px solid rgba(140,140,140,.9);
+  margin-bottom: 1rem;
 }
 
-.remove-item:hover {
-  background-color: rgba(100, 100, 100, 1);
-  color: #fff;
+.completed-items:before {
+  content: "Elkészült feladatok"
+}
+
+.uncompleted-items:after {
+  content: "";
+  display: block;
+  margin-bottom: 2rem;
 }

@@ -20,9 +20,9 @@ class App extends Component {
     const localUser = JSON.parse(localStorage.getItem("user"));
     if(localUser) {
       console.log(`Van localUser: ${localUser}`);
+      this.loadTodos();
       this.setState({ user: localUser});
       this.setState({ login: true });
-      this.loadTodos();
     }
     // if(user && user !== "" && user !== null) {
     //   const { uid } = this.state.user;
@@ -33,7 +33,6 @@ class App extends Component {
   }
 
   loadTodos = () => {
-    console.log("todo");
     this.ref = base.syncState("todos", {
       context: this,
       state: "todos"
@@ -77,6 +76,7 @@ class App extends Component {
     this.setState({ login: true});
     this.setState({ user: user });
     this.moveUrlTo(`/${user.uid}`);
+    this.loadTodos();
   }
 
   userLogout = () => {

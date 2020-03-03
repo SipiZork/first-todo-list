@@ -11,12 +11,28 @@ body {
 
 .fluid-container {
   min-height: 100vh;
+  position: relative;
+}
+
+.fluid-container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.open-menu {
+  min-height: 100%;
+  position: relative;
+  display: block;
+  float: left;
+  width: 30%;
 }
 
 .menu {
-  min-height: 100%;
+  min-height: 100vh;
+  opacity: 1;
   background-color: rgba(255,255,255,.7);
-  width: 30%;
+  width: 100%;
   float: left;
   overflow-x: hidden;
 }
@@ -27,4 +43,9 @@ body {
   float: left;
   font-family: serif;
   font-size: 1.25rem;
+}
+
+.actual-todo h2 {
+  font-family: monospace;
+  font-weight: lighter;
 }
