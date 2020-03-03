@@ -54,7 +54,7 @@
   /* background-color: rgba(140, 140, 140, .5); */
   color: rgba(0,0,0,.8);
   text-align: center;
-  z-index:2;
+  z-index:1;
   cursor: pointer;
 }
 
@@ -109,7 +109,7 @@
   border-radius: 10rem;
   cursor: pointer;
   /* border: 1px solid red; */
-  z-index: 6;
+  z-index: 1;
 }
 
 .item-container .item-check {
@@ -139,7 +139,7 @@
   top: .3rem;
   width: .3125rem;
   height: .635rem;
-  border: solid rgba(0,150,150,.7);
+  border: solid rgba(0,150,0,.7);
   border-width:  0 .1875rem .1875rem 0;
   transform: rotate(45deg);
 }
