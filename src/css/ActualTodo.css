@@ -268,9 +268,10 @@
   font-size: 1.25rem;
   min-height: 3rem;
   max-height: 15rem;
-  width: 100%;
+  width: 95%;
   background-color: rgba(0,0,0,0);
   border: none;
+  /* border: 2px solid red; */
   resize: none;
 
 }
@@ -279,8 +280,6 @@
 .add-item:focus {
   outline: 0;
 }
-
-
 
 .uncompleted-items:before,
 .completed-items:before {

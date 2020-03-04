@@ -66,15 +66,16 @@ class TodoMenu extends Component {
                   toggleMenu={this.toggleMenu}
                 />
               ))}
-              <form onSubmit={(e) => this.createTodoList(e)}>
+              <form className="add-todo-form" onSubmit={(e) => this.createTodoList(e)}>
                 <input
                   type="text"
                   name="addTodo"
                   className="add-todo"
-                  placeholder="Lista hozzáadása"
+                  // placeholder="Lista hozzáadása"
                   autoComplete="off"
                   value={this.state.value}
                   onChange={this.handleChange}/>
+                <div className="input-text">Lista hozzáadása</div>
               </form>
             </div>
           </div>
