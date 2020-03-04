@@ -15,14 +15,13 @@ class TodoList extends Component {
         <div className="todo-list-container">
           <div className="list-item" onClick={() => this.openTodoList(id)}>
             {details.name}
-              </div>
-                <div className="list-remove" onClick={() => this.props.removeListFromTodos(id)}>
-                  X
-                </div>
-              </div>
-              </Fragment>
-              )
-              }
+          </div>
+          <div className="list-remove" onClick={() => this.props.removeListFromTodos(id)}>
+          </div>
+        </div>
+      </Fragment>
+    )
+  }
 
   render() {
     const { details } = this.props;

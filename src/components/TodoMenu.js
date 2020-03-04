@@ -5,7 +5,7 @@ class TodoMenu extends Component {
 
   state = {
     value: "",
-    menu: false
+    menu: true
   }
 
   handleChange = e => {
@@ -47,14 +47,14 @@ class TodoMenu extends Component {
           <div className="menu">
             <div className="user">
               <div className="logout" onClick={this.props.logout}>
-                X
+                →
               </div>
               <div className="user-email">
                 {this.props.user.email}
               </div>
             </div>
             <div className="todos">
-              <p>Listák</p>
+              {/* <p>Listák</p> */}
               {Object.keys(this.props.todos).map(key => (
                 <TodoList
                   key={key}
