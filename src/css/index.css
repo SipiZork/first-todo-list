@@ -48,3 +48,24 @@ body {
   font-family: monospace;
   font-weight: lighter;
 }
+
+
+@media only screen and (max-width: 1200px) {
+  .open-menu {
+    width: 30%;
+  }
+
+  .actual-todo {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .open-menu {
+    width: 40%;
+  }
+
+  .actual-todo {
+    width: 60%;
+  }
+}
