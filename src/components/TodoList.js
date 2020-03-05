@@ -27,7 +27,7 @@ class TodoList extends Component {
     const { details } = this.props;
     return (
       <Fragment>
-        {details.owner === this.props.user.uid || this.props.user.uid === "bT2wW9DHRJc5mVNXAoU3BjDEbHZ2" ? this.createTodo() : ""}
+        {this.createTodo()}
       </Fragment>
     )
   }
