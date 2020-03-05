@@ -6,13 +6,18 @@ class TodoMenu extends Component {
 
   state = {
     value: "",
-    menu: true,
+    menu: false,
     classes: "add-todo"
   }
 
   handleChange = e => {
-    this.setState({ value: e.target.value})
-    if(e.target.value && e.target.value !== "") {
+    let val = e.target.value
+    if(val.length > 25) {
+      val.substring(0, val.length - 1);
+    } else {
+      this.setState({ value: val})
+    }
+    if(val && val !== "") {
       this.setState({ classes: "add-todo focused" });
     } else {
       this.setState({ classes: "add-todo" });

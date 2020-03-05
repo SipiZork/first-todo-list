@@ -42,7 +42,7 @@
 
 .menu .user {
   position: relative;
-  padding: .25rem .4rem;
+  padding: 1rem;
   height: 3rem;
   /* border: 1px solid green; */
 }
@@ -57,19 +57,6 @@
   display: block;
 }
 
-.menu .user .user-email {
-  font-family: monospace;
-  font-size: 1.5rem;
-  margin-right: .25rem;
-  height: 2rem;
-  line-height: 1.5rem;
-  /* border: 1px solid red; */
-  color: rgba(140,140,140,1);
-  transition: all .2s ease-in-out;
-  cursor: pointer;
-}
-
-
 .menu .logout {
   /* border: 1px solid red; */
   height: 1.5rem;
@@ -80,7 +67,7 @@
   font-family: monospace;
   border-radius: 10rem;
   color: rgba(140,140,140,1);
-  /* background-color: rgba(0,0,0,.2); */
+   /* background-color: rgba(0,0,0,.2); */
   cursor: pointer;
   z-index: 1;
   transition: all .2s ease-in-out;

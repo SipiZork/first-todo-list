@@ -5,6 +5,23 @@ import TextField from "@material-ui/core/TextField";
 import { TextareaAutosize } from "@material-ui/core";
 
 class ActualTodo extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      name: ""
+    }
+  }
+  // state = {
+  //   name: ...this.props.actualTodo
+  // }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.actualTodo !== undefined){
+      if(prevProps.actualTodo !== this.props.actualTodo) {
+        this.setState({name: this.props.actualTodo.name});
+      }
+    }
+  }
 
   listUncompletedItems = key => {
     const item = this.props.actualTodo[key];
@@ -111,6 +128,26 @@ class ActualTodo extends Component {
     this.props.modifyItem(item, newText);
   }
 
+  changeNameHandler = e => {
+    let val = e.target.value;
+    if(val.length > 25) {
+      val.substring(0, val.length - 1);
+    } else {
+      this.setState({ name: val})
+    }
+  }
+
+  changeName = (e, onHow) => {
+    e.preventDefault();
+
+    if(onHow === "submit"){
+      this.props.changeName(e.target.name.value);
+      e.target.name.blur();
+    } else if(onHow === "blur") {
+      this.props.changeName(e.target.value);
+    }
+  }
+
   render() {
     const actualTodo = this.props.actualTodo;
     if(actualTodo !== undefined){
@@ -118,7 +155,17 @@ class ActualTodo extends Component {
       return (
         <Fragment>
           <h2>
-            {actualTodo.name} {this.props.user.uid !== actualTodo.owner ? " !! Nem a saját feladat listád !!" : "" }
+            <form onSubmit={(e) => this.changeName(e, "submit")}>
+              <input
+                type="text"
+                name="name"
+                value={this.state.name}
+                autoComplete="off"
+                onChange={(e) => this.changeNameHandler(e)}
+                onBlur={(e) => this.changeName(e, "blur")}
+              />
+            </form>
+              {actualTodo.name} {this.props.user.uid !== actualTodo.owner ? " !! Nem a saját feladat listád !!" : "" }
           </h2>
           <div className="uncompleted-items">
             {todoIds.map(this.listUncompletedItems)}
@@ -142,7 +189,7 @@ class ActualTodo extends Component {
       )
     }
     return (
-      "Kattins egy létező listára"
+      "Kattins egy létező listára vagy hozz lére egyet új listát!"
     )
   }
 }

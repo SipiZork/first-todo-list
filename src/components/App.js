@@ -4,6 +4,7 @@ import TodoMenu from './TodoMenu';
 import ActualTodo from './ActualTodo';
 import Login from './Login';
 import base, { auth } from "../base";
+import firebase from 'firebase';
 
 class App extends Component {
 
@@ -19,10 +20,9 @@ class App extends Component {
     console.log(todoId);
     const localUser = JSON.parse(localStorage.getItem("user"));
     if(localUser) {
-      console.log(`Van localUser: ${localUser}`);
-      this.loadTodos();
       this.setState({ user: localUser});
       this.setState({ login: true });
+      this.loadTodos(localUser);
     }
     // if(user && user !== "" && user !== null) {
     //   const { uid } = this.state.user;
@@ -32,8 +32,39 @@ class App extends Component {
     // }
   }
 
-  loadTodos = () => {
-    this.ref = base.syncState("todos", {
+  loadTodos = localUser => {
+
+    // const baseRef = base.fetch("todos/bT2wW9DHRJc5mVNXAoU3BjDEbHZ2", {
+    //   context: this,
+    //   asArray: true,
+    //   then(data) {
+    //     console.log(data);
+    //   }
+    // });
+
+    // let baseRef = null;
+    // var firebaseRef = firebase.database().ref("todos/todo1583435234632")
+    // .once('value').then(snapshot => {
+    //   if(snapshot.node_.value_ == undefined) {
+    //     firebaseRef.child("asd").set("tmptext");
+    //   } else {
+    //     baseRef = firebaseRef;
+    //   }
+    // });
+
+
+    // firebaseRef.child("bT2wW9DHRJc5mVNXAoU3BjDEbHZ2").transaction(currentData => {
+    //   if(currentData === null) {
+    //     console.log(currentData);
+    //   }else {
+    //     console.log("Létezik a felhaszánló");
+    //   }
+    // });
+    // console.log("asd:" + firebaseRef.child("bT2wW9DHRJc5mVNXAoU3BjDEbHZ2").getValue());
+    // Object.keys(userRef).map(key => "hello" + console.log(key));
+
+    // console.log("user" + localUser.uid);
+    this.ref = base.syncState(`todos/${localUser.uid}`, {
       context: this,
       state: "todos"
     });
@@ -44,7 +75,6 @@ class App extends Component {
     const { userId, todoId } = this.props.match.params;
     const user = this.state.user;
     if(user && user !== "" && user !== null) {
-      console.log(user);
       this.props.history.push(`/${user.uid}`);
       this.setState({ login: true });
     }
@@ -73,10 +103,10 @@ class App extends Component {
   }
 
   userLogin = user => {
-    this.setState({ login: true});
+    this.setState({ login: true });
     this.setState({ user: user });
     this.moveUrlTo(`/${user.uid}`);
-    this.loadTodos();
+    this.loadTodos(user);
   }
 
   userLogout = () => {
@@ -166,6 +196,14 @@ class App extends Component {
     this.setState({ todos });
   }
 
+  changeName = name => {
+    // console.log(this.state.todos[this.state.actualTodo].name);
+    const todos = { ...this.state.todos };
+    todos[this.state.actualTodo].name = name;
+    this.setState({ todos });
+    console.log("siker");
+  }
+
   renderActualTodo = () => {
     return (
       <Fragment>
@@ -176,6 +214,7 @@ class App extends Component {
             addToActualList={this.addToActualList}
             removeFromActualList={this.removeFromActualList}
             modifyItem={this.modifyItem}
+            changeName={this.changeName}
             user={this.state.user}
           />
         </div>
@@ -196,6 +235,18 @@ class App extends Component {
   moveUrlTo = (path) => {
     this.props.history.push(path);
   }
+
+  // mineTodos = todoId => {
+  //   const todo = this.state.todos[todoId];
+  //   const user = this.state.user;
+  //   if(todo.owner !== user.uid) {
+  //     const todos = {...this.state.todos};
+  //     todos[todoId] = null;
+  //     this.setState({ todos });
+  //   } else {
+  //     console.log("Ez a te listád");
+  //   }
+  // }
 
   renderContent = () => {
     const { login } = this.state;
@@ -230,6 +281,9 @@ class App extends Component {
 
     return (
       <Fragment>
+        {/* {Object.keys(this.state.todos).map(todoId => {
+          this.mineTodos(todoId);
+        })} */}
         {this.renderContent()}
       </Fragment>
     );
