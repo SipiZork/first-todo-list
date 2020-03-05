@@ -1,15 +1,22 @@
 import React, { Component, Fragment } from "react";
-import TodoList from './TodoList.js'
+import TodoList from './TodoList.js';
+import TextField from './TextField';
 
 class TodoMenu extends Component {
 
   state = {
     value: "",
-    menu: true
+    menu: true,
+    classes: "add-todo"
   }
 
   handleChange = e => {
     this.setState({ value: e.target.value})
+    if(e.target.value && e.target.value !== "") {
+      this.setState({ classes: "add-todo focused" });
+    } else {
+      this.setState({ classes: "add-todo" });
+    }
   }
 
   createTodoList = e => {
@@ -19,7 +26,9 @@ class TodoMenu extends Component {
       owner: this.props.user.uid
     }
     this.props.addTodoList(list);
-    this.setState({ value: "" });
+    this.setState({ value: "", classes: "add-todo", menu: false });
+    e.target.addTodo.value = "";
+    e.target.addTodo.blur();
   }
 
   toggleMenu = () => {
@@ -49,9 +58,6 @@ class TodoMenu extends Component {
               <div className="logout" onClick={this.props.logout}>
                 →
               </div>
-              <div className="user-email">
-                {this.props.user.email}
-              </div>
             </div>
             <div className="todos">
               {/* <p>Listák</p> */}
@@ -70,11 +76,17 @@ class TodoMenu extends Component {
                 <input
                   type="text"
                   name="addTodo"
-                  className="add-todo"
+                  className={this.state.classes}
                   // placeholder="Lista hozzáadása"
                   autoComplete="off"
                   value={this.state.value}
                   onChange={this.handleChange}/>
+                {/* <TextField type="text"
+                  name="addTodo"
+                  className="add-todo"
+                  autoComplete="off"
+                  value={this.state.value}
+                onChange={this.handleChange}></TextField> */}
                 <div className="input-text">Lista hozzáadása</div>
               </form>
             </div>

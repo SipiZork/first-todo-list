@@ -87,13 +87,7 @@
 }
 
 .menu .logout:hover {
-  transform: translateX(-.25rem) translateY(.25rem) scale(1.2);
   /* background-color: rgba(0,0,0,.8); */
-  color: rgba(255,255,255,1);
-}
-
-.menu .logout:hover ~ .user-email {
-  transform: translateX(-.9rem) translateY(.2rem) scale(1.1);
   color: rgba(255,255,255,1);
 }
 
@@ -133,20 +127,39 @@
 .menu .todos .add-todo:hover,
 .menu .todos .add-todo:focus {
   transform: translateX(0);
-  padding-left: .75rem
+  padding-left: .75rem;
+  background-color: rgba(140,140,140,1);
 }
 
 .menu .todos .add-todo:hover ~ .input-text {
-  color: rgba(255,255,255,1);
+  color: rgba(255,255,255,.8);
 }
 
 .menu .todos .list-item:hover ~ .list-remove{
   transform: translateX(0);
 }
 
+.menu .add-todo:focus + .input-text {
+  font-size: 1rem;
+  color: rgba(255,255,255,.8);
+  transform: translateX(0) translateY(-.65rem);
+}
+
+.menu .add-todo.focused + .input-text {
+  font-size: 1rem;
+  color: rgba(255,255,255,1);
+  transform: translateX(0) translateY(-.65rem);
+}
+
+.menu .add-todo.focused{
+  background-color: rgba(140,140,140,1);
+}
+
 .menu .todos .add-todo {
   cursor: auto;
   border-radius: 0 10rem 10rem 0;
+  padding-top: 1rem;
+  /* border: 1px solid red; */
   width: 95%;
 }
 
@@ -234,13 +247,6 @@ input:focus {
   pointer-events: none;
   transition: all .4s ease;
 }
-
-.menu .add-todo:focus + .input-text {
-  font-size: 1.25rem;
-  color: rgba(255,255,255,1);
-  transform: translateX(-.25rem) translateY(-1.25rem);
-}
-
 
 
 @media only screen and (max-width: 992px) {
@@ -348,7 +354,7 @@ input:focus {
     display: block;
     transition: all .4s ease-in-out;
     z-index: 1;
-    border-right: 3px solid rgba(100,100,100,1);
+    border-right: 2px solid rgba(100,100,100,.5);
   }
 
   .actual-todo {
