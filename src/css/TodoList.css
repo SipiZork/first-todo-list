@@ -248,10 +248,9 @@ input:focus {
   transition: all .4s ease;
 }
 
-
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 992px) {
   :root {
-    --menu-width: 100%;
+    --menu-width: 20rem;
   }
 
   .open-menu {
@@ -349,6 +348,11 @@ input:focus {
     transform: translateX(0);
   }
 
+  .actual-todo {
+    padding-left: 7%;
+    width: 100%;
+  }
+
   .menu {
     position: fixed;
     width: var(--menu-width);
@@ -361,10 +365,27 @@ input:focus {
     border-right: 2px solid rgba(100,100,100,.5);
   }
 
-  .actual-todo {
-    padding-left: 7%;
-    width: 100%;
+}
+
+
+@media only screen and (max-width: 768px) {
+  :root {
+    --menu-width: 100%;
   }
+
+
+  .menu {
+    position: fixed;
+    width: var(--menu-width);
+    top: 0;
+    left: 0;
+    transform: translateX(calc(-1* var(--menu-width)));
+    display: block;
+    transition: all .4s ease-in-out;
+    z-index: 1;
+    border-right: 2px solid rgba(100,100,100,.5);
+  }
+
 }
 
 /* @media only screen and (max-width: 768px) {
