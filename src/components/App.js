@@ -17,7 +17,6 @@ class App extends Component {
 
   componentWillMount() {
     const { todoId } = this.props.match.params;
-    console.log(todoId);
     const localUser = JSON.parse(localStorage.getItem("user"));
     if(localUser) {
       this.setState({ user: localUser});
@@ -204,33 +203,45 @@ class App extends Component {
     console.log("siker");
   }
 
-  renderActualTodo = () => {
-    return (
-      <Fragment>
-        <div className="actual-todo">
-          <ActualTodo
-            actualTodo={this.state.todos[this.state.actualTodo]}
-            itemCompleted={this.itemCompleted}
-            addToActualList={this.addToActualList}
-            removeFromActualList={this.removeFromActualList}
-            modifyItem={this.modifyItem}
-            changeName={this.changeName}
-            user={this.state.user}
-          />
-        </div>
-      </Fragment>
-    )
+  renderActualTodo = renderWhat => {
+    if(renderWhat === "full"){
+      return (
+        <Fragment>
+          <div className="actual-todo">
+            <ActualTodo
+              actualTodo={this.state.todos[this.state.actualTodo]}
+              itemCompleted={this.itemCompleted}
+              addToActualList={this.addToActualList}
+              removeFromActualList={this.removeFromActualList}
+              modifyItem={this.modifyItem}
+              changeName={this.changeName}
+              user={this.state.user}
+            />
+          </div>
+        </Fragment>
+      )
+    } else {
+      return(
+        <Fragment>
+          <div className="actual-todo">
+            <ActualTodo
+
+            />
+          </div>
+        </Fragment>
+      )
+    }
   }
 
-  trying = () => {
-    return (
-      <Fragment>
-        <div className="actual-todo">
-          <p>Kattints  egy listára, hogy betöltsük azt, vagy hozz létre egy új listát!</p>
-        </div>
-      </Fragment>
-    )
-  }
+  // trying = () => {
+  //   return (
+  //     <Fragment>
+  //       <div className="actual-todo">
+  //         <p>Kattints  egy listára, hogy betöltsük azt, vagy hozz létre egy új listát!</p>
+  //       </div>
+  //     </Fragment>
+  //   )
+  // }
 
   moveUrlTo = (path) => {
     this.props.history.push(path);
@@ -271,7 +282,7 @@ class App extends Component {
             user={this.state.user}
             logout={this.userLogout}
           />
-          {todoId && todoId !== null ? this.renderActualTodo() : this.trying()}
+          {todoId && todoId !== null ? this.renderActualTodo("full") : this.renderActualTodo("empty")}
         </Fragment>
       )
     }
@@ -281,9 +292,6 @@ class App extends Component {
 
     return (
       <Fragment>
-        {/* {Object.keys(this.state.todos).map(todoId => {
-          this.mineTodos(todoId);
-        })} */}
         {this.renderContent()}
       </Fragment>
     );

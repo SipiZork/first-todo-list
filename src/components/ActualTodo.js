@@ -8,17 +8,20 @@ class ActualTodo extends Component {
   constructor(props){
     super(props);
     this.state = {
-      name: ""
+      name: "",
+      first: true
     }
   }
   // state = {
   //   name: ...this.props.actualTodo
   // }
 
+
   componentDidUpdate(prevProps) {
+    console.log("benne vagyunk az actual didupdate-be");
     if(this.props.actualTodo !== undefined){
-      if(prevProps.actualTodo !== this.props.actualTodo) {
-        this.setState({name: this.props.actualTodo.name});
+      if(prevProps.actualTodo !== this.props.actualTodo ) {
+        this.setState({first: false, name: this.props.actualTodo.name});
       }
     }
   }
@@ -151,6 +154,7 @@ class ActualTodo extends Component {
   render() {
     const actualTodo = this.props.actualTodo;
     if(actualTodo !== undefined){
+      // {this.loadName(actualTodo)}
       const todoIds = Object.keys(actualTodo);
       return (
         <Fragment>
@@ -165,7 +169,7 @@ class ActualTodo extends Component {
                 onBlur={(e) => this.changeName(e, "blur")}
               />
             </form>
-              {actualTodo.name} {this.props.user.uid !== actualTodo.owner ? " !! Nem a saját feladat listád !!" : "" }
+            {actualTodo.name} {this.props.user.uid !== actualTodo.owner ? " !! Nem a saját feladat listád !!" : "" }
           </h2>
           <div className="uncompleted-items">
             {todoIds.map(this.listUncompletedItems)}
