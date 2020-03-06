@@ -24,7 +24,6 @@ class TodoList extends Component {
   }
 
   render() {
-    const { details } = this.props;
     return (
       <Fragment>
         {this.createTodo()}

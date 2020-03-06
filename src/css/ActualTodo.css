@@ -27,37 +27,39 @@
   border: 1px solid rgba(255,255,255,.4);
 }
 
+
 .item-title {
-  /* border: 1px solid red; */
   margin: 2rem 0;
   position: relative;
 }
 
-.item-title < div {
+.item-title > div {
+  font-size: 30rem;
   position: absolute;
-  line-height: 2.5rem;
-  top: 0;
+  top: .5rem;
   left: .5rem;
   font-family: monospace;
   font-size: 1.5rem;
+  pointer-events: none;
 }
 
-.item-title input:focus ~ div{
-  font-size: 5rem;
+.item-title .title ~ div{
+  top: .2rem;
+  font-size: 1rem;
+  color: rgba(80,80,80,1);
 }
 
-.item-title input {
+.item-title .title {
   width: 100%;
   border: none;
   background-color: rgba(140,140,140,.5);
   height: 2.5rem;
-  line-height: 2.5rem;
-  padding: 1rem 3rem;
+  padding: 1.6rem 1rem .5rem;
   font-family: monospace;
   font-size: 1.5rem;
 }
 
-.item-title input:focus {
+.item-title .title:focus {
   border: var(--inputFocusBorder);
 }
 
@@ -80,6 +82,7 @@
   background-color: rgba(140, 140, 140, 0.5);
   padding-top: .85rem;
   line-height: 1.4rem;
+  resize: none;
 }
 
 .remove-item {
@@ -343,4 +346,8 @@
   content: "";
   display: block;
   margin-bottom: 2rem;
+}
+
+.actual-todo-error {
+  margin-top: 1.5rem;
 }

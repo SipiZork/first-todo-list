@@ -132,6 +132,10 @@
   transform: translateX(0) translateY(-.65rem);
 }
 
+.menu .add-todo:hover ~ div {
+  color: rgba(255,255,255,.8);
+}
+
 .menu .add-todo.focused ~ div {
   font-size: 1rem;
   color: rgba(255,255,255,1);
@@ -146,6 +150,7 @@
   cursor: auto;
   border-radius: 0 10rem 10rem 0;
   padding-top: 1rem;
+  color: rgba(255,255,255,.8);
   /* border: 1px solid red; */
   width: 95%;
 }
@@ -222,7 +227,6 @@ input:focus {
 }
 
 .menu .add-todo-form > div {
-  content: "Lista Hozzáadása";
   position: absolute;
   top: 0;
   left: 0;

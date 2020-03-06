@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import '../css/ActualTodo.css';
 // import TextAreaAutoSize from 'react-autosize-textarea';
-import TextField from "@material-ui/core/TextField";
+// import TextField from "@material-ui/core/TextField";
 import { TextareaAutosize } from "@material-ui/core";
 
 class ActualTodo extends Component {
@@ -9,13 +9,8 @@ class ActualTodo extends Component {
       name: "",
       first: true
     }
-  // state = {
-  //   name: ...this.props.actualTodo
-  // }
-
 
   componentDidUpdate(prevProps) {
-    console.log("benne vagyunk az actual didupdate-be");
     if(this.props.actualTodo !== undefined){
       if(prevProps.actualTodo !== this.props.actualTodo ) {
         this.setState({first: false, name: this.props.actualTodo.name});
@@ -163,19 +158,18 @@ class ActualTodo extends Component {
       const todoIds = Object.keys(actualTodo);
       return (
         <Fragment>
-          <div className="item-title">
-            <form onSubmit={(e) => this.changeName(e, "submit")}>
-              <input
-                type="text"
-                name="name"
-                value={this.state.name}
-                autoComplete="off"
-                onChange={(e) => this.changeNameHandler(e)}
-                onBlur={(e) => this.changeName(e, "blur")}
-              />
-              <div>Cím:</div>
-            </form>
-          </div>
+          <form className="item-title" onSubmit={(e) => this.changeName(e, "submit")}>
+            <input
+              type="text"
+              name="name"
+              className="title"
+              value={this.state.name}
+              autoComplete="off"
+              onChange={(e) => this.changeNameHandler(e)}
+              onBlur={(e) => this.changeName(e, "blur")}
+            />
+            <div>Cím</div>
+          </form>
           <div className="uncompleted-items">
             {todoIds.map(this.listUncompletedItems)}
 
@@ -197,7 +191,9 @@ class ActualTodo extends Component {
       )
     }
     return (
-      "Kattins egy létező listára vagy hozz lére egyet új listát!"
+      <div className="actual-todo-error">
+        Kattins egy létező listára vagy hozz lére egyet új listát!
+      </div>
     )
   }
 }
