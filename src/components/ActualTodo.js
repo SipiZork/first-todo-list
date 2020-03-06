@@ -5,13 +5,10 @@ import TextField from "@material-ui/core/TextField";
 import { TextareaAutosize } from "@material-ui/core";
 
 class ActualTodo extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
+  state = {
       name: "",
       first: true
     }
-  }
   // state = {
   //   name: ...this.props.actualTodo
   // }
@@ -142,12 +139,20 @@ class ActualTodo extends Component {
 
   changeName = (e, onHow) => {
     e.preventDefault();
-
+    let text = ""
     if(onHow === "submit"){
-      this.props.changeName(e.target.name.value);
+      text = e.target.name.value;
       e.target.name.blur();
     } else if(onHow === "blur") {
-      this.props.changeName(e.target.value);
+      text = e.target.value;
+    }
+    if( text.length > 0 && text.length < 26) {
+      this.props.changeName(text)
+    } else {
+      console.log("üres mező");
+      this.setState({
+        name: this.props.actualTodo.name
+      });
     }
   }
 
@@ -158,7 +163,7 @@ class ActualTodo extends Component {
       const todoIds = Object.keys(actualTodo);
       return (
         <Fragment>
-          <h2>
+          <div className="item-title">
             <form onSubmit={(e) => this.changeName(e, "submit")}>
               <input
                 type="text"
@@ -168,9 +173,9 @@ class ActualTodo extends Component {
                 onChange={(e) => this.changeNameHandler(e)}
                 onBlur={(e) => this.changeName(e, "blur")}
               />
+              <div>Cím:</div>
             </form>
-            {actualTodo.name} {this.props.user.uid !== actualTodo.owner ? " !! Nem a saját feladat listád !!" : "" }
-          </h2>
+          </div>
           <div className="uncompleted-items">
             {todoIds.map(this.listUncompletedItems)}
 
@@ -179,7 +184,6 @@ class ActualTodo extends Component {
                 name="newItem"
                 className="add-item"
                 placeholder="Feladat hozzáadása"
-                rowsMax={10}
                 autoComplete="off"
                 onKeyPress={(e) => this.addItemKeyHandler(e)}
                 onBlur={(e) => this.createItem(e, "onblur")}

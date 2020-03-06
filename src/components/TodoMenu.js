@@ -92,7 +92,7 @@ class TodoMenu extends Component {
                   autoComplete="off"
                   value={this.state.value}
                 onChange={this.handleChange}></TextField> */}
-                <div className="input-text">Lista hozzáadása</div>
+                <div>Lista hozzáadása</div>
               </form>
             </div>
           </div>

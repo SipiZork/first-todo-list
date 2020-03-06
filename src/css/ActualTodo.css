@@ -1,3 +1,12 @@
+:root{
+  --inputFocusBorder: 1px solid rgba(111, 198, 227, 1);
+}
+
+.actual-todo input:focus,
+.actual-todo .add-item:focus,
+.actual-todo .item-text .item:focus {
+  border: var(--inputFocusBorder);
+}
 
 .item-container,
 .add-item {
@@ -16,6 +25,40 @@
   font-family: monospace;
   min-height: 3rem;
   border: 1px solid rgba(255,255,255,.4);
+}
+
+.item-title {
+  /* border: 1px solid red; */
+  margin: 2rem 0;
+  position: relative;
+}
+
+.item-title < div {
+  position: absolute;
+  line-height: 2.5rem;
+  top: 0;
+  left: .5rem;
+  font-family: monospace;
+  font-size: 1.5rem;
+}
+
+.item-title input:focus ~ div{
+  font-size: 5rem;
+}
+
+.item-title input {
+  width: 100%;
+  border: none;
+  background-color: rgba(140,140,140,.5);
+  height: 2.5rem;
+  line-height: 2.5rem;
+  padding: 1rem 3rem;
+  font-family: monospace;
+  font-size: 1.5rem;
+}
+
+.item-title input:focus {
+  border: var(--inputFocusBorder);
 }
 
 .item-container:after {

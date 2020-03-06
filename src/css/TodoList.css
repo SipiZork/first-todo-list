@@ -126,13 +126,13 @@
   transform: translateX(0);
 }
 
-.menu .add-todo:focus + .input-text {
+.menu .add-todo:focus ~ div {
   font-size: 1rem;
   color: rgba(255,255,255,.8);
   transform: translateX(0) translateY(-.65rem);
 }
 
-.menu .add-todo.focused + .input-text {
+.menu .add-todo.focused ~ div {
   font-size: 1rem;
   color: rgba(255,255,255,1);
   transform: translateX(0) translateY(-.65rem);
@@ -221,7 +221,8 @@ input:focus {
   /* border: 1px solid green; */
 }
 
-.menu .add-todo-form .input-text {
+.menu .add-todo-form > div {
+  content: "Lista Hozzáadása";
   position: absolute;
   top: 0;
   left: 0;
