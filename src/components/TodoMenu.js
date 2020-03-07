@@ -7,7 +7,7 @@ class TodoMenu extends Component {
   state = {
     value: "",
     menu: false,
-    classes: "add-todo"
+    classes: "add-todo textfield"
   }
 
   handleChange = e => {
@@ -18,9 +18,9 @@ class TodoMenu extends Component {
       this.setState({ value: val})
     }
     if(val && val !== "") {
-      this.setState({ classes: "add-todo focused" });
+      this.setState({ classes: "add-todo textfield focused" });
     } else {
-      this.setState({ classes: "add-todo" });
+      this.setState({ classes: "add-todo textfield" });
     }
   }
 
@@ -31,7 +31,7 @@ class TodoMenu extends Component {
       owner: this.props.user.uid
     }
     this.props.addTodoList(list);
-    this.setState({ value: "", classes: "add-todo", menu: false });
+    this.setState({ value: "", classes: "add-todo textfield", menu: false });
     e.target.addTodo.value = "";
     e.target.addTodo.blur();
   }
@@ -77,7 +77,7 @@ class TodoMenu extends Component {
                   toggleMenu={this.toggleMenu}
                 />
               ))}
-              <form className="add-todo-form" onSubmit={(e) => this.createTodoList(e)}>
+              <form className="add-todo-form textfield-form" onSubmit={(e) => this.createTodoList(e)}>
                 <input
                   type="text"
                   name="addTodo"

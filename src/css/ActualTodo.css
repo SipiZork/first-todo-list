@@ -81,6 +81,7 @@
   cursor: auto;
   background-color: rgba(140, 140, 140, 0.5);
   padding-top: .85rem;
+  padding-left: 1.5rem;
   line-height: 1.4rem;
   resize: none;
 }

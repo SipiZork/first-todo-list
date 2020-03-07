@@ -7,7 +7,8 @@ import { TextareaAutosize } from "@material-ui/core";
 class ActualTodo extends Component {
   state = {
       name: "",
-      first: true
+      first: true,
+      classes: "add-item textfield"
     }
 
   componentDidUpdate(prevProps) {
@@ -35,7 +36,7 @@ class ActualTodo extends Component {
                   defaultValue={item.text}
                   autoComplete="off"
                   className="item"
-                  onKeyPress={(e) => this.editIteyKeyHandler(e, item)}
+                  onKeyPress={(e) => this.editItemKeyHandler(e, item)}
                 >
                 </TextareaAutosize>
               </form>
@@ -54,19 +55,19 @@ class ActualTodo extends Component {
       return
     }
     if(item.completed === true)
-      return (
-        <Fragment key={key}>
-          <div className="item-container">
-            <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}></div>
-            <div className="item-text" htmlFor={item.index}>
-              <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
-                <TextareaAutosize
-                  name="text"
-                  key={key}
-                  defaultValue={item.text}
-                  autoComplete="off"
-                  className="item"
-                  onKeyPress={(e) => this.editIteyKeyHandler(e, item)}
+    return (
+      <Fragment key={key}>
+        <div className="item-container">
+          <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}></div>
+          <div className="item-text" htmlFor={item.index}>
+            <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
+              <TextareaAutosize
+                name="text"
+                key={key}
+                defaultValue={item.text}
+                autoComplete="off"
+                className="item"
+                onKeyPress={(e) => this.editItemKeyHandler(e, item)}
                 >
                 </TextareaAutosize>
               </form>
@@ -85,15 +86,27 @@ class ActualTodo extends Component {
     }
   }
 
-  editIteyKeyHandler = (e, item) => {
+  addItemChangeHandler = e => {
+    const val = e.target.value.length;
+    console.log(val);
+    if(val > 0) {
+      this.setState({ classes: "add-item textfield focused" });
+    } else {
+      this.setState({ classes: "add-item textfield" });
+    }
+  }
+
+  editItemKeyHandler = (e, item) => {
     if(e.shiftKey === false && e.key === "Enter") {
       this.changeItem(e, item, "onBlur");
       e.target.blur();
     }
   }
 
+
   createItem = (e, handler)=> {
     e.preventDefault();
+    this.setState({ classes: "add-item textfield" });
     const text = handler === "submit" ? e.target.newItem.value : e.target.value;
     if(text && text !== ""){
       const item = {
@@ -106,7 +119,6 @@ class ActualTodo extends Component {
       } else {
          e.target.value = "";
       }
-
       this.props.addToActualList(item);
     }
   }
@@ -173,15 +185,16 @@ class ActualTodo extends Component {
           <div className="uncompleted-items">
             {todoIds.map(this.listUncompletedItems)}
 
-            <form onSubmit={(e) => this.createItem(e, "submit")}>
+            <form className="textfield-form" onSubmit={(e) => this.createItem(e, "submit")}>
               <TextareaAutosize
                 name="newItem"
-                className="add-item"
-                placeholder="Feladat hozzáadása"
+                className={this.state.classes}
                 autoComplete="off"
+                onChange={(e) => this.addItemChangeHandler(e)}
                 onKeyPress={(e) => this.addItemKeyHandler(e)}
                 onBlur={(e) => this.createItem(e, "onblur")}
               ></TextareaAutosize>
+              <div>Feladat hozzáadása</div>
             </form>
           </div>
           <div className="completed-items">

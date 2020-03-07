@@ -1,4 +1,4 @@
-:root {
+í:root {
   --menu-width: 20rem;
 }
 
@@ -126,23 +126,23 @@
   transform: translateX(0);
 }
 
-.menu .add-todo:focus ~ div {
+.textfield:focus ~ div {
   font-size: 1rem;
   color: rgba(255,255,255,.8);
   transform: translateX(0) translateY(-.65rem);
 }
 
-.menu .add-todo:hover ~ div {
+.textfield:hover ~ div {
   color: rgba(255,255,255,.8);
 }
 
-.menu .add-todo.focused ~ div {
+.textfield.focused ~ div {
   font-size: 1rem;
   color: rgba(255,255,255,1);
   transform: translateX(0) translateY(-.65rem);
 }
 
-.menu .add-todo.focused{
+.textfield-form input.focused{
   background-color: rgba(140,140,140,1);
 }
 
@@ -221,12 +221,12 @@ input:focus {
   outline: none;
 }
 
-.menu .todos .add-todo-form {
+.textfield-form {
   position: relative;
   /* border: 1px solid green; */
 }
 
-.menu .add-todo-form > div {
+.textfield-form > div {
   position: absolute;
   top: 0;
   left: 0;
