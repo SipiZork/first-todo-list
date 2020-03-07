@@ -74,7 +74,7 @@ class App extends Component {
 
   closeTodoList = listId => {
     const { userId } = this.props.match.params;
-    console.log(`listId:${listId}, this.state.actualTodo:${this.state.actualTodo}`);
+    // console.log(`listId:${listId}, this.state.actualTodo:${this.state.actualTodo}`);
     if(listId === this.state.actualTodo) {
       this.props.history.push(`/${userId}/`);
       this.setState({ actualTodo: "" });
@@ -141,7 +141,6 @@ class App extends Component {
     const todos = { ...this.state.todos };
     todos[this.state.actualTodo].name = name;
     this.setState({ todos });
-    console.log("siker");
   }
 
   renderActualTodo = renderWhat => {

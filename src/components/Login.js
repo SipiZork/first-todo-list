@@ -81,7 +81,6 @@ class Login extends Component {
 
   register = e => {
     e.preventDefault();
-    console.log("hmmmm?");
     this.setState({ register: true });
     this.props.moveUrlTo("/register");
   }

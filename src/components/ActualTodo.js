@@ -88,7 +88,6 @@ class ActualTodo extends Component {
 
   addItemChangeHandler = e => {
     const val = e.target.value.length;
-    console.log(val);
     if(val > 0) {
       this.setState({ classes: "add-item textfield focused" });
     } else {
@@ -156,7 +155,6 @@ class ActualTodo extends Component {
     if( text.length > 0 && text.length < 26) {
       this.props.changeName(text)
     } else {
-      console.log("üres mező");
       this.setState({
         name: this.props.actualTodo.name
       });
