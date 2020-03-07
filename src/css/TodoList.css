@@ -1,4 +1,4 @@
-í:root {
+:root {
   --menu-width: 20rem;
 }
 
@@ -126,10 +126,19 @@
   transform: translateX(0);
 }
 
+.textfield {
+  transition: all .4s ease;
+  color: rgba(255,255,255,.8);
+}
+
 .textfield:focus ~ div {
   font-size: 1rem;
   color: rgba(255,255,255,.8);
   transform: translateX(0) translateY(-.65rem);
+}
+
+.textfield:hover {
+  background-color: rgba(140,140,140,1);
 }
 
 .textfield:hover ~ div {
@@ -142,7 +151,7 @@
   transform: translateX(0) translateY(-.65rem);
 }
 
-.textfield-form input.focused{
+.textfield-form .textfield.focused{
   background-color: rgba(140,140,140,1);
 }
 
@@ -228,13 +237,11 @@ input:focus {
 
 .textfield-form > div {
   position: absolute;
-  top: 0;
-  left: 0;
   /* border: 1px solid red; */
   font-family: monospace;
   font-size: 1.3rem;
   color: rgba(100,100,100,1);
-  top: .75rem;
+  top: .65rem;
   left: .75rem;
   pointer-events: none;
   transition: all .4s ease;

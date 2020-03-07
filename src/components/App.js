@@ -5,6 +5,8 @@ import ActualTodo from './ActualTodo';
 import Login from './Login';
 import base, { auth } from "../base";
 // import firebase from 'firebase';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 
 class App extends Component {
 

@@ -20,7 +20,6 @@
   user-select: none;
   /* background-color: rgba(140, 140, 140, 0.5); */
   background-color: rgba(140, 140, 140, .1);
-  color: rgba(0,0,0,.8);
   /* border-radius: 1rem ; */
   font-family: monospace;
   min-height: 3rem;
@@ -28,9 +27,18 @@
 }
 
 
+.add-item:focus {
+  background-color: rgba(140,140,140,1);
+  color: rgba(255,255,255,.8);
+}
+
 .item-title {
   margin: 2rem 0;
   position: relative;
+}
+
+.title:hover {
+
 }
 
 .item-title > div {
@@ -41,6 +49,7 @@
   font-family: monospace;
   font-size: 1.5rem;
   pointer-events: none;
+  transition: all .4s ease;
 }
 
 .item-title .title ~ div{
@@ -53,14 +62,27 @@
   width: 100%;
   border: none;
   background-color: rgba(140,140,140,.5);
-  height: 2.5rem;
+  height: 3rem;
   padding: 1.6rem 1rem .5rem;
   font-family: monospace;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  transition: all .4s ease;
+}
+
+.item-title .title:hover{
+  background-color: rgba(140,140,140,1);
+  color: rgba(255,255,255,.8);
+}
+
+.item-title .title:hover ~ div,
+.item-title .title:focus ~ div {
+  color: rgba(255,255,255,.8);
 }
 
 .item-title .title:focus {
   border: var(--inputFocusBorder);
+  color: rgba(255,255,255,.8);
+  background-color: rgba(140,140,140,1);
 }
 
 .item-container:after {
@@ -80,10 +102,14 @@
 .add-item {
   cursor: auto;
   background-color: rgba(140, 140, 140, 0.5);
-  padding-top: .85rem;
+  padding-top: 1.1rem;
   padding-left: 1.5rem;
   line-height: 1.4rem;
   resize: none;
+}
+
+.add-item ~ div {
+  top: .9rem;
 }
 
 .remove-item {
