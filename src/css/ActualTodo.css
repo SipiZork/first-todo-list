@@ -14,7 +14,7 @@
   width: 100%;
   position: relative;
   padding-left: 3.125rem;
-  margin-bottom: .625rem;
+  margin-bottom: .325rem;
   font-size: 1.5rem;
   line-height: 1rem;
   user-select: none;
@@ -363,6 +363,8 @@
   font-weight: lighter;
   border-bottom: 1px solid rgba(140,140,140,.9);
   margin-bottom: 1rem;
+  width: 101%;
+  margin-left: -1%;
 }
 
 .completed-items:before {
@@ -372,7 +374,7 @@
 .uncompleted-items:after {
   content: "";
   display: block;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .actual-todo-error {
