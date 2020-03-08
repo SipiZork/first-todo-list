@@ -12,6 +12,7 @@
   height: 2.5rem;
   width: 95%;
   position: relative;
+  cursor: move;
 }
 
 .menu .todos:before {
@@ -102,7 +103,7 @@
   text-align: left;
   font-family: monospace;
   font-size: 1.25rem;
-  cursor: pointer;
+  /* cursor: pointer; */
   background-color: rgba(140,140,140,.5);
   white-space: nowrap;
   overflow: hidden;
@@ -205,8 +206,8 @@
 .menu .todos .list-remove:after {
   content: "";
   position: absolute;
-  top: .8rem;
-  left: .3125rem;
+  top: .80rem;
+  left: .3rem;
   display: block;
   height: .1rem;
   width: 1.2rem;

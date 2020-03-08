@@ -122,9 +122,8 @@ class App extends Component {
   removeListFromTodos = listId => {
     const todos = { ...this.state.todos };
     todos[listId] = null;
-    this.setState({ todos }, () => {
-      this.closeTodoList(listId);
-    });
+    this.closeTodoList(listId);
+    this.setState({ todos });
   }
 
   modifyItem = (item, text) => {

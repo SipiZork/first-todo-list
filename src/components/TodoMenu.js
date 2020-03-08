@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from "react";
 import TodoList from './TodoList.js';
+// import { Sortable } from '@progress/kendo-react-sortable';
 // import TextField from './TextField';
 
 class TodoMenu extends Component {
 
   state = {
     value: "",
-    menu: false,
+    menu: true,
     classes: "add-todo textfield"
   }
 
