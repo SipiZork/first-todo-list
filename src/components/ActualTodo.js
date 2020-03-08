@@ -30,7 +30,7 @@ class ActualTodo extends Component {
         <Fragment key={key}>
           <div className="item-container">
             <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}>
-              <ToolTip tip="Kész" classes="kesz" position="top" />
+              <ToolTip tip="Kész" position="top" />
             </div>
             <div className="item-text" htmlFor={item.index}>
               <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
@@ -44,7 +44,9 @@ class ActualTodo extends Component {
                 </TextareaAutosize>
               </form>
             </div>
-            <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}></div>
+            <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>
+              <ToolTip tip="Törlés" position="left" />
+            </div>
           </div>
         </Fragment>
       )
@@ -73,11 +75,13 @@ class ActualTodo extends Component {
                 autoComplete="off"
                 className="item"
                 onKeyPress={(e) => this.editItemKeyHandler(e, item)}
-                >
-                </TextareaAutosize>
-              </form>
-            </div>
-            <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}></div>
+              >
+              </TextareaAutosize>
+            </form>
+          </div>
+          <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>
+            <ToolTip tip="Törlés" position="left" />
+          </div>
           </div>
         </Fragment>
       )

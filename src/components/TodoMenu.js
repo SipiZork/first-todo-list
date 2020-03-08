@@ -14,6 +14,11 @@ class TodoMenu extends Component {
   }
 
   componentWillMount() {
+    this.checkResizeWindow();
+    window.addEventListener("resize", () => this.checkResizeWindow());
+  }
+
+  checkResizeWindow = () => {
     console.log(window.innerWidth);
     if (window.innerWidth <= 768){
       this.setState({ tooltip: "left" }, () => console.log("felülírom"));
@@ -74,7 +79,7 @@ class TodoMenu extends Component {
             <div className="user">
               <div className="logout" onClick={this.props.logout}>
                 →
-                <ToolTip tip="Kijelentkezés" classes="logout" position={this.state.tooltip}/>
+                <ToolTip tip="Kijelentkezés" position={this.state.tooltip}/>
               </div>
             </div>
             <div className="todos">

@@ -89,6 +89,7 @@ class ToolTip extends Component {
     ReactDOM.findDOMNode(this).parentNode.addEventListener("mouseenter", this.show);
     ReactDOM.findDOMNode(this).parentNode.addEventListener("mouseleave", this.show);
     this.position();
+    window.addEventListener("resize", () => this.setState({ position: this.props.position }));
   }
 
   render() {
