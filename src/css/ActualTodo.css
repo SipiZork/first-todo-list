@@ -129,6 +129,7 @@
   text-align: center;
   z-index:1;
   cursor: pointer;
+  transition: all .4s ease;
 }
 
 .remove-item:before,
@@ -141,6 +142,7 @@
   position: absolute;
   top: .7rem;
   left: .25rem;
+  transition: all .4s ease;
 
   transform: rotate(45deg);
 }
@@ -183,6 +185,7 @@
   cursor: pointer;
   /* border: 1px solid red; */
   z-index: 1;
+  transition: all .4s ease;
 }
 
 .item-container .item-check {
@@ -196,6 +199,22 @@
 .item-container .unchecked {
   /* background-color: rgba(78, 169, 242, 1); */
   border: 2px solid rgba(200,0,0,.5);
+}
+
+.item-container .unchecked:after {
+  /* background-color: rgba(78, 169, 242, 1); */
+  content: '';
+  position: absolute;
+  display: block;
+  left: .55rem;
+  top: .3rem;
+  width: .3125rem;
+  height: .635rem;
+  border: solid rgba(0,150,0,.7);
+  border-width:  0 .1875rem .1875rem 0;
+  transform: rotate(45deg);
+  transition: all .4s ease;
+  opacity: 0;
 }
 
 .item-container .checked {
@@ -215,45 +234,14 @@
   border: solid rgba(0,150,0,.7);
   border-width:  0 .1875rem .1875rem 0;
   transform: rotate(45deg);
+  transition: all .4s ease;
 }
 
 /* END checked pipe */
 
-
-/* START unchecked X */
-
-/*.item-container .unchecked::after {
-  content: '';
-  position: absolute;
-  display: block;
-  left: .5rem;
-  top: .25rem;
-  width: .3125rem;
-  height: 1rem;
-  border: solid black;
-  border-width:  0 .1875rem 0 0;
-  transform: rotate(45deg);
-}
-
-.item-container .unchecked::before {
-  content: '';
-  position: absolute;
-  display: block;
-  left: .51rem;
-  top: .5rem;
-  width: 1rem;
-  height: .3125rem;
-  border: solid black;
-  border-width:  0 0 .1875rem 0;
-  transform: rotate(45deg);
-}
-
-/* END unchecked X */
-
  /* START unchecked checkmark hover */
 
  .unchecked:hover {
-   background-color: rgba(140, 140, 140, .4);
    border-color: rgba(0,150,0,.7);
  }
 
@@ -261,17 +249,8 @@
    background-color: red;
  }
 
-.item-container .unchecked:hover::after {
-  content: '';
-  position: absolute;
-  display: block;
-  left: .55rem;
-  top: .3rem;
-  width: .3125rem;
-  height: .635rem;
-  border: solid rgba(0,150,0,.7);
-  border-width:  0 .1875rem .1875rem 0;
-  transform: rotate(45deg);
+.item-container .unchecked:hover:after {
+  opacity: 1;
 }
 
 .item-container .unchecked:hover::before {
@@ -288,34 +267,8 @@
 }
 .item-container .checked:hover:after,
 .item-container .checked:hover:before {
-  display: none;
+  opacity: 0;
 }
-
-/* .item-container .checked:hover::after {
-   content: '';
-   position: absolute;
-   display: block;
-   left: .45rem;
-   top: .2rem;
-   width: 0;
-   height: 0;
-   border: solid black;
-   border-width:  0 0 0 0;
-   transform: rotate(45deg);
-}
-
-.item-container .checked:hover::before {
-   content: '';
-   position: absolute;
-   display: block;
-   left: .45rem;
-   top: .45rem;
-   width: 0;
-   height: 0;
-   border: solid black;
-   border-width:  0 0 0 0;
-   transform: rotate(45deg);
- } */
 
 /* END checked checkmark hover */
 
@@ -358,6 +311,12 @@
 .item-container:focus-within  {
   background-color: rgba(140,140,140,1);
   border: var(--inputFocusBorder);
+}
+
+.item-container:focus-within > .checkmark,
+.item-container:focus-within > .remove-item {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .uncompleted-items:before,
