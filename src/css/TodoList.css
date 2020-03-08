@@ -1,5 +1,6 @@
 :root {
   --menu-width: 20rem;
+  --logout-width: 1.5rem;
 }
 
 .hamburger,
@@ -61,8 +62,9 @@
 
 .menu .logout {
   /* border: 1px solid red; */
-  height: 1.5rem;
-  width: 1.5rem;
+  position: relative;
+  height: var(--logout-width);
+  width: var(--logout-width);
   font-size: 3rem;
   line-height: 1rem;
   text-align: center;
@@ -72,7 +74,7 @@
    /* background-color: rgba(0,0,0,.2); */
   cursor: pointer;
   z-index: 1;
-  transition: all .2s ease-in-out;
+  transition: all .4s ease-in-out;
 }
 
 .menu .logout:hover {
@@ -316,7 +318,7 @@ input:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all .5s ease;
+    transition: all .4s ease;
   }
 
   .open-menu .hamburger > div:before,
@@ -393,7 +395,7 @@ input:focus {
     display: block;
     transition: all .4s ease-in-out;
     z-index: 1;
-    border-right: 2px solid rgba(100,100,100,.5);
+    border: none;
   }
 
 }

@@ -33,7 +33,6 @@ body {
   background-color: rgba(200,200,200,1);
   width: 100%;
   float: left;
-  overflow-x: hidden;
 }
 
 .actual-todo {

@@ -3,6 +3,7 @@ import '../css/ActualTodo.css';
 // import TextAreaAutoSize from 'react-autosize-textarea';
 // import TextField from "@material-ui/core/TextField";
 import { TextareaAutosize } from "@material-ui/core";
+import ToolTip from './ToolTip';
 
 class ActualTodo extends Component {
   state = {
@@ -28,7 +29,9 @@ class ActualTodo extends Component {
       return (
         <Fragment key={key}>
           <div className="item-container">
-            <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}></div>
+            <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}>
+              <ToolTip tip="Kész" classes="kesz" position="top" />
+            </div>
             <div className="item-text" htmlFor={item.index}>
               <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
                 <TextareaAutosize
@@ -58,7 +61,9 @@ class ActualTodo extends Component {
     return (
       <Fragment key={key}>
         <div className="item-container">
-          <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}></div>
+          <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}>
+            <ToolTip tip="Mégse" position="top" />
+          </div>
           <div className="item-text" htmlFor={item.index}>
             <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
               <TextareaAutosize

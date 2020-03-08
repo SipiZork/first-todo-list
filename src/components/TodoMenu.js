@@ -1,14 +1,25 @@
 import React, { Component, Fragment } from "react";
-import TodoList from './TodoList.js';
+import TodoList from './TodoList';
 // import { Sortable } from '@progress/kendo-react-sortable';
 // import TextField from './TextField';
+import ToolTip from './ToolTip';
 
 class TodoMenu extends Component {
 
   state = {
     value: "",
     menu: true,
-    classes: "add-todo textfield"
+    classes: "add-todo textfield",
+    tooltip: ""
+  }
+
+  componentWillMount() {
+    console.log(window.innerWidth);
+    if (window.innerWidth <= 768){
+      this.setState({ tooltip: "left" }, () => console.log("felülírom"));
+    } else if((window.innerWidth > 768)) {
+      this.setState({ tooltip: "right" });
+    }
   }
 
   handleChange = e => {
@@ -63,6 +74,7 @@ class TodoMenu extends Component {
             <div className="user">
               <div className="logout" onClick={this.props.logout}>
                 →
+                <ToolTip tip="Kijelentkezés" classes="logout" position={this.state.tooltip}/>
               </div>
             </div>
             <div className="todos">
