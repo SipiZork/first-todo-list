@@ -353,6 +353,11 @@ input:focus {
     transform: translateX(0);
   }
 
+  .menu .todos .list-remove{
+    opacity: 1;
+    pointer-events: all;
+  }
+
   .actual-todo {
     padding-left: 7%;
     width: 100%;
@@ -377,7 +382,6 @@ input:focus {
   :root {
     --menu-width: 100%;
   }
-
 
   .menu {
     position: fixed;
