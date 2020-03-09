@@ -8,7 +8,7 @@ class TodoMenu extends Component {
 
   state = {
     value: "",
-    menu: true,
+    menu: false,
     classes: "add-todo textfield",
     tooltip: ""
   }
