@@ -7,7 +7,7 @@ import '../css/ToolTip.css';
     left: "50px"
   };
 
-  let prucsokStyle = {
+  let shaftStyle = {
 
   };
 
@@ -20,46 +20,41 @@ class ToolTip extends Component {
   }
 
   position = () => {
+    const tooltipWidth = ReactDOM.findDOMNode(this).clientWidth;
+    const tooltipHeight= ReactDOM.findDOMNode(this).clientHeight;
+    const parentWidth = ReactDOM.findDOMNode(this).parentNode.clientWidth;
     const { position } = this.state;
     if(position === "left") {
-      const tooltipWidth = ReactDOM.findDOMNode(this).clientWidth;
       divStyle = {
         left: -tooltipWidth-10
       }
-      prucsokStyle = {
+      shaftStyle = {
         top: ".45rem",
         right: "-.25rem"
       }
     } else if(position === "right") {
-      const parentWidth = ReactDOM.findDOMNode(this).parentNode.clientWidth;
       divStyle = {
         left: parentWidth+10
       }
-      prucsokStyle = {
+      shaftStyle = {
         top: ".45rem",
         left: "-.25rem"
       }
     } else if(position === "top") {
-        const tooltipHeight= ReactDOM.findDOMNode(this).clientHeight;
-        const tooltipWidth = ReactDOM.findDOMNode(this).clientWidth;
-        const parentWidth = ReactDOM.findDOMNode(this).parentNode.clientWidth;
         divStyle = {
           top: -tooltipHeight-10 ,
           left: (parentWidth / 2) - (tooltipWidth / 2),
         }
-        prucsokStyle = {
+        shaftStyle = {
           bottom: "-.25rem",
           left: (tooltipWidth / 2) - 5
         }
     } else if(position === "bottom") {
-        const tooltipHeight= ReactDOM.findDOMNode(this).clientHeight;
-        const tooltipWidth = ReactDOM.findDOMNode(this).clientWidth;
-        const parentWidth = ReactDOM.findDOMNode(this).parentNode.clientWidth;
         divStyle = {
           top: tooltipHeight+10,
           left: (parentWidth / 2) - (tooltipWidth / 2),
         }
-        prucsokStyle = {
+        shaftStyle = {
           top: "-.25rem",
           left: (tooltipWidth / 2) - 5
         }
@@ -96,7 +91,7 @@ class ToolTip extends Component {
     return (
       <Fragment>
         <div className={this.state.classes} style={divStyle}>{this.props.tip}
-          <div className="prucsok" style={prucsokStyle}></div>
+          <div className="shaft" style={shaftStyle}></div>
         </div>
       </Fragment>
     )

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import ToolTip from './ToolTip';
 import '../css/TodoList.css';
 
 class TodoList extends Component {
@@ -21,6 +22,7 @@ class TodoList extends Component {
             {details.name}
           </div>
           <div className="list-remove" onClick={() => this.props.removeListFromTodos(id)}>
+            <ToolTip tip="Törlés" position="top" />
           </div>
         </div>
       </Fragment>
