@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import '../css/ActualTodo.css';
-// import TextAreaAutoSize from 'react-autosize-textarea';
+import TextAreaAutoSize from 'react-autosize-textarea';
 // import TextField from "@material-ui/core/TextField";
-import { TextareaAutosize } from "@material-ui/core";
+// import { TextareaAutosize } from "@material-ui/core";
 import ToolTip from './ToolTip';
 
 class ActualTodo extends Component {
@@ -34,14 +34,14 @@ class ActualTodo extends Component {
             </div>
             <div className="item-text" htmlFor={item.index}>
               <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
-                <TextareaAutosize
+                <TextAreaAutoSize
                   key={key}
                   defaultValue={item.text}
                   autoComplete="off"
                   className="item"
                   onKeyPress={(e) => this.editItemKeyHandler(e, item)}
                 >
-                </TextareaAutosize>
+                </TextAreaAutoSize>
               </form>
             </div>
             <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>
@@ -68,7 +68,7 @@ class ActualTodo extends Component {
           </div>
           <div className="item-text" htmlFor={item.index}>
             <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
-              <TextareaAutosize
+              <TextAreaAutoSize
                 name="text"
                 key={key}
                 defaultValue={item.text}
@@ -76,7 +76,7 @@ class ActualTodo extends Component {
                 className="item"
                 onKeyPress={(e) => this.editItemKeyHandler(e, item)}
               >
-              </TextareaAutosize>
+              </TextAreaAutoSize>
             </form>
           </div>
           <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>
@@ -193,14 +193,14 @@ class ActualTodo extends Component {
             {todoIds.map(this.listUncompletedItems)}
 
             <form className="textfield-form" onSubmit={(e) => this.createItem(e, "submit")}>
-              <TextareaAutosize
+              <TextAreaAutoSize
                 name="newItem"
                 className={this.state.classes}
                 autoComplete="off"
                 onChange={(e) => this.addItemChangeHandler(e)}
                 onKeyPress={(e) => this.addItemKeyHandler(e)}
                 onBlur={(e) => this.createItem(e, "onblur")}
-              ></TextareaAutosize>
+              ></TextAreaAutoSize>
               <div>Feladat hozzáadása</div>
             </form>
           </div>
