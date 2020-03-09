@@ -10,11 +10,11 @@
   left: 0;
   min-width: 5rem;
   font-size: .75rem;
-
   z-index: 2;
   pointer-events: none;
   height: 1.5rem;
   text-align: center;
+  transition: opacity .4s ease;
 }
 
 .prucsok {
