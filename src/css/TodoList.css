@@ -361,7 +361,7 @@ input:focus {
   }
 
   .actual-todo {
-    padding-left: 7%;
+    padding-left: 2rem;
     width: 100%;
   }
 

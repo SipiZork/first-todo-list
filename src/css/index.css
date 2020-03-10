@@ -1,17 +1,22 @@
 *{
   box-sizing: border-box;
+  white-space: nowrap;
 }
 
-body {
+body, html {
   padding: 0;
   margin: 0;
   background-color: rgba(200,200,200,1);
   font-family: sans-serif;
+  max-width: 100%;
+  /* border: 1px solid white; */
+  overflow-x: hidden;
 }
 
 .fluid-container {
   min-height: 100vh;
   position: relative;
+  /* border: 1px solid blue; */
 }
 
 .fluid-container:after {
@@ -29,7 +34,8 @@ body {
 }
 
 .menu {
-  min-height: 100vh;
+  min-height: 100%;
+  /* border: 1px solid green; */
   background-color: rgba(200,200,200,1);
   width: 100%;
   float: left;
@@ -41,6 +47,7 @@ body {
   float: left;
   font-family: serif;
   font-size: 1.25rem;
+  /* border: 1px solid yellow; */
 }
 
 .actual-todo h2 {

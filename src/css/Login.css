@@ -83,3 +83,12 @@ top: calc((100vh - var(--login-height)) / 2);
   font-weight: bold;
   border: none;
 }
+
+@media only screen and (max-width: 992px) {
+  :root {
+    --login-height: 15rem;
+    --login-width: 25rem;
+    --register-height: 17rem;
+    --register-width: 25rem;
+  }
+}

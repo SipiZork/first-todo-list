@@ -162,7 +162,6 @@ class App extends Component {
         <Fragment>
           <div className="actual-todo">
             <ActualTodo
-
             />
           </div>
         </Fragment>
