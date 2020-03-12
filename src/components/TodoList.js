@@ -15,8 +15,7 @@ class TodoList extends Component {
 
   dragStart = (e, id) => {
     this.props.setGrabTodo(id);
-    // console.log("grab");
-    // console.log(id);
+    console.log(id);
     this.setState({ dragClasses: 'todo-list-draggable hold' }, () => {
       setTimeout(() => this.setState({ dragClasses: 'todo-list-draggable invisible hold' }), 0);
     });
@@ -28,13 +27,14 @@ class TodoList extends Component {
   }
 
   dragEnter = (e, id) => {
+    console.log(id);
     this.props.setDropTodo(id);
     // console.log("drop");
     // console.log(id);
   }
 
   dragOver = e => {
-    console.log(e.target.parentNode.parentNode);
+    // console.log(e.target.parentNode.parentNode);
     this.setState({ dragClasses: 'todo-list-draggable droppable'});
   }
 
@@ -43,7 +43,7 @@ class TodoList extends Component {
   }
 
   createTodo = () => {
-    const { details, id } = this.props;
+    const { details, index, id } = this.props;
     return (
       <Fragment>
         <div className="droppable"
@@ -51,16 +51,16 @@ class TodoList extends Component {
           onDragLeave={(e) => this.dragLeave(e, id)}>
         </div>
         <div
-          className="todo-list-draggable"
-          draggable="false"
+          className={this.state.dragClasses}
+          draggable="true"
           onDragStart={(e) => this.dragStart(e, id)}
-          onDragEnd={(e) => this.dragEnd(e, )}
+          onDragEnd={(e) => this.dragEnd(e, id)}
         >
-          <div className="todo-list-container" index={details.id}>
-            <div className="list-item" onClick={() => this.openTodoList(id)}>
+          <div className="todo-list-container" index={id}>
+            <div className="list-item" onClick={() => this.openTodoList(index)}>
               {details.name}
             </div>
-            <div className="list-remove" onClick={() => this.props.removeListFromTodos(id)}>
+            <div className="list-remove" onClick={() => this.props.removeListFromTodos(index)}>
               <ToolTip tip="Törlés" position="top" />
             </div>
           </div>

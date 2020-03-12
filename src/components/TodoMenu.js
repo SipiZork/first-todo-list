@@ -63,7 +63,9 @@ class TodoMenu extends Component {
 
   createTodoList = e => {
     e.preventDefault()
+    const nextId = this.props.higherTodo + 1;
     const list = {
+      id: nextId,
       name: e.target.addTodo.value,
       index: `todo${Date.now()}`,
       owner: this.props.user.uid
@@ -91,6 +93,28 @@ class TodoMenu extends Component {
   }
 
   render() {
+
+    const array = Object.keys(this.props.todos).map(key => {
+      return [this.props.todos[key]];
+    });
+    array.sort((a,b) => {
+      const first = a[0].id;
+      const second = b[0].id;
+      // console.log(`${first} - ${second}`);
+      if(first < second) {
+        return -1;
+      }
+      if(first > second) {
+        return 1;
+      }
+    });
+    const TodosInOrder = Object.keys(array).map(key => {
+      return array[key][0].index;
+    });
+    Object.keys(TodosInOrder).map(key => {
+      // console.log(key);
+    });
+    const { todos } = this.props;
     return (
       <Fragment>
         <div className="open-menu">
@@ -105,11 +129,14 @@ class TodoMenu extends Component {
             </div>
             <div className="todos">
               {/* <p>Listák</p> */}
-              {Object.keys(this.props.todos).map(key => (
+              {/* {console.log("todos:")} */}
+              {/* {console.log(this.props.todos)} */}
+              {Object.keys(TodosInOrder).map(key => (
                 <TodoList
-                  key={key}
-                  id={key}
-                  details={this.props.todos[key]}
+                  key={todos[TodosInOrder[key]].index}
+                  index={todos[TodosInOrder[key]].index}
+                  id={todos[TodosInOrder[key]].id}
+                  details={todos[TodosInOrder[key]]}
                   openTodoList={this.props.openTodoList}
                   removeListFromTodos={this.props.removeListFromTodos}
                   user={this.props.user}

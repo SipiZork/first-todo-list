@@ -14,7 +14,10 @@ class App extends Component {
     actualTodo: "",
     login: false,
     user: "",
-    temptodos: {}
+    temptodos: {},
+    changeOrder: false,
+    higherTodo: 0,
+    sortTodos: {}
   }
 
   loadTodos = localUser => {
@@ -23,7 +26,6 @@ class App extends Component {
       state: "todos"
     });
   }
-
 
    componentDidMount() {
     const { todoId } = this.props.match.params;
@@ -49,6 +51,36 @@ class App extends Component {
       });
     }
   }
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    if(prevState.todos !== this.state.todos) {
+      let higher = 0;
+      // console.log(this.state.todos);
+      Object.keys(this.state.todos).map(key => {
+        if(this.state.todos[key].id > higher) {
+          higher = this.state.todos[key].id;
+        }
+      });
+      this.setState({ higherTodo: higher });
+    }
+    if(this.state.changeOrder === true && prevState.todos !== this.state.todos){
+      // console.log(this.state.temptodos);
+      this.setState({todos: this.state.temptodos, changeOrder: false});
+    }
+  }
+
+  // componentDidUpdate(prevState) {
+  //   console.log(prevState);
+  //   if(prevState !== undefined){
+  //     if(prevState.todos !== this.state.todos) {
+  //       const todos = { ...this.state.todos };
+  //       const temptodos = { ...this.state.temptodos };
+  //       Object.keys(temptodos).map(key => {
+  //         todos[key] = temptodos[key];
+  //       });
+  //     }
+  //   }
+  // }
 
   userLogin = user => {
     this.setState({ login: true, user: user }, () => {
@@ -142,35 +174,55 @@ class App extends Component {
   }
 
   changeTodoOrder = (grabId, dropId) => {
+    // const todos = { ...this.state.todos };
+    // let newTodos = [];
+    // const todo = {};
+    // Object.keys(todos).map(key => {
+    //   if(key === dropId) {
+    //     newTodos.push(todos[grabId]);
+    //     newTodos.push(todos[key]);
+    //   } else {
+    //     newTodos.push(todos[key]);
+    //   }
+    //   // } else if (key === dropId){
+    //   //   addTodos.push(todos[grabId]);
+    //   //   return "";
+    //   // }
+    //   return 0;
+    // });
+    // newTodos.forEach((item) => {
+    //   todo[item.index] = item;
+    // });
+    // Object.keys(todos).map(key => {
+    //   todos[key] = null;
+    //   return 1;
+    // });
+    // this.setState({ todos, temptodos: todo, changeOrder: true });
     const todos = { ...this.state.todos };
-    let newTodos = [];
-    const todo = {};
     Object.keys(todos).map(key => {
-      if(key === dropId) {
-        newTodos.push(todos[grabId]);
-        newTodos.push(todos[key]);
-      } else {
-        newTodos.push(todos[key]);
+      if(todos[key].id === grabId) {
+        todos[key].id = dropId;
+      } else if(todos[key].id === dropId || todos[key].id > dropId) {
+        todos[key].id += 1;
       }
-      // } else if (key === dropId){
-      //   addTodos.push(todos[grabId]);
-      //   return "";
-      // }
-      return 0;
-    });
-    newTodos.forEach((item) => {
-      todo[item.index] = item;
-    });
-    Object.keys(todos).map(key => {
-      todos[key] = null;
-      return 1;
-    });
-    Object.keys(todo).map(key => {
-      todos[key] = todo[key];
-      return 2;
     });
     this.setState({ todos });
   }
+
+  // reOrder = todo => {
+  //   console.log("átrendezés");
+  //   const todos = { ...this.state.todos };
+  //   console.log(todos);
+  //   Object.keys(todo).map(key => {
+  //     todos[key] = todo[key];
+  //   });
+  //   this.setState({ todos });
+  //   this.Log();
+  // }
+  //
+  // Log = () => {
+  //   console.log(this.state.todos);
+  // }
 
   renderActualTodo = renderWhat => {
     if(renderWhat === "full"){
@@ -228,6 +280,7 @@ class App extends Component {
             user={this.state.user}
             logout={this.userLogout}
             changeTodoOrder={this.changeTodoOrder}
+            higherTodo={this.state.higherTodo}
           />
           {todoId && todoId !== null ? this.renderActualTodo("full") : this.renderActualTodo("empty")}
         </Fragment>
