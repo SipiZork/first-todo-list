@@ -13,7 +13,8 @@ class App extends Component {
     sharedWithReadTodo: {},
     actualTodo: "",
     login: false,
-    user: ""
+    user: "",
+    temptodos: {}
   }
 
   loadTodos = localUser => {
@@ -140,6 +141,37 @@ class App extends Component {
     this.setState({ todos });
   }
 
+  changeTodoOrder = (grabId, dropId) => {
+    const todos = { ...this.state.todos };
+    let newTodos = [];
+    const todo = {};
+    Object.keys(todos).map(key => {
+      if(key === dropId) {
+        newTodos.push(todos[grabId]);
+        newTodos.push(todos[key]);
+      } else {
+        newTodos.push(todos[key]);
+      }
+      // } else if (key === dropId){
+      //   addTodos.push(todos[grabId]);
+      //   return "";
+      // }
+      return 0;
+    });
+    newTodos.forEach((item) => {
+      todo[item.index] = item;
+    });
+    Object.keys(todos).map(key => {
+      todos[key] = null;
+      return 1;
+    });
+    Object.keys(todo).map(key => {
+      todos[key] = todo[key];
+      return 2;
+    });
+    this.setState({ todos });
+  }
+
   renderActualTodo = renderWhat => {
     if(renderWhat === "full"){
       return (
@@ -195,6 +227,7 @@ class App extends Component {
             removeListFromTodos={this.removeListFromTodos}
             user={this.state.user}
             logout={this.userLogout}
+            changeTodoOrder={this.changeTodoOrder}
           />
           {todoId && todoId !== null ? this.renderActualTodo("full") : this.renderActualTodo("empty")}
         </Fragment>

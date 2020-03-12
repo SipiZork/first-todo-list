@@ -10,18 +10,38 @@ class TodoMenu extends Component {
     value: "",
     menu: true,
     classes: "add-todo textfield",
-    tooltip: ""
+    tooltip: "",
+    grabTodo: "",
+    dropTodo: ""
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.checkResizeWindow();
     window.addEventListener("resize", () => this.checkResizeWindow());
+  }
+
+  setGrabTodo = id => {
+    this.setState({ grabTodo: id });
+  }
+
+  setDropTodo = id => {
+    this.setState({ dropTodo: id });
+  }
+
+  changeOrder = () => {
+    const grabTodo = this.state.grabTodo;
+    const dropTodo = this.state.dropTodo;
+    if(grabTodo === dropTodo) {
+      console.log("Nincs változás");
+    } else {
+      console.log(`Be kell raknia a ${grabTodo}-t a ${dropTodo} elé`);
+      this.props.changeTodoOrder(grabTodo, dropTodo);
+    }
   }
 
   checkResizeWindow = () => {
     console.log(window.innerWidth);
     if (window.innerWidth <= 768){
-      this.setState({ tooltip: "left" }, () => console.log("felülírom"));
     } else if((window.innerWidth > 768)) {
       this.setState({ tooltip: "right" });
     }
@@ -45,6 +65,7 @@ class TodoMenu extends Component {
     e.preventDefault()
     const list = {
       name: e.target.addTodo.value,
+      index: `todo${Date.now()}`,
       owner: this.props.user.uid
     }
     this.props.addTodoList(list);
@@ -93,6 +114,9 @@ class TodoMenu extends Component {
                   removeListFromTodos={this.props.removeListFromTodos}
                   user={this.props.user}
                   toggleMenu={this.toggleMenu}
+                  setGrabTodo={this.setGrabTodo}
+                  setDropTodo={this.setDropTodo}
+                  changeOrder={this.changeOrder}
                 />
               ))}
               <form className="add-todo-form textfield-form" onSubmit={(e) => this.createTodoList(e)}>
