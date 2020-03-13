@@ -173,7 +173,7 @@ class App extends Component {
     this.setState({ todos });
   }
 
-  changeTodoOrder = (grabId, dropId) => {
+  changeTodoOrder = (grabId, dropId, last) => {
     // const todos = { ...this.state.todos };
     // let newTodos = [];
     // const todo = {};
@@ -198,14 +198,23 @@ class App extends Component {
     //   return 1;
     // });
     // this.setState({ todos, temptodos: todo, changeOrder: true });
+    console.log(last);
     const todos = { ...this.state.todos };
-    Object.keys(todos).map(key => {
-      if(todos[key].id === grabId) {
-        todos[key].id = dropId;
-      } else if(todos[key].id === dropId || todos[key].id > dropId) {
-        todos[key].id += 1;
-      }
-    });
+    if(last === true) {
+      Object.keys(todos).map(key => {
+        if(todos[key].id === grabId) {
+          todos[key].id = this.state.higherTodo+1;
+        }
+      });
+    } else {
+      Object.keys(todos).map(key => {
+        if(todos[key].id === grabId) {
+          todos[key].id = dropId;
+        } else if(todos[key].id === dropId || todos[key].id > dropId) {
+          todos[key].id += 1;
+        }
+      });
+    }
     this.setState({ todos });
   }
 
@@ -277,6 +286,7 @@ class App extends Component {
             todos={this.state.todos}
             addTodoList={this.addTodoList}
             removeListFromTodos={this.removeListFromTodos}
+            higherTodo={this.state.higherTodo}
             user={this.state.user}
             logout={this.userLogout}
             changeTodoOrder={this.changeTodoOrder}

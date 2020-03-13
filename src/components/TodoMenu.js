@@ -12,7 +12,8 @@ class TodoMenu extends Component {
     classes: "add-todo textfield",
     tooltip: "",
     grabTodo: "",
-    dropTodo: ""
+    dropTodo: "",
+    last: false
   }
 
   componentDidMount() {
@@ -28,14 +29,14 @@ class TodoMenu extends Component {
     this.setState({ dropTodo: id });
   }
 
-  changeOrder = () => {
+  changeOrder = last => {
     const grabTodo = this.state.grabTodo;
     const dropTodo = this.state.dropTodo;
     if(grabTodo === dropTodo) {
       console.log("Nincs változás");
     } else {
       console.log(`Be kell raknia a ${grabTodo}-t a ${dropTodo} elé`);
-      this.props.changeTodoOrder(grabTodo, dropTodo);
+      this.props.changeTodoOrder(grabTodo, dropTodo, this.state.last);
     }
   }
 
@@ -92,6 +93,10 @@ class TodoMenu extends Component {
 
   }
 
+  setLast = last => {
+    this.setState({ last: last });
+  }
+
   render() {
 
     const array = Object.keys(this.props.todos).map(key => {
@@ -114,7 +119,7 @@ class TodoMenu extends Component {
     Object.keys(TodosInOrder).map(key => {
       // console.log(key);
     });
-    const { todos } = this.props;
+    const { todos, higherTodo } = this.props;
     return (
       <Fragment>
         <div className="open-menu">
@@ -137,6 +142,7 @@ class TodoMenu extends Component {
                   index={todos[TodosInOrder[key]].index}
                   id={todos[TodosInOrder[key]].id}
                   details={todos[TodosInOrder[key]]}
+                  higherTodo={higherTodo}
                   openTodoList={this.props.openTodoList}
                   removeListFromTodos={this.props.removeListFromTodos}
                   user={this.props.user}
@@ -144,6 +150,7 @@ class TodoMenu extends Component {
                   setGrabTodo={this.setGrabTodo}
                   setDropTodo={this.setDropTodo}
                   changeOrder={this.changeOrder}
+                  setLast={this.setLast}
                 />
               ))}
               <form className="add-todo-form textfield-form" onSubmit={(e) => this.createTodoList(e)}>

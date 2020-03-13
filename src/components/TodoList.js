@@ -23,19 +23,22 @@ class TodoList extends Component {
 
   dragEnd = e => {
     this.setState({ dragClasses: 'todo-list-draggable' });
+    this.props.changeOrder(false);
+  }
+
+  dragEndLast = e => {
+    this.setState({ dragClasses: 'todo-list-draggable' });
     this.props.changeOrder();
   }
 
-  dragEnter = (e, id) => {
-    console.log(id);
+  dragEnter = (e, id, last) => {
     this.props.setDropTodo(id);
-    // console.log("drop");
-    // console.log(id);
+    this.props.setLast(last);
   }
 
   dragOver = e => {
-    // console.log(e.target.parentNode.parentNode);
-    this.setState({ dragClasses: 'todo-list-draggable droppable'});
+    // console.log(this.state.last);
+    // this.setState({ dragClasses: 'todo-list-draggable droppable'});
   }
 
   dragLeave = e => {
@@ -43,11 +46,17 @@ class TodoList extends Component {
   }
 
   createTodo = () => {
-    const { details, index, id } = this.props;
+    const { details, index, id, higherTodo } = this.props;
+    const afterLastTodo= (id === higherTodo
+      ? <div className="droppable last"
+        onDragEnter={(e) => this.dragEnter(e, id, true)}
+        onDragLeave={(e) => this.dragLeave(e, id)}>
+      </div> : ""
+    );
     return (
       <Fragment>
         <div className="droppable"
-          onDragEnter={(e) => this.dragEnter(e, id)}
+          onDragEnter={(e) => this.dragEnter(e, id, false)}
           onDragLeave={(e) => this.dragLeave(e, id)}>
         </div>
         <div
@@ -65,6 +74,7 @@ class TodoList extends Component {
             </div>
           </div>
         </div>
+        {afterLastTodo}
       </Fragment>
     )
   }
