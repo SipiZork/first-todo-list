@@ -174,31 +174,6 @@ class App extends Component {
   }
 
   changeTodoOrder = (grabId, dropId, last) => {
-    // const todos = { ...this.state.todos };
-    // let newTodos = [];
-    // const todo = {};
-    // Object.keys(todos).map(key => {
-    //   if(key === dropId) {
-    //     newTodos.push(todos[grabId]);
-    //     newTodos.push(todos[key]);
-    //   } else {
-    //     newTodos.push(todos[key]);
-    //   }
-    //   // } else if (key === dropId){
-    //   //   addTodos.push(todos[grabId]);
-    //   //   return "";
-    //   // }
-    //   return 0;
-    // });
-    // newTodos.forEach((item) => {
-    //   todo[item.index] = item;
-    // });
-    // Object.keys(todos).map(key => {
-    //   todos[key] = null;
-    //   return 1;
-    // });
-    // this.setState({ todos, temptodos: todo, changeOrder: true });
-    console.log(last);
     const todos = { ...this.state.todos };
     if(last === true) {
       Object.keys(todos).map(key => {

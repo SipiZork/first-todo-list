@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
-import TodoList from './TodoList';
+import TodoList from './TodoListNew';
 // import { Sortable } from '@progress/kendo-react-sortable';
 // import TextField from './TextField';
 import ToolTip from './ToolTip';
+import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
 
 class TodoMenu extends Component {
 
@@ -16,9 +17,26 @@ class TodoMenu extends Component {
     last: false
   }
 
-  componentDidMount() {
+  componentWillMount(){
     this.checkResizeWindow();
+  }
+
+  componentDidMount() {
     window.addEventListener("resize", () => this.checkResizeWindow());
+    let dest = document.querySelector('.todos');
+    console.log(dest);
+    const sort = Sortable.create(dest, {
+      animation: 150,
+      handle: ".my-handle",
+      filter: ".add-todo",
+      onEnd: function(e) {
+        const todosDivs = dest.childNodes;
+        todosDivs.forEach(todo => {
+        console.log(todo.getAttribute("index"));
+        });
+      }
+    });
+
   }
 
   setGrabTodo = id => {
@@ -43,6 +61,7 @@ class TodoMenu extends Component {
   checkResizeWindow = () => {
     console.log(window.innerWidth);
     if (window.innerWidth <= 768){
+      this.setState({ tooltip: "left" });
     } else if((window.innerWidth > 768)) {
       this.setState({ tooltip: "right" });
     }
@@ -151,26 +170,28 @@ class TodoMenu extends Component {
                   setDropTodo={this.setDropTodo}
                   changeOrder={this.changeOrder}
                   setLast={this.setLast}
+                  grabId={this.state.grabTodo}
+                  dropId={this.state.dropTodo}
                 />
               ))}
-              <form className="add-todo-form textfield-form" onSubmit={(e) => this.createTodoList(e)}>
-                <input
-                  type="text"
-                  name="addTodo"
-                  className={this.state.classes}
-                  // placeholder="Lista hozzáadása"
-                  autoComplete="off"
-                  value={this.state.value}
-                  onChange={this.handleChange}/>
-                {/* <TextField type="text"
-                  name="addTodo"
-                  className="add-todo"
-                  autoComplete="off"
-                  value={this.state.value}
-                onChange={this.handleChange}></TextField> */}
-                <div>Lista hozzáadása</div>
-              </form>
             </div>
+            <form className="add-todo-form textfield-form" onSubmit={(e) => this.createTodoList(e)}>
+              <input
+                type="text"
+                name="addTodo"
+                className={this.state.classes}
+                // placeholder="Lista hozzáadása"
+                autoComplete="off"
+                value={this.state.value}
+                onChange={this.handleChange}/>
+              {/* <TextField type="text"
+                name="addTodo"
+                className="add-todo"
+                autoComplete="off"
+                value={this.state.value}
+              onChange={this.handleChange}></TextField> */}
+              <div>Lista hozzáadása</div>
+            </form>
           </div>
         </div>
       </Fragment>
