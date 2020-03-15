@@ -18,7 +18,7 @@ class TodoList extends Component {
           index={details.id}
         >
           <div className="list-item" onClick={() => this.openTodoList(index)}>
-            <div className="my-handle"><i className="fas fa-arrows-alt"></i></div>
+            <div className="my-handle"><i class="fas fa-sort"></i></div>
             <div className="item-name">{details.name}</div>
           </div>
           <div className="list-remove" onClick={() => this.props.removeListFromTodos(index)}>

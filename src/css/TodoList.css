@@ -48,7 +48,7 @@
 
 .menu .user {
   position: relative;
-  padding: 1rem;
+  padding: .45rem;
   height: 3rem;
   /* border: 1px solid green; */
 }
@@ -83,7 +83,7 @@
 }
 
 .sortable-chosen {
-  opacity: 1;
+  opacity: .4;
 }
 
 .sortable-drag {
@@ -101,13 +101,9 @@
 .menu .logout {
   /* border: 1px solid red; */
   position: relative;
-  height: var(--logout-width);
-  width: var(--logout-width);
-  font-size: 3rem;
-  line-height: 1rem;
+  font-size: 2rem;
   text-align: center;
   font-family: monospace;
-  border-radius: 10rem;
   color: rgba(140,140,140,1);
    /* background-color: rgba(0,0,0,.2); */
   cursor: pointer;
@@ -149,6 +145,7 @@
   border: none;
   transform: translateX(-2rem);
   transition: all .4s ease;
+  user-select: none;
 }
 
 .menu .add-todo:hover,

@@ -27,6 +27,29 @@ class App extends Component {
     });
   }
 
+  changeOrder = (newOrder) => {
+    const todos = { ...this.state.todos };
+    let newTodoOrder = [];
+    let counter = 1;
+    newOrder.forEach(id =>{
+      Object.keys(todos).map(todo => {
+        if(id === todos[todo].id) {
+          newTodoOrder.push(todos[todo].index)
+        } else {
+        }
+      });
+    });
+    newTodoOrder.forEach((index) => {
+      Object.keys(todos).map(todo => {
+        if(todos[todo].index === index) {
+          todos[todo].id = counter;
+        }
+      });
+      counter++;
+    });
+    this.setState({ todos });
+  }
+
    componentDidMount() {
     const { todoId } = this.props.match.params;
     const localUser = JSON.parse(localStorage.getItem("user"));
@@ -266,6 +289,7 @@ class App extends Component {
             logout={this.userLogout}
             changeTodoOrder={this.changeTodoOrder}
             higherTodo={this.state.higherTodo}
+            changeOrder={this.changeOrder}
           />
           {todoId && todoId !== null ? this.renderActualTodo("full") : this.renderActualTodo("empty")}
         </Fragment>

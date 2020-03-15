@@ -6,15 +6,17 @@ import ToolTip from './ToolTip';
 import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
 
 class TodoMenu extends Component {
-
-  state = {
-    value: "",
-    menu: true,
-    classes: "add-todo textfield",
-    tooltip: "",
-    grabTodo: "",
-    dropTodo: "",
-    last: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "",
+      menu: true,
+      classes: "add-todo textfield",
+      tooltip: "",
+      grabTodo: "",
+      dropTodo: "",
+      last: false
+    }
   }
 
   componentWillMount(){
@@ -29,11 +31,13 @@ class TodoMenu extends Component {
       animation: 150,
       handle: ".my-handle",
       filter: ".add-todo",
-      onEnd: function(e) {
+      onEnd: this.onEnd = (e) =>  {
+        let newOrder = [];
         const todosDivs = dest.childNodes;
         todosDivs.forEach(todo => {
-        console.log(todo.getAttribute("index"));
+          newOrder.push(parseInt(todo.getAttribute("index")));
         });
+        this.props.changeOrder(newOrder);
       }
     });
 
@@ -65,6 +69,7 @@ class TodoMenu extends Component {
     } else if((window.innerWidth > 768)) {
       this.setState({ tooltip: "right" });
     }
+    console.log(this.props);
   }
 
   handleChange = e => {
@@ -147,7 +152,7 @@ class TodoMenu extends Component {
           <div className="menu">
             <div className="user">
               <div className="logout" onClick={this.props.logout}>
-                →
+                <i class="fas fa-sign-out-alt"></i>
                 <ToolTip tip="Kijelentkezés" position={this.state.tooltip}/>
               </div>
             </div>
