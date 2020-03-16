@@ -13,16 +13,21 @@ class Login extends Component {
       title: "",
       msg: ""
     },
-    emailRemember: false
+    emailRemember: false,
+    checkedEamil: false,
   }
 
   componentDidMount(){
+    const email = localStorage.getItem("emailRemember");
     if(this.props.match.path === "/register") {
       this.setState({ register: true });
     } else if(this.props.match.path === "/login") {
       this.setState({ register: false });
     } else {
       this.props.moveUrlTo("/login");
+    }
+    if(email && email !== null) {
+      this.setState({ checkedEamil: true });
     }
   }
 
@@ -66,7 +71,18 @@ class Login extends Component {
   }
 
   setLocalStorage = email => {
-    localStorage.setItem("emailRemember", email);
+
+    const { checkedEamil } = this.state;
+    if(checkedEamil === true){
+      console.log("Email remember");
+      localStorage.setItem("emailRemember", email);
+    } else {
+      const email = localStorage.getItem("emailRemember");
+      console.log("Email forget");
+      if(email && email !== null) {
+        localStorage.removeItem("emailRemember");
+      }
+    }
   }
 
   logInUser = e => {
@@ -101,6 +117,19 @@ class Login extends Component {
     }
   }
 
+  changeCheckedEmail = () => {
+    this.setState({ checkedEamil: !this.state.checkedEamil }, () => {
+      console.log(this.state.checkedEamil);
+    });
+  }
+
+  backToLogin = () => {
+    console.log("vissza login");
+    this.setState({ register: false}, () => {
+      this.props.moveUrlTo("/login");
+    });
+  }
+
   renderError = (title, msg) => {
     const popup = { ...this.state.popup };
     popup.title = title;
@@ -108,6 +137,7 @@ class Login extends Component {
     this.setState({ popup });
     this.togglePopup();
   }
+
   renderLogIn = () => {
     const { showPopup } = this.state;
     const { title,msg } = this.state.popup;
@@ -120,6 +150,22 @@ class Login extends Component {
           <form onSubmit={(e) => this.logInUser(e)}>
             <input type="text" name="email" defaultValue={email && email !== null ? email : ""} autoComplete="off" placeholder="Email" className="name"/>
             <input type="password" name="password" autoComplete="off" placeholder="Jelszó" className="password"/>
+            <div className="email-wrapper">
+              <input
+                type="checkbox"
+                className="toggler"
+                name="email-toggler"
+                checked={this.state.checkedEamil === true ? "chcecked" : ""}
+                onClick={this.changeCheckedEmail}
+              />
+              <div className="email-toggler-button"></div>
+              <span
+                className="for"
+                onClick={this.changeCheckedEmail}
+              >
+                Email cím megjegyzése
+              </span>
+            </div>
             <div className="button-wrapper">
               <button type="submit">Belépés</button>
               <button type="button" onClick={(e) => this.register(e)}>Regisztráció</button>
@@ -137,6 +183,7 @@ class Login extends Component {
       <Fragment>
         {showPopup === true ? <PopUp title={title} msg={msg} togglePopup={this.togglePopup}/> : "" }
         <div className="register">
+          <div className="back" onClick={this.backToLogin}>←</div>
           <h2>Regisztráció</h2>
           <form onSubmit={(e) => this.createUser(e)}>
             <input type="text" name="email" placeholder="Email" className="name"/>

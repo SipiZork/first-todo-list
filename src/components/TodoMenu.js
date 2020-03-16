@@ -147,7 +147,12 @@ class TodoMenu extends Component {
     return (
       <Fragment>
         <div className="open-menu">
-          <input type="checkbox" className="toggler" onClick={this.toggleMenu} checked={this.state.menu === true ? "checked" : ""} onChange={this.checkOnChange}/>
+          <input
+            type="checkbox"
+            className="toggler"
+            onClick={this.toggleMenu}
+            checked={this.state.menu === true ? "checked" : ""}
+            onChange={this.checkOnChange}/>
           <div className="hamburger"><div></div></div>
           <div className="menu">
             <div className="user">
