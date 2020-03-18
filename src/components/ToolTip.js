@@ -4,7 +4,7 @@ import '../css/ToolTip.css';
 
 
   let divStyle = {
-    left: "50px"
+    left: "50px",
   };
 
   let shaftStyle = {
@@ -15,48 +15,70 @@ class ToolTip extends Component {
 
   state = {
     show: false,
-    position: "",
-    classes: "tooltip hide"
+    position: "top",
+    classes: "tooltip hide",
+    color: "white",
+    bgColor: "black"
   }
 
   position = () => {
     const tooltipWidth = ReactDOM.findDOMNode(this).clientWidth;
     const tooltipHeight= ReactDOM.findDOMNode(this).clientHeight;
     const parentWidth = ReactDOM.findDOMNode(this).parentNode.clientWidth;
+    const propsColor = this.props.color;
+    const propsBgColor = this.props.bgColor;
+    const color = propsColor && propsColor !== null ? propsColor : this.state.color;
+    const bgColor = propsBgColor && propsBgColor !== null ? propsBgColor : this.state.bgColor;
     const { position } = this.state;
     if(position === "left") {
       divStyle = {
-        left: -tooltipWidth-10
+        left: -tooltipWidth-10,
+        color: color,
+        backgroundColor: bgColor
       }
       shaftStyle = {
         top: ".45rem",
-        right: "-.25rem"
+        right: "-.25rem",
+        color: color,
+        backgroundColor: bgColor
       }
     } else if(position === "right") {
       divStyle = {
-        left: parentWidth+10
+        left: parentWidth+10,
+        color: color,
+        backgroundColor: bgColor
       }
       shaftStyle = {
         top: ".45rem",
-        left: "-.25rem"
+        left: "-.25rem",
+        color: color,
+        backgroundColor: bgColor
       }
     } else if(position === "top") {
         divStyle = {
           top: -tooltipHeight-10 ,
           left: (parentWidth / 2) - (tooltipWidth / 2),
+          color: color,
+          backgroundColor: bgColor
         }
         shaftStyle = {
           bottom: "-.25rem",
-          left: (tooltipWidth / 2) - 5
+          left: (tooltipWidth / 2) - 5,
+          color: color,
+          backgroundColor: bgColor
         }
     } else if(position === "bottom") {
         divStyle = {
           top: tooltipHeight+10,
           left: (parentWidth / 2) - (tooltipWidth / 2),
+          color: color,
+          backgroundColor: bgColor
         }
         shaftStyle = {
           top: "-.25rem",
-          left: (tooltipWidth / 2) - 5
+          left: (tooltipWidth / 2) - 5,
+          color: color,
+          backgroundColor: bgColor
         }
     }
   }

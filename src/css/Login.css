@@ -12,6 +12,78 @@
   position: absolute;
   text-align: center;
   color: rgba(0,0,0,.6);
+  animation: fade-in-top .5s 1;
+}
+
+.login form .name,
+.login form .email-toggler-button,
+.login form .button-wrapper {
+  animation: fade-in-right .5s 1;
+  animation-delay: .1s;
+  animation-fill-mode: backwards;
+}
+
+.login form .password,
+.login form .for,
+.login h2 {
+  animation: fade-in-left .5s 1;
+  animation-delay: .1s;
+  animation-fill-mode: backwards;
+}
+
+.login form .password {
+  animation-delay: .2s;
+}
+
+.login form .email-toggler-button,
+.login form .for {
+  animation-delay: .3s;
+}
+
+.login form .button-wrapper {
+  animation-delay: .4s;
+}
+
+@keyframes fade-in-left {
+  0% {
+    transform: rotate(-20deg) translateY(-5rem);
+    opacity: 0;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    transform: rotate(0deg) translateY(0);
+    opacity: .8;
+  }
+}
+
+@keyframes fade-in-top {
+  0% {
+    transform: rotate(0) translateY(-10rem);
+    opacity: 0;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    transform: rotate(0deg) translateY(0);
+    opacity: .8;
+  }
+}
+
+@keyframes fade-in-right {
+  0% {
+    transform: rotate(20deg) translateY(-5rem);
+    opacity: 0;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    transform: rotate(0deg) translateY(0);
+    opacity: .8;
+  }
 }
 
 .login {

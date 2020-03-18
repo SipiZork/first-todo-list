@@ -35,8 +35,8 @@ class App extends Component {
       Object.keys(todos).map(todo => {
         if(id === todos[todo].id) {
           newTodoOrder.push(todos[todo].index)
-        } else {
         }
+        return "";
       });
     });
     newTodoOrder.forEach((index) => {
@@ -44,6 +44,7 @@ class App extends Component {
         if(todos[todo].index === index) {
           todos[todo].id = counter;
         }
+        return "";
       });
       counter++;
     });
@@ -72,23 +73,6 @@ class App extends Component {
           });
         }
       });
-    }
-  }
-
-  getSnapshotBeforeUpdate(prevProps, prevState) {
-    if(prevState.todos !== this.state.todos) {
-      let higher = 0;
-      // console.log(this.state.todos);
-      Object.keys(this.state.todos).map(key => {
-        if(this.state.todos[key].id > higher) {
-          higher = this.state.todos[key].id;
-        }
-      });
-      this.setState({ higherTodo: higher });
-    }
-    if(this.state.changeOrder === true && prevState.todos !== this.state.todos){
-      // console.log(this.state.temptodos);
-      this.setState({todos: this.state.temptodos, changeOrder: false});
     }
   }
 
@@ -203,6 +187,7 @@ class App extends Component {
         if(todos[key].id === grabId) {
           todos[key].id = this.state.higherTodo+1;
         }
+        return "";
       });
     } else {
       Object.keys(todos).map(key => {
@@ -211,6 +196,7 @@ class App extends Component {
         } else if(todos[key].id === dropId || todos[key].id > dropId) {
           todos[key].id += 1;
         }
+        return "";
       });
     }
     this.setState({ todos });
@@ -288,7 +274,6 @@ class App extends Component {
             user={this.state.user}
             logout={this.userLogout}
             changeTodoOrder={this.changeTodoOrder}
-            higherTodo={this.state.higherTodo}
             changeOrder={this.changeOrder}
           />
           {todoId && todoId !== null ? this.renderActualTodo("full") : this.renderActualTodo("empty")}

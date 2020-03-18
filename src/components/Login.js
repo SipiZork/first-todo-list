@@ -74,11 +74,11 @@ class Login extends Component {
 
     const { checkedEamil } = this.state;
     if(checkedEamil === true){
-      console.log("Email remember");
+      // console.log("Email remember");
       localStorage.setItem("emailRemember", email);
     } else {
       const email = localStorage.getItem("emailRemember");
-      console.log("Email forget");
+      // console.log("Email forget");
       if(email && email !== null) {
         localStorage.removeItem("emailRemember");
       }
@@ -105,13 +105,15 @@ class Login extends Component {
     if(msg === "The email address is badly formatted.") {
       return "Nem megfelelő email formátum";
     } else if(msg === "The password is invalid or the user does not have a password.") {
-      return "A Jelszó helytelen vagy a felhaszálnó nem rendelkezik jelszóval";
+      return "A Jelszó helytelen";
     } else if(msg === "There is no user record corresponding to this identifier. The user may have been deleted.") {
       return "A felhasználó nem létezik.";
     } else if(msg === "The password must be 6 characters long or more."){
       return "A Jelszónak legalább 6 karakter hosszúnak kell lennie."
     } else if(msg === "Password should be at least 6 characters"){
       return "A Jelszónak legalább 6 karakter hosszúnak kell lennie."
+    } else if(msg === "The email address is already in use by another account.") {
+      return "Ez az email cím már foglalt."
     } else {
       return msg;
     }
@@ -119,12 +121,12 @@ class Login extends Component {
 
   changeCheckedEmail = () => {
     this.setState({ checkedEamil: !this.state.checkedEamil }, () => {
-      console.log(this.state.checkedEamil);
+      // console.log(this.state.checkedEamil);
     });
   }
 
   backToLogin = () => {
-    console.log("vissza login");
+    // console.log("vissza login");
     this.setState({ register: false}, () => {
       this.props.moveUrlTo("/login");
     });
@@ -136,6 +138,10 @@ class Login extends Component {
     popup.msg = this.msgConverter(msg);
     this.setState({ popup });
     this.togglePopup();
+  }
+
+  checkOnChange = () => {
+
   }
 
   renderLogIn = () => {
@@ -156,15 +162,16 @@ class Login extends Component {
                 className="toggler"
                 name="email-toggler"
                 checked={this.state.checkedEamil === true ? "chcecked" : ""}
+                onChange={this.checkOnChange}
                 onClick={this.changeCheckedEmail}
               />
               <div className="email-toggler-button"></div>
-              <span
+              <div
                 className="for"
                 onClick={this.changeCheckedEmail}
               >
                 Email cím megjegyzése
-              </span>
+              </div>
             </div>
             <div className="button-wrapper">
               <button type="submit">Belépés</button>

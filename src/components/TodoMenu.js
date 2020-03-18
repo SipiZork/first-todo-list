@@ -26,8 +26,7 @@ class TodoMenu extends Component {
   componentDidMount() {
     window.addEventListener("resize", () => this.checkResizeWindow());
     let dest = document.querySelector('.todos');
-    console.log(dest);
-    const sort = Sortable.create(dest, {
+    Sortable.create(dest, {
       animation: 150,
       handle: ".my-handle",
       filter: ".add-todo",
@@ -136,12 +135,10 @@ class TodoMenu extends Component {
       if(first > second) {
         return 1;
       }
+      return "";
     });
     const TodosInOrder = Object.keys(array).map(key => {
       return array[key][0].index;
-    });
-    Object.keys(TodosInOrder).map(key => {
-      // console.log(key);
     });
     const { todos, higherTodo } = this.props;
     return (
@@ -157,7 +154,7 @@ class TodoMenu extends Component {
           <div className="menu">
             <div className="user">
               <div className="logout" onClick={this.props.logout}>
-                <i class="fas fa-sign-out-alt"></i>
+                <i className="fas fa-sign-out-alt"></i>
                 <ToolTip tip="Kijelentkezés" position={this.state.tooltip}/>
               </div>
             </div>
