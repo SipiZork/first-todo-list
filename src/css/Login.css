@@ -18,7 +18,7 @@
 .login form .name,
 .login form .email-toggler-button,
 .login form .button-wrapper {
-  animation: fade-in-right .5s 1;
+  animation: fade-in-top .5s 1;
   animation-delay: .1s;
   animation-fill-mode: backwards;
 }
@@ -26,7 +26,7 @@
 .login form .password,
 .login form .for,
 .login h2 {
-  animation: fade-in-left .5s 1;
+  animation: fade-in-top .5s 1;
   animation-delay: .1s;
   animation-fill-mode: backwards;
 }
@@ -60,14 +60,14 @@
 
 @keyframes fade-in-top {
   0% {
-    transform: rotate(0) translateY(-10rem);
+    transform: rotate(0) scale(1.5) translateY(-10rem);
     opacity: 0;
   }
   50% {
     opacity: .5;
   }
   100% {
-    transform: rotate(0deg) translateY(0);
+    transform: rotate(0deg) scale(1) translateY(0);
     opacity: .8;
   }
 }
