@@ -4,12 +4,14 @@ import TextAreaAutoSize from 'react-autosize-textarea';
 // import TextField from "@material-ui/core/TextField";
 // import { TextareaAutosize } from "@material-ui/core";
 import ToolTip from './ToolTip';
+import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
 
 class ActualTodo extends Component {
   state = {
       name: "",
       first: true,
-      classes: "add-item textfield"
+      classes: "add-item textfield",
+      sortable :false
     }
 
   componentDidUpdate(prevProps) {
@@ -46,6 +48,35 @@ class ActualTodo extends Component {
             </div>
             <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>
               <ToolTip tip="Törlés" position="left" />
+            </div>
+          </div>
+        </Fragment>
+      )
+
+    return
+  }
+
+  listUncompletedSortalbeItems = key => {
+    const item = this.props.actualTodo[key];
+    if(typeof(item) === "string"){
+      return
+    }
+    if(item.completed === false)
+      return (
+        <Fragment key={key}>
+          <div className="item-container movable-item-container">
+            <div className="item-text" htmlFor={item.index}>
+              <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
+                <TextAreaAutoSize
+                  key={key}
+                  defaultValue={item.text}
+                  autoComplete="off"
+                  className="item"
+                  onKeyPress={(e) => this.editItemKeyHandler(e, item)}
+                  disabled
+                >
+                </TextAreaAutoSize>
+              </form>
             </div>
           </div>
         </Fragment>
@@ -170,6 +201,56 @@ class ActualTodo extends Component {
     }
   }
 
+  sortable = () => {
+    const actualTodo = this.props.actualTodo;
+    const todoIds = Object.keys(actualTodo);
+    this.setState({ sortable: !this.state.sortable }, () => {
+      const { sortable } = this.state;
+      if(sortable === false){
+        return (
+          todoIds.map(this.listUncompletedItems)
+        );
+      }
+      if(sortable === true) {
+        return (
+          <Fragment>
+            {todoIds.map(this.listUncompletedSortalbeItems)}
+            {this.createSortable()}
+          </Fragment>
+        );
+      }
+    });
+  }
+
+  createSortable = () => {
+    const dest = document.querySelector(".uncompleted-items");
+    Sortable.create(dest,  {
+      animate: 150
+    });
+  }
+
+  sortableChange = () => {
+
+  }
+
+  ui = () => {
+    const actualTodo = this.props.actualTodo;
+    const todoIds = Object.keys(actualTodo);
+      const { sortable } = this.state;
+      if(sortable === false){
+        return (
+          todoIds.map(this.listUncompletedItems)
+        );
+      } else if(sortable === true) {
+        return (
+          <Fragment>
+            {todoIds.map(this.listUncompletedSortalbeItems)}
+            {this.createSortable()}
+          </Fragment>
+        );
+      }
+  }
+
   render() {
     const actualTodo = this.props.actualTodo;
     if(actualTodo !== undefined){
@@ -189,9 +270,14 @@ class ActualTodo extends Component {
             />
             <div>Cím</div>
           </form>
+          <input
+            type="checkbox"
+            checked={this.state.sortable}
+            onClick={this.sortable}
+            onChange={this.sortableChange}
+          />
           <div className="uncompleted-items">
-            {todoIds.map(this.listUncompletedItems)}
-
+            {this.ui()}
             <form className="textfield-form" onSubmit={(e) => this.createItem(e, "submit")}>
               <TextAreaAutoSize
                 name="newItem"

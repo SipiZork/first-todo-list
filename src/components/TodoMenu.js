@@ -10,7 +10,7 @@ class TodoMenu extends Component {
     super(props);
     this.state = {
       value: "",
-      menu: true,
+      menu: false,
       classes: "add-todo textfield",
       tooltip: "",
       grabTodo: "",
