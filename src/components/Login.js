@@ -73,7 +73,7 @@ class Login extends Component {
   setLocalStorage = email => {
 
     const { checkedEamil } = this.state;
-    if(checkedEamil === true){
+    if(checkedEamil === true && email && email !== null){
       // console.log("Email remember");
       localStorage.setItem("emailRemember", email);
     } else {
@@ -121,7 +121,7 @@ class Login extends Component {
 
   changeCheckedEmail = () => {
     this.setState({ checkedEamil: !this.state.checkedEamil }, () => {
-      // console.log(this.state.checkedEamil);
+      this.setLocalStorage();
     });
   }
 
@@ -159,13 +159,12 @@ class Login extends Component {
             <div className="email-wrapper">
               <input
                 type="checkbox"
-                className="toggler"
+                className="email-toggler"
                 name="email-toggler"
                 checked={this.state.checkedEamil === true ? "chcecked" : ""}
                 onChange={this.checkOnChange}
                 onClick={this.changeCheckedEmail}
               />
-              <div className="email-toggler-button"></div>
               <div
                 className="for"
                 onClick={this.changeCheckedEmail}
