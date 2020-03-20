@@ -11,7 +11,8 @@ class ActualTodo extends Component {
       name: "",
       first: true,
       classes: "add-item textfield",
-      sortable :false
+      sortable :false,
+      itemCalsses: "uncompleted-items"
     }
 
   componentDidUpdate(prevProps) {
@@ -207,26 +208,33 @@ class ActualTodo extends Component {
     this.setState({ sortable: !this.state.sortable }, () => {
       const { sortable } = this.state;
       if(sortable === false){
+        this.setState({ itemCalsses: "uncompleted-items "})
         return (
           todoIds.map(this.listUncompletedItems)
         );
       }
       if(sortable === true) {
-        return (
-          <Fragment>
-            {todoIds.map(this.listUncompletedSortalbeItems)}
-            {this.createSortable()}
-          </Fragment>
-        );
+        this.setState({ itemCalsses: "uncompleted-items movable-uncompleted-items"}, () => {
+          return (
+            <Fragment>
+              {todoIds.map(this.listUncompletedSortalbeItems)}
+              {this.createSortable()}
+            </Fragment>
+          );
+        });
       }
     });
   }
 
   createSortable = () => {
     const dest = document.querySelector(".uncompleted-items");
-    Sortable.create(dest,  {
-      animate: 150
-    });
+    if(dest && dest !== null) {
+      console.log(dest);
+      Sortable.create(dest,  {
+        animate: 150,
+        draggable: ".movable-item-container"
+      });
+    }
   }
 
   sortableChange = () => {
@@ -276,7 +284,7 @@ class ActualTodo extends Component {
             onClick={this.sortable}
             onChange={this.sortableChange}
           />
-          <div className="uncompleted-items">
+        <div className={this.state.itemCalsses}>
             {this.ui()}
             <form className="textfield-form" onSubmit={(e) => this.createItem(e, "submit")}>
               <TextAreaAutoSize
