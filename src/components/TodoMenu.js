@@ -154,7 +154,10 @@ class TodoMenu extends Component {
           <div className="menu">
             <div className="user">
               <div className="logout" onClick={this.props.logout}>
-                <i className="fas fa-sign-out-alt"></i>
+                <svg>
+                  <path className="arrow"></path>
+                  <path className="line"></path>
+                </svg>
                 <ToolTip tip="Kijelentkezés" position={this.state.tooltip}/>
               </div>
             </div>

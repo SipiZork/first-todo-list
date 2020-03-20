@@ -289,6 +289,47 @@ input:focus {
   transition: all .4s ease;
 }
 
+
+svg {
+  width: 42px;
+  height: 30px;
+  fill: none;
+}
+
+svg path.line {
+  d: path("M35,0 C35,10, 35,20 ,35,30");
+  stroke: rgba(140,140,140,.8);
+  stroke-width: 4;
+
+}
+
+svg:hover path.line{
+  animation: lines 1s infinite;
+}
+
+svg:hover path.arrow {
+  animation: arrow 1s infinite;
+}
+
+svg path.arrow {
+  d: path("M5,15 L25,15, M26,16 L15,5 M26,14 L15,25");
+  stroke: rgba(140,140,140,.8);
+  stroke-width: 3;
+}
+
+@keyframes arrow {
+  0% { d: path("M5,15 L25,15, M26,16 L15,5 M26,14 L15,25"); }
+  50% { d: path("M15,15 L35,15, M36,16 L25,5 M36,14 L25,25"); }
+  100% { d: path("M5,15 L25,15, M26,16 L15,5 M26,14 L15,25"); }
+}
+
+@keyframes lines {
+  0% { d: path("M35,0 C35,10 ,35,20 ,35,30"); }
+  20% { d: path("M35,0 C35,10 ,35,20 ,35,30"); }
+  50% { d: path("M35,2 C40,10 ,40,20, 35,28"); }
+  100%{ d: path("M35,0 C35,10 ,35,20, 35,30"); }
+}
+
 @media only screen and (max-width: 992px) {
   :root {
     --menu-width: 20rem;

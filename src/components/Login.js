@@ -206,8 +206,11 @@ class Login extends Component {
   render() {
     return (
       <Fragment>
+        <svg>
+          <path className="arrow"></path>
+          <path className="line"></path>
+        </svg>
         {this.state.register === false ? this.renderLogIn() : this.renderRegister()}
-
       </Fragment>
     )
   }
