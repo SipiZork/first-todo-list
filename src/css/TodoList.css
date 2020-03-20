@@ -304,11 +304,11 @@ svg path.line {
 }
 
 svg:hover path.line{
-  animation: lines 1s infinite;
+  animation: lines .05s infinite;
 }
 
 svg:hover path.arrow {
-  animation: arrow 1s infinite;
+  animation: arrow .05s infinite;
 }
 
 svg path.arrow {
