@@ -17,6 +17,7 @@ class App extends Component {
     temptodos: {},
     changeOrder: false,
     higherTodo: 0,
+    higherItem: 0,
     sortTodos: {}
   }
 

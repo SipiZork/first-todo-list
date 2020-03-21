@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import ReactDOM from 'react-dom';
+import Item from './Item'
 import '../css/ActualTodo.css';
 import TextAreaAutoSize from 'react-autosize-textarea';
 // import TextField from "@material-ui/core/TextField";
@@ -16,14 +17,51 @@ class ActualTodo extends Component {
       itemClasses: "uncompleted-items",
       uncompletedListClasses: "uncompleted-items",
       uncompletedSortableListClasses: "movable-uncompleted-items hide",
-      loaded: false
+      higherItem: 0,
+      loaded: false,
+      order: []
     }
   sortableRef = React.createRef();
 
   componentDidUpdate(prevProps, prevState) {
     if(this.props.actualTodo !== undefined){
       if(prevProps.actualTodo !== this.props.actualTodo ) {
-        this.setState({first: false, name: this.props.actualTodo.name});
+        let higherId = 0;
+        let id = 0;
+        // console.log(this.props.actualTodo);
+        Object.keys(this.props.actualTodo).map(key => {
+          if(typeof(this.props.actualTodo[key].completed) === "boolean") {
+            if(this.props.actualTodo[key].id > higherId) {
+              higherId = this.props.actualTodo[key].id;
+            }
+          }
+        });
+        const actualTodo = this.props.actualTodo;
+        let ItemsInOrder = [];
+        let array = [];
+        Object.keys(actualTodo).map(key => {
+          const item = actualTodo[key];
+          if(typeof(item.completed) === "boolean") {
+            array.push(item);
+          }
+        });
+        array.sort((a,b) => {
+          const first = a.id;
+          const second = b.id;
+          if(first < second){
+            return -1;
+          }
+          if(first > second) {
+            return 1;
+          }
+          return "";
+        });
+        ItemsInOrder = Object.keys(array).map(key => {
+          return `item${array[key].index}`;
+        });
+        this.setState({order: ItemsInOrder }, () => console.log(this.state.order));
+        // console.log(ItemsInOrder);
+        this.setState({first: false, name: this.props.actualTodo.name, higherItem: higherId });
       }
     }
     if(this.state.loaded === false) {
@@ -39,102 +77,24 @@ class ActualTodo extends Component {
     }
   }
 
-  listUncompletedItems = key => {
-    const item = this.props.actualTodo[key];
-    if(typeof(item) === "string"){
-      return
+  createItem = (e, handler)=> {
+    e.preventDefault();
+    this.setState({ classes: "add-item textfield" });
+    const text = handler === "submit" ? e.target.newItem.value : e.target.value;
+    if(text && text !== ""){
+      const item = {
+        id: this.state.higherItem + 1,
+        index: Date.now(),
+        text: text,
+        completed: false
+      }
+      if(handler === "submit") {
+        e.target.newItem.value = "";
+      } else {
+         e.target.value = "";
+      }
+      this.props.addToActualList(item);
     }
-    if(item.completed === false)
-      return (
-        <Fragment key={key}>
-          <div className="item-container">
-            <div className="checkmark unchecked" onClick={() => this.props.itemCompleted(key)}>
-              <ToolTip tip="Kész" position="top" />
-            </div>
-            <div className="item-text" htmlFor={item.index}>
-              <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
-                <TextAreaAutoSize
-                  key={key}
-                  defaultValue={item.text}
-                  autoComplete="off"
-                  className="item"
-                  onKeyPress={(e) => this.editItemKeyHandler(e, item)}
-                >
-                </TextAreaAutoSize>
-              </form>
-            </div>
-            <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>
-              <ToolTip tip="Törlés" position="left" />
-            </div>
-          </div>
-        </Fragment>
-      )
-
-    return
-  }
-
-  listUncompletedSortalbeItems = key => {
-    const item = this.props.actualTodo[key];
-    if(typeof(item) === "string"){
-      return
-    }
-    if(item.completed === false)
-      return (
-        <Fragment key={key}>
-          <div className="movable-item-container">
-            <div className="item-text" htmlFor={item.index}>
-              <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
-                <TextAreaAutoSize
-                  key={key}
-                  defaultValue={item.text}
-                  autoComplete="off"
-                  className="item"
-                  onKeyPress={(e) => this.editItemKeyHandler(e, item)}
-                  disabled
-                >
-                </TextAreaAutoSize>
-              </form>
-            </div>
-          </div>
-        </Fragment>
-      )
-
-    return
-  }
-
-  listCompletedItems = key => {
-    const item = this.props.actualTodo[key];
-    if(typeof(item) === "string"){
-      return
-    }
-    if(item.completed === true)
-    return (
-      <Fragment key={key}>
-        <div className="item-container">
-          <div className="checkmark checked" onClick={() => this.props.itemCompleted(key)}>
-            <ToolTip tip="Mégse" position="top" />
-          </div>
-          <div className="item-text" htmlFor={item.index}>
-            <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
-              <TextAreaAutoSize
-                name="text"
-                key={key}
-                defaultValue={item.text}
-                autoComplete="off"
-                className="item"
-                onKeyPress={(e) => this.editItemKeyHandler(e, item)}
-              >
-              </TextAreaAutoSize>
-            </form>
-          </div>
-          <div className="remove-item" onClick={() => this.props.removeFromActualList(key)}>
-            <ToolTip tip="Törlés" position="left" />
-          </div>
-          </div>
-        </Fragment>
-      )
-
-    return
   }
 
   addItemKeyHandler = e => {
@@ -150,45 +110,6 @@ class ActualTodo extends Component {
     } else {
       this.setState({ classes: "add-item textfield" });
     }
-  }
-
-  editItemKeyHandler = (e, item) => {
-    if(e.shiftKey === false && e.key === "Enter") {
-      this.changeItem(e, item, "onBlur");
-      e.target.blur();
-    }
-  }
-
-
-  createItem = (e, handler)=> {
-    e.preventDefault();
-    this.setState({ classes: "add-item textfield" });
-    const text = handler === "submit" ? e.target.newItem.value : e.target.value;
-    if(text && text !== ""){
-      const item = {
-        index: Date.now(),
-        text: text,
-        completed: false
-      }
-      if(handler === "submit") {
-        e.target.newItem.value = "";
-      } else {
-         e.target.value = "";
-      }
-      this.props.addToActualList(item);
-    }
-  }
-
-  changeItem = (e, item, onHow) => {
-    e.preventDefault();
-    let newText = "";
-    if(onHow === "onSubmit"){
-      newText = e.target.text.value;
-      e.target.text.blur();
-    } else if(onHow === "onBlur"){
-      newText = e.target.value;
-    }
-    this.props.modifyItem(item, newText);
   }
 
   changeNameHandler = e => {
@@ -236,6 +157,10 @@ class ActualTodo extends Component {
 
   }
 
+  renderOrder = () => {
+
+  }
+
   render() {
     const actualTodo = this.props.actualTodo;
     if(actualTodo !== undefined){
@@ -262,7 +187,19 @@ class ActualTodo extends Component {
             onChange={this.sortableChange}
           />
           <div className={this.state.uncompletedListClasses}>
-            {todoIds.map(this.listUncompletedItems)}
+            {Object.keys(this.state.order).map(key => (
+              <Item
+                key={key}
+                item={actualTodo[this.state.order[key]]}
+                changeItem={this.changeItem}
+                itemCompleted={this.props.itemCompleted}
+                editItemKeyHandler={this.editItemKeyHandler}
+                removeFromActualList={this.props.removeFromActualList}
+                modifyItem={this.props.modifyItem}
+                items="uncompleted"
+              />
+            ))}
+            {/* {todoIds.map(this.listUncompletedItems)} */}
             <form className="textfield-form" onSubmit={(e) => this.createItem(e, "submit")}>
               <TextAreaAutoSize
                 name="newItem"
@@ -276,7 +213,18 @@ class ActualTodo extends Component {
             </form>
           </div>
           <div className={this.state.uncompletedSortableListClasses} ref={this.sortableRef}>
-            {todoIds.map(this.listUncompletedSortalbeItems)}
+            {Object.keys(this.state.order).map(key => (
+              <Item
+                key={key}
+                item={actualTodo[this.state.order[key]]}
+                changeItem={this.changeItem}
+                itemCompleted={this.props.itemCompleted}
+                editItemKeyHandler={this.editItemKeyHandler}
+                removeFromActualList={this.props.removeFromActualList}
+                modifyItem={this.props.modifyItem}
+                items="sortable"
+              />
+            ))}
             <form className="textfield-form" onSubmit={(e) => this.createItem(e, "submit")}>
               <TextAreaAutoSize
                 name="newItem"
@@ -290,7 +238,18 @@ class ActualTodo extends Component {
             </form>
           </div>
           <div className="completed-items">
-            {todoIds.map(this.listCompletedItems)}
+            {Object.keys(this.state.order).map(key => (
+              <Item
+                key={key}
+                item={actualTodo[this.state.order[key]]}
+                changeItem={this.changeItem}
+                itemCompleted={this.props.itemCompleted}
+                editItemKeyHandler={this.editItemKeyHandler}
+                removeFromActualList={this.props.removeFromActualList}
+                modifyItem={this.props.modifyItem}
+                items="completed"
+              />
+            ))}
           </div>
         </Fragment>
       )

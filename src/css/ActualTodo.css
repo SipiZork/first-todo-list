@@ -401,3 +401,7 @@
 .movable-uncompleted-items.hide {
   display: none;
 }
+
+.movable-uncompleted-items .item{
+  pointer-events: none;
+}

@@ -54,21 +54,21 @@ class TodoMenu extends Component {
     const grabTodo = this.state.grabTodo;
     const dropTodo = this.state.dropTodo;
     if(grabTodo === dropTodo) {
-      console.log("Nincs változás");
+      // console.log("Nincs változás");
     } else {
-      console.log(`Be kell raknia a ${grabTodo}-t a ${dropTodo} elé`);
+      // console.log(`Be kell raknia a ${grabTodo}-t a ${dropTodo} elé`);
       this.props.changeTodoOrder(grabTodo, dropTodo, this.state.last);
     }
   }
 
   checkResizeWindow = () => {
-    console.log(window.innerWidth);
+    // console.log(window.innerWidth);
     if (window.innerWidth <= 768){
       this.setState({ tooltip: "left" });
     } else if((window.innerWidth > 768)) {
       this.setState({ tooltip: "right" });
     }
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   handleChange = e => {
