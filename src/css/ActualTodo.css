@@ -8,6 +8,7 @@
 }
 
 .item-container,
+.movable-item-container,
 .add-item {
   display: block;
   width: 100%;
@@ -318,6 +319,7 @@
 }
 
 .uncompleted-items:before,
+.movable-uncompleted-items:before,
 .completed-items:before {
   content: "Feladatok";
   display: block;
@@ -335,7 +337,8 @@
   content: "Elkészült feladatok"
 }
 
-.uncompleted-items:after {
+.uncompleted-items:after,
+.movable-uncompleted-items:after {
   content: "";
   display: block;
   margin-bottom: 1rem;
@@ -390,6 +393,11 @@
   animation-delay: .25s;
 }
 
-.uncompleted-items:active > .movable-item-container{
+.movable-uncompleted-items:active > .movable-item-container{
   animation: none;
+}
+
+.uncompleted-items.hide,
+.movable-uncompleted-items.hide {
+  display: none;
 }

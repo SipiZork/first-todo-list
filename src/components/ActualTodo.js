@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import ReactDOM from 'react-dom';
 import '../css/ActualTodo.css';
 import TextAreaAutoSize from 'react-autosize-textarea';
 // import TextField from "@material-ui/core/TextField";
@@ -12,13 +13,28 @@ class ActualTodo extends Component {
       first: true,
       classes: "add-item textfield",
       sortable :false,
-      itemCalsses: "uncompleted-items"
+      itemClasses: "uncompleted-items",
+      uncompletedListClasses: "uncompleted-items",
+      uncompletedSortableListClasses: "movable-uncompleted-items hide",
+      loaded: false
     }
+  sortableRef = React.createRef();
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if(this.props.actualTodo !== undefined){
       if(prevProps.actualTodo !== this.props.actualTodo ) {
         this.setState({first: false, name: this.props.actualTodo.name});
+      }
+    }
+    if(this.state.loaded === false) {
+      const node = this.sortableRef.current;
+      if(node && node !== null){
+        this.setState({ loaded: true }, () => {
+          Sortable.create(node, {
+            animate: 150,
+            draggable: '.movable-item-container'
+          });
+        });
       }
     }
   }
@@ -65,7 +81,7 @@ class ActualTodo extends Component {
     if(item.completed === false)
       return (
         <Fragment key={key}>
-          <div className="item-container movable-item-container">
+          <div className="movable-item-container">
             <div className="item-text" htmlFor={item.index}>
               <form key={key} onSubmit={(e) => this.changeItem(e, item, "onSubmit")} onBlur={(e) => this.changeItem(e, item, "onBlur")}>
                 <TextAreaAutoSize
@@ -208,55 +224,16 @@ class ActualTodo extends Component {
     this.setState({ sortable: !this.state.sortable }, () => {
       const { sortable } = this.state;
       if(sortable === false){
-        this.setState({ itemCalsses: "uncompleted-items "})
-        return (
-          todoIds.map(this.listUncompletedItems)
-        );
+        this.setState({ uncompletedListClasses: "uncompleted-items", uncompletedSortableListClasses: "movable-uncompleted-items hide"});
       }
       if(sortable === true) {
-        this.setState({ itemCalsses: "uncompleted-items movable-uncompleted-items"}, () => {
-          return (
-            <Fragment>
-              {todoIds.map(this.listUncompletedSortalbeItems)}
-              {this.createSortable()}
-            </Fragment>
-          );
-        });
+        this.setState({ uncompletedListClasses: "uncompleted-items hide", uncompletedSortableListClasses: "movable-uncompleted-items"});
       }
     });
   }
 
-  createSortable = () => {
-    const dest = document.querySelector(".uncompleted-items");
-    if(dest && dest !== null) {
-      console.log(dest);
-      Sortable.create(dest,  {
-        animate: 150,
-        draggable: ".movable-item-container"
-      });
-    }
-  }
-
   sortableChange = () => {
 
-  }
-
-  ui = () => {
-    const actualTodo = this.props.actualTodo;
-    const todoIds = Object.keys(actualTodo);
-      const { sortable } = this.state;
-      if(sortable === false){
-        return (
-          todoIds.map(this.listUncompletedItems)
-        );
-      } else if(sortable === true) {
-        return (
-          <Fragment>
-            {todoIds.map(this.listUncompletedSortalbeItems)}
-            {this.createSortable()}
-          </Fragment>
-        );
-      }
   }
 
   render() {
@@ -284,8 +261,22 @@ class ActualTodo extends Component {
             onClick={this.sortable}
             onChange={this.sortableChange}
           />
-        <div className={this.state.itemCalsses}>
-            {this.ui()}
+          <div className={this.state.uncompletedListClasses}>
+            {todoIds.map(this.listUncompletedItems)}
+            <form className="textfield-form" onSubmit={(e) => this.createItem(e, "submit")}>
+              <TextAreaAutoSize
+                name="newItem"
+                className={this.state.classes}
+                autoComplete="off"
+                onChange={(e) => this.addItemChangeHandler(e)}
+                onKeyPress={(e) => this.addItemKeyHandler(e)}
+                onBlur={(e) => this.createItem(e, "onblur")}
+              ></TextAreaAutoSize>
+              <div>Feladat hozzáadása</div>
+            </form>
+          </div>
+          <div className={this.state.uncompletedSortableListClasses} ref={this.sortableRef}>
+            {todoIds.map(this.listUncompletedSortalbeItems)}
             <form className="textfield-form" onSubmit={(e) => this.createItem(e, "submit")}>
               <TextAreaAutoSize
                 name="newItem"

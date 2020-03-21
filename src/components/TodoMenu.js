@@ -25,7 +25,7 @@ class TodoMenu extends Component {
 
   componentDidMount() {
     window.addEventListener("resize", () => this.checkResizeWindow());
-    let dest = document.querySelector('.todos');
+    const dest = document.querySelector('.todos');
     Sortable.create(dest, {
       animation: 150,
       handle: ".my-handle",
