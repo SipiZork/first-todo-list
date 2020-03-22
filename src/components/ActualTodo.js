@@ -35,6 +35,9 @@ class ActualTodo extends Component {
   componentDidUpdate(prevProps, prevState) {
     if(this.props.actualTodo !== undefined){
       if(prevProps.actualTodo !== this.props.actualTodo ) {
+        if(prevProps.actualTodo !== undefined && prevProps.actualTodo.id !== this.props.actualTodo.id) {
+          this.setState({ sortable: false, uncompletedListClasses: "uncompleted-items", uncompletedSortableListClasses: "movable-uncompleted-items hide" })
+        }
         let higherId = 0;
         let id = 0;
         // console.log(this.props.actualTodo);
@@ -70,7 +73,7 @@ class ActualTodo extends Component {
         });
         this.setState({order: ItemsInOrder });
         // console.log(ItemsInOrder);
-        this.setState({first: false, name: this.props.actualTodo.name, higherItem: higherId, sortable: false });
+        this.setState({first: false, name: this.props.actualTodo.name, higherItem: higherId });
       }
     }
     if(this.state.loaded === false) {
