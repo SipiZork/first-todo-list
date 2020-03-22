@@ -85,7 +85,8 @@
   background-color: rgba(140,140,140,1);
 }
 
-.item-container:after {
+.item-container:after,
+.movable-item-container:after {
   content: "";
   display: block;
   width: calc(100% + 3.125rem);
@@ -302,6 +303,7 @@
 }
 
 .item-text textarea:focus,
+.position input:focus,
 .add-item:focus {
   outline: 0;
   color: rgba(255,255,255,.8);
@@ -422,14 +424,27 @@
   top: -.25rem;
   right: 1rem;
   width: 3rem;
-  height: 1rem;
 }
 
-
-.sortable-checkbox {
+.sortable-toggler {
   display: block;
   cursor: pointer;
-  position: relative;
+  position: absolute;
+  top:-.2rem;
+  left: -.25rem;
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: 2rem;
+  z-index: 3;
+  opacity: 0;
+}
+
+.sortable-toggler-button {
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  top: .2rem;
+  left: 0;
   appearance: none;
   outline-width: 10px;
   -webkit-appearance: none;
@@ -443,7 +458,7 @@
   border-radius: 2rem;
 }
 
-.sortable-checkbox:before {
+.sortable-toggler-button:before {
   content: '';
   display: block;
   position: absolute;
@@ -459,11 +474,11 @@
   transition: all .2s ease-in-out;
 }
 
-.sortable-checkbox:checked:before {
+.sortable-toggler:checked + .sortable-toggler-button:before{
   left: 1.5rem;
 }
 
-.sortable-checkbox:checked  {
+.sortable-toggler:checked + .sortable-toggler-button {
   background: rgb(115,184,255);
   background: -webkit-linear-gradient(left, rgba(115,184,255,1) 0%, rgba(100,171,255,1) 49%, rgba(35,130,255,1) 100%);
   background: -o-linear-gradient(left, rgba(115,184,255,1) 0%, rgba(100,171,255,1) 49%, rgba(35,130,255,1) 100%);

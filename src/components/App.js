@@ -66,24 +66,20 @@ class App extends Component {
         }
       });
     });
-    console.log(newItemOrder);
+    // console.log(newItemOrder);
     newItemOrder.forEach((index) => {
       Object.keys(todos[this.state.actualTodo]).map(item => {
         if(typeof(todos[this.state.actualTodo][item].completed) === "boolean"){
-          console.log(`keressük${index}`);
           if(todos[this.state.actualTodo][item].index === index) {
-            console.log(`találat${todos[this.state.actualTodo][item].index}`);
-            console.log(`kicseréltük az id-t ${todos[this.state.actualTodo][item].id}-ról ${counter}-re`);
             todos[this.state.actualTodo][item].id = counter;
-            console.log(todos[this.state.actualTodo][item].id);
+            // console.log(todos[this.state.actualTodo][item].id);
           }
         }
       });
       counter++;
-      console.log(`növeljük a countert: ${counter}`);
       // console.log(todos);
     });
-    this.setState({ todos }, () => console.log(todos));
+    this.setState({ todos });
   }
 
    componentDidMount() {

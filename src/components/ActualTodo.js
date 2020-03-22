@@ -88,7 +88,7 @@ class ActualTodo extends Component {
                   newOrder.push(parseInt(item.getAttribute("index")));
                 }
               });
-              console.log(newOrder);
+              // console.log(newOrder);
               this.props.changeItemOrder(newOrder);
             }
           });
@@ -177,8 +177,22 @@ class ActualTodo extends Component {
 
   }
 
-  renderOrder = () => {
-
+  renderItems = items => {
+    const actualTodo = this.props.actualTodo;
+    return(
+      Object.keys(this.state.order).map(key => (
+        <Item
+          key={key}
+          item={actualTodo[this.state.order[key]]}
+          changeItem={this.changeItem}
+          itemCompleted={this.props.itemCompleted}
+          editItemKeyHandler={this.editItemKeyHandler}
+          removeFromActualList={this.props.removeFromActualList}
+          modifyItem={this.props.modifyItem}
+          items={items}
+        />
+      ))
+    )
   }
 
   render() {
@@ -204,27 +218,17 @@ class ActualTodo extends Component {
             <div className="position">
               <input
                 type="checkbox"
-                className="sortable-checkbox"
+                className="sortable-toggler"
                 checked={this.state.sortable}
                 onClick={this.sortable}
                 onChange={this.sortableChange}
               />
+              <div className="sortable-toggler-button"></div>
               <ToolTip tip="Feladat Rendezés" position="left" />
             </div>
           </div>
           <div className={this.state.uncompletedListClasses}>
-            {Object.keys(this.state.order).map(key => (
-              <Item
-                key={key}
-                item={actualTodo[this.state.order[key]]}
-                changeItem={this.changeItem}
-                itemCompleted={this.props.itemCompleted}
-                editItemKeyHandler={this.editItemKeyHandler}
-                removeFromActualList={this.props.removeFromActualList}
-                modifyItem={this.props.modifyItem}
-                items="uncompleted"
-              />
-            ))}
+            {this.renderItems("uncompleted")}
             {/* {todoIds.map(this.listUncompletedItems)} */}
             <form className="textfield-form" onSubmit={(e) => this.createItem(e, "submit")}>
               <TextAreaAutoSize
@@ -239,18 +243,7 @@ class ActualTodo extends Component {
             </form>
           </div>
           <div className={this.state.uncompletedSortableListClasses} ref={this.sortableRef}>
-            {Object.keys(this.state.order).map(key => (
-              <Item
-                key={key}
-                item={actualTodo[this.state.order[key]]}
-                changeItem={this.changeItem}
-                itemCompleted={this.props.itemCompleted}
-                editItemKeyHandler={this.editItemKeyHandler}
-                removeFromActualList={this.props.removeFromActualList}
-                modifyItem={this.props.modifyItem}
-                items="sortable"
-              />
-            ))}
+            {this.renderItems("sortable")}
             <form className="textfield-form" onSubmit={(e) => this.createItem(e, "submit")}>
               <TextAreaAutoSize
                 name="newItem"
@@ -264,18 +257,7 @@ class ActualTodo extends Component {
             </form>
           </div>
           <div className="completed-items">
-            {Object.keys(this.state.order).map(key => (
-              <Item
-                key={key}
-                item={actualTodo[this.state.order[key]]}
-                changeItem={this.changeItem}
-                itemCompleted={this.props.itemCompleted}
-                editItemKeyHandler={this.editItemKeyHandler}
-                removeFromActualList={this.props.removeFromActualList}
-                modifyItem={this.props.modifyItem}
-                items="completed"
-              />
-            ))}
+            {this.renderItems("completed")}
           </div>
         </Fragment>
       )
