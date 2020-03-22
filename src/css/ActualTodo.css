@@ -405,3 +405,70 @@
 .movable-uncompleted-items .item{
   pointer-events: none;
 }
+
+.sortable-checkbox-wrapper {
+  position: relative;
+  font-family: monospace;
+}
+
+.sortable-checkbox-wrapper:after   {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.sortable-checkbox-wrapper .position {
+  position: absolute;
+  top: -.25rem;
+  right: 1rem;
+  width: 3rem;
+  height: 1rem;
+}
+
+
+.sortable-checkbox {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  appearance: none;
+  outline-width: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 3rem;
+  height: 1rem;
+  background: rgb(185,185,185);
+  background: -webkit-linear-gradient(left, rgba(185,185,185,1) 0%, rgba(153,153,153,1) 49%, rgba(134,134,134,1) 100%);
+  background: -o-linear-gradient(left, rgba(185,185,185,1) 0%, rgba(153,153,153,1) 49%, rgba(134,134,134,1) 100%);
+  background: linear-gradient(to right, rgba(185,185,185,1) 0%, rgba(153,153,153,1) 49%, rgba(134,134,134,1) 100%);
+  border-radius: 2rem;
+}
+
+.sortable-checkbox:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -.25rem;
+  left: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: rgb(33,33,33);
+  background: -webkit-linear-gradient(left, rgba(33,33,33,1) 0%, rgba(66,66,66,1) 49%, rgba(88,88,88,1) 100%);
+  background: -o-linear-gradient(left, rgba(33,33,33,1) 0%, rgba(66,66,66,1) 49%, rgba(88,88,88,1) 100%);
+  background: linear-gradient(to right, rgba(33,33,33,1) 0%, rgba(66,66,66,1) 49%, rgba(88,88,88,1) 100%);
+  border-radius: 2rem;
+  transition: all .2s ease-in-out;
+}
+
+.sortable-checkbox:checked:before {
+  left: 1.5rem;
+}
+
+.sortable-checkbox:checked  {
+  background: rgb(115,184,255);
+  background: -webkit-linear-gradient(left, rgba(115,184,255,1) 0%, rgba(100,171,255,1) 49%, rgba(35,130,255,1) 100%);
+  background: -o-linear-gradient(left, rgba(115,184,255,1) 0%, rgba(100,171,255,1) 49%, rgba(35,130,255,1) 100%);
+  background: linear-gradient(to right, rgba(115,184,255,1) 0%, rgba(100,171,255,1) 49%, rgba(35,130,255,1) 100%);
+  -webkit-box-shadow: 0px 0px 35px 1px rgba(100, 171, 255, .75);
+  -moz-box-shadow: 0px 0px 35px 1px rgba(100, 171, 255, .75);
+  box-shadow: 0px 0px 35px 1px rgba(100, 171, 255, .75);
+}

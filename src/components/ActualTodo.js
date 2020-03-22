@@ -13,7 +13,7 @@ class ActualTodo extends Component {
       name: "",
       first: true,
       classes: "add-item textfield",
-      sortable :false,
+      sortable : false,
       uncompletedListClasses: "uncompleted-items",
       uncompletedSortableListClasses: "movable-uncompleted-items hide",
       higherItem: 0,
@@ -21,6 +21,16 @@ class ActualTodo extends Component {
       order: []
     }
   sortableRef = React.createRef();
+
+  componentDidMount() {
+    const { sortable } = this.state;
+    if(sortable === false){
+      this.setState({ uncompletedListClasses: "uncompleted-items", uncompletedSortableListClasses: "movable-uncompleted-items hide"});
+    }
+    if(sortable === true) {
+      this.setState({ uncompletedListClasses: "uncompleted-items hide", uncompletedSortableListClasses: "movable-uncompleted-items"});
+    }
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if(this.props.actualTodo !== undefined){
@@ -190,12 +200,18 @@ class ActualTodo extends Component {
             />
             <div>Cím</div>
           </form>
-          <input
-            type="checkbox"
-            checked={this.state.sortable}
-            onClick={this.sortable}
-            onChange={this.sortableChange}
-          />
+          <div className="sortable-checkbox-wrapper">
+            <div className="position">
+              <input
+                type="checkbox"
+                className="sortable-checkbox"
+                checked={this.state.sortable}
+                onClick={this.sortable}
+                onChange={this.sortableChange}
+              />
+              <ToolTip tip="Feladat Rendezés" position="left" />
+            </div>
+          </div>
           <div className={this.state.uncompletedListClasses}>
             {Object.keys(this.state.order).map(key => (
               <Item
