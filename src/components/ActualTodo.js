@@ -70,7 +70,7 @@ class ActualTodo extends Component {
         });
         this.setState({order: ItemsInOrder });
         // console.log(ItemsInOrder);
-        this.setState({first: false, name: this.props.actualTodo.name, higherItem: higherId });
+        this.setState({first: false, name: this.props.actualTodo.name, higherItem: higherId, sortable: false });
       }
     }
     if(this.state.loaded === false) {
