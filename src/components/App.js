@@ -52,6 +52,40 @@ class App extends Component {
     this.setState({ todos });
   }
 
+  changeItemOrder = (newOrder) => {
+    const todos = { ...this.state.todos };
+    let newItemOrder = [];
+    let counter = 1;
+    newOrder.forEach(id =>{
+      Object.keys(todos[this.state.actualTodo]).map(item => {
+        // console.log(todos[this.state.actualTodo][item].completed);
+        if(typeof(todos[this.state.actualTodo][item].completed) === "boolean"){
+          if(id === todos[this.state.actualTodo][item].id) {
+            newItemOrder.push(todos[this.state.actualTodo][item].index);
+          }
+        }
+      });
+    });
+    console.log(newItemOrder);
+    newItemOrder.forEach((index) => {
+      Object.keys(todos[this.state.actualTodo]).map(item => {
+        if(typeof(todos[this.state.actualTodo][item].completed) === "boolean"){
+          console.log(`keressük${index}`);
+          if(todos[this.state.actualTodo][item].index === index) {
+            console.log(`találat${todos[this.state.actualTodo][item].index}`);
+            console.log(`kicseréltük az id-t ${todos[this.state.actualTodo][item].id}-ról ${counter}-re`);
+            todos[this.state.actualTodo][item].id = counter;
+            console.log(todos[this.state.actualTodo][item].id);
+          }
+        }
+      });
+      counter++;
+      console.log(`növeljük a countert: ${counter}`);
+      // console.log(todos);
+    });
+    this.setState({ todos }, () => console.log(todos));
+  }
+
    componentDidMount() {
     const { todoId } = this.props.match.params;
     const localUser = JSON.parse(localStorage.getItem("user"));
@@ -231,6 +265,7 @@ class App extends Component {
               modifyItem={this.modifyItem}
               changeName={this.changeName}
               user={this.state.user}
+              changeItemOrder={this.changeItemOrder}
             />
           </div>
         </Fragment>

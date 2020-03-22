@@ -14,7 +14,6 @@ class ActualTodo extends Component {
       first: true,
       classes: "add-item textfield",
       sortable :false,
-      itemClasses: "uncompleted-items",
       uncompletedListClasses: "uncompleted-items",
       uncompletedSortableListClasses: "movable-uncompleted-items hide",
       higherItem: 0,
@@ -59,7 +58,7 @@ class ActualTodo extends Component {
         ItemsInOrder = Object.keys(array).map(key => {
           return `item${array[key].index}`;
         });
-        this.setState({order: ItemsInOrder }, () => console.log(this.state.order));
+        this.setState({order: ItemsInOrder });
         // console.log(ItemsInOrder);
         this.setState({first: false, name: this.props.actualTodo.name, higherItem: higherId });
       }
@@ -70,7 +69,18 @@ class ActualTodo extends Component {
         this.setState({ loaded: true }, () => {
           Sortable.create(node, {
             animate: 150,
-            draggable: '.movable-item-container'
+            draggable: '.movable-item-container',
+            onEnd: this.onEnd = (e) => {
+              const itemDivs = node.childNodes;
+              let newOrder = [];
+              itemDivs.forEach(item => {
+                if(item.className === "movable-item-container") {
+                  newOrder.push(parseInt(item.getAttribute("index")));
+                }
+              });
+              console.log(newOrder);
+              this.props.changeItemOrder(newOrder);
+            }
           });
         });
       }
