@@ -49,7 +49,9 @@ class App extends Component {
       });
       counter++;
     });
-    this.setState({ todos });
+    this.setState({ todos, higherTodo: 0 }, () => {
+      this.countTodos();
+    });
   }
 
   changeItemOrder = (newOrder) => {
@@ -106,6 +108,20 @@ class App extends Component {
       });
     }
   }
+
+  countTodos = () => {
+    if(this.state.todos && this.state.todos !== null && this.state.todos !== undefined) {
+      Object.keys(this.state.todos).map(key => {
+        if(this.state.todos[key].id > this.state.higherTodo) {
+          this.setState({ higherTodo: this.state.todos[key].id });
+        }
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    this.countTodos();
+  };
 
   // componentDidUpdate(prevState) {
   //   console.log(prevState);
@@ -191,6 +207,7 @@ class App extends Component {
 
 
   removeListFromTodos = listId => {
+    this.setState({ higherTodo: 0}, () => this.countTodos());
     const todos = { ...this.state.todos };
     todos[listId] = null;
     this.closeTodoList(listId);

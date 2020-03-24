@@ -87,6 +87,7 @@ class TodoMenu extends Component {
 
   createTodoList = e => {
     e.preventDefault()
+    console.log(this.props.higherTodo);
     const nextId = this.props.higherTodo + 1;
     const list = {
       id: nextId,
