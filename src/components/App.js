@@ -66,6 +66,7 @@ class App extends Component {
             newItemOrder.push(todos[this.state.actualTodo][item].index);
           }
         }
+        return null;
       });
     });
     // console.log(newItemOrder);
@@ -77,6 +78,7 @@ class App extends Component {
             // console.log(todos[this.state.actualTodo][item].id);
           }
         }
+        return null;
       });
       counter++;
       // console.log(todos);
@@ -115,6 +117,7 @@ class App extends Component {
         if(this.state.todos[key].id > this.state.higherTodo) {
           this.setState({ higherTodo: this.state.todos[key].id });
         }
+        return null;
       });
     }
   }
