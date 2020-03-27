@@ -12,16 +12,16 @@ class TodoMenu extends Component {
       value: "",
       menu: false,
       classes: "add-todo textfield",
-      tooltip: "",
+      tooltip: "left",
       grabTodo: "",
       dropTodo: "",
       last: false
     }
   }
 
-  componentWillMount(){
-    this.checkResizeWindow();
-  }
+  // componentWillMount(){
+  //   this.checkResizeWindow();
+  // }
 
   componentDidMount() {
     window.addEventListener("resize", () => this.checkResizeWindow());
@@ -39,7 +39,14 @@ class TodoMenu extends Component {
         this.props.changeOrder(newOrder);
       }
     });
+  }
 
+  componentDidUpdate(prevProps) {
+    // console.log(prevProps.todos);
+    if(prevProps.todos !== this.props.todos) {
+      // console.log("window szélesség ellenőrzés");
+      this.checkResizeWindow();
+    }
   }
 
   setGrabTodo = id => {
@@ -95,6 +102,8 @@ class TodoMenu extends Component {
       index: `todo${Date.now()}`,
       owner: this.props.user.uid
     }
+    // console.log(`Most hívjuk meg az addTodoListet, átadjuk neki ezt: `);
+    // console.log(list);
     this.props.addTodoList(list);
     this.setState({ value: "", classes: "add-todo textfield", menu: false });
     e.target.addTodo.value = "";
@@ -159,7 +168,7 @@ class TodoMenu extends Component {
                   <path className="arrow"></path>
                   <path className="line"></path>
                 </svg>
-                <ToolTip tip="Kijelentkezés" position={this.state.tooltip}/>
+                <ToolTip tip="Kijelentkezés" position={this.state.tooltip} />
               </div>
             </div>
             <div className="todos">

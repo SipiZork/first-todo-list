@@ -153,8 +153,9 @@ class App extends Component {
 
   openTodoList = key => {
     const { userId } = this.props.match.params;
-    this.setState({ actualTodo: key });
-    this.props.history.push(`/${userId}/${key}`);
+    this.setState({ actualTodo: key }, () => {
+      this.props.history.push(`/${userId}/${key}`);
+    });
   }
 
   closeTodoList = listId => {
@@ -191,18 +192,22 @@ class App extends Component {
   }
 
   addTodoList = list => {
+    // console.log(`Megkaptuk ezt: `);
+    // console.log(list);
     const todos = { ...this.state.todos };
-    const listId = `todo${Date.now()}`;
+    const listId = list.index;
     todos[listId] = list;
     this.setState({ todos }, () => {
+      // console.log(`felülírtuk a todost: `);
+      // console.log(todos);
+      // console.log(`és átmozgatjuk magunkat ide: ${listId}`);
       this.moveToList(listId);
     })
   }
 
   moveToList = listId => {
-    this.setState({ actualTodo: listId }, () => {
-      this.openTodoList(listId);
-    });
+    this.openTodoList(listId);
+    // console.log(`Átirányítottuk magunkat:${listId}`);
   }
 
 
