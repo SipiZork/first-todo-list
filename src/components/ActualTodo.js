@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import ReactDOM from 'react-dom';
 import Item from './Item'
 import '../css/ActualTodo.css';
 import TextAreaAutoSize from 'react-autosize-textarea';
@@ -38,6 +39,7 @@ class ActualTodo extends Component {
           this.setState({ sortable: false, uncompletedListClasses: "uncompleted-items", uncompletedSortableListClasses: "movable-uncompleted-items hide" })
         }
         let higherId = 0;
+        let id = 0;
         // console.log(this.props.actualTodo);
         Object.keys(this.props.actualTodo).map(key => {
           if(typeof(this.props.actualTodo[key].completed) === "boolean") {
@@ -45,7 +47,6 @@ class ActualTodo extends Component {
               higherId = this.props.actualTodo[key].id;
             }
           }
-          return null;
         });
         const actualTodo = this.props.actualTodo;
         let ItemsInOrder = [];
@@ -55,7 +56,6 @@ class ActualTodo extends Component {
           if(typeof(item.completed) === "boolean") {
             array.push(item);
           }
-          return null;
         });
         array.sort((a,b) => {
           const first = a.id;
@@ -163,6 +163,8 @@ class ActualTodo extends Component {
   }
 
   sortable = () => {
+    const actualTodo = this.props.actualTodo;
+    const todoIds = Object.keys(actualTodo);
     this.setState({ sortable: !this.state.sortable }, () => {
       const { sortable } = this.state;
       if(sortable === false){
@@ -200,6 +202,7 @@ class ActualTodo extends Component {
     const actualTodo = this.props.actualTodo;
     if(actualTodo !== undefined){
       // {this.loadName(actualTodo)}
+      const todoIds = Object.keys(actualTodo);
       return (
         <Fragment>
           <form className="item-title" onSubmit={(e) => this.changeName(e, "submit")}>

@@ -12,15 +12,13 @@ import '../css/ToolTip.css';
   };
 
 class ToolTip extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      show: false,
-      position: this.props.position,
-      classes: "tooltip hide",
-      color: "white",
-      bgColor: "black"
-    }
+
+  state = {
+    show: false,
+    position: "top",
+    classes: "tooltip hide",
+    color: "white",
+    bgColor: "black"
   }
 
   position = () => {
