@@ -177,7 +177,11 @@ class ActualTodo extends Component {
   }
 
   sortableChange = () => {
-
+    if (this.state.sortable) {
+      this.setState({ sortable: false })
+    } else {
+      this.setState({ sortable: true })
+    }
   }
 
   renderItems = items => {
